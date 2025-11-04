@@ -1,0 +1,5 @@
+controllers\mocks\UserControllerMockTest$1.class
+controllers\mocks\UserControllerMockTest$2.class
+controllers\mocks\UserControllerMockTest.class
+controllers\units\UserControllerUnitTest.class
+controllers\e2e\UserControllerEndToEnd.class

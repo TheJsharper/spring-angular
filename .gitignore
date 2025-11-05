@@ -3,6 +3,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/target/*
 
 # Node
 /node_modules
@@ -67,3 +68,4 @@ dist-ssr
 *.sw?
 # environments
 *.env
+*.env*

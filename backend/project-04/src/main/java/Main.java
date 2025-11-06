@@ -20,13 +20,13 @@ public class Main {
     public static void main(String[] args) {
         var envs = System.getenv();
 
-        envs.forEach( (k, v)-> System.out.println("Key : "+k + " Values: "+  v ) );
+        envs.forEach((k, v) -> System.out.println("Key : " + k + " Values: " + v));
 
         File file = ResourceUtils.getFile(".env");
 
         System.out.println(file.getAbsoluteFile());
 
-        var content =Files.readString(file.toPath(), Charset.defaultCharset());
+        var content = Files.readString(file.toPath(), Charset.defaultCharset());
 
         System.out.println(content);
 

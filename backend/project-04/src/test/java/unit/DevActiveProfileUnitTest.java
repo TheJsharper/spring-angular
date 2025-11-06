@@ -25,11 +25,12 @@ public class DevActiveProfileUnitTest {
 
         Assertions.assertEquals(String.format("This is the TEST Environment property file", currentProfile), propertyString);
     }
+
     @Test
     void whenDevIsActive_thenValueShouldBeKeptFromDedicatedApplicationGetProperty() {
         String currentProfile = env.getActiveProfiles()[0];
 
-        var message  =env.getProperty("app.info");
+        var message = env.getProperty("app.info");
 
         Assertions.assertEquals(String.format("This is the TEST Environment property file", currentProfile), message);
     }

@@ -1,4 +1,4 @@
-package integrations;
+package integrations.repositories;
 
 import application.Main;
 import configs.DataSourceConfig;

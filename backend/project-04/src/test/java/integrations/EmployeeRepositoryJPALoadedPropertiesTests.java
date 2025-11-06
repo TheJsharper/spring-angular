@@ -7,26 +7,31 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
 import repositories.EmployeeRepositories;
 
 
-@SpringBootTest(classes = {DataSourceConfig.class, Main.class})
-@EnableJpaRepositories(basePackages = {"repositories.*"})
-@EntityScan("entities.*")
+@DataJpaTest(
+        excludeAutoConfiguration = {DataSourceAutoConfiguration.class}
+)
+@ContextConfiguration( classes = {Main.class, DataSourceConfig.class})
 @ActiveProfiles("test")
-public class EmployeeRepositoryTests {
+public class EmployeeRepositoryJPALoadedPropertiesTests {
+
     @Autowired
     private EmployeeRepositories employeeRepositories;
 
 
     @Test
     public void testCreateEmployee() {
-        Employee employee = new Employee("Test firstName", "Test lastName");
+        Employee employee =  new Employee("Test firstName", "Test lastName");
 
-        var foundEmployee = employeeRepositories.save(employee);
+        var foundEmployee =  employeeRepositories.save(employee);
 
         Assertions.assertEquals(foundEmployee.getId(), employee.getId());
 

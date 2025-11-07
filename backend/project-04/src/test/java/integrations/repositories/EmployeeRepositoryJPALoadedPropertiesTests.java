@@ -8,12 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import repositories.EmployeeRepositories;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
@@ -51,6 +54,38 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
     }
 
     @Test
+    public void testIfCreateIsNullEmployee() {
+
+        Employee employee = null;
+
+        var exception = assertThrows(InvalidDataAccessApiUsageException.class, () -> employeeRepositories.save(employee));
+
+        var expected = exception.getMessage();
+
+        var actual = "Entity must not be null";
+
+        assertEquals(actual, expected);
+
+    }
+
+
+    @Test
+    public void testIfCreateIsNullEmployees() {
+
+        List<Employee> employees = null;
+
+        var exception = assertThrows(InvalidDataAccessApiUsageException.class, () -> employeeRepositories.saveAll(employees));
+
+        var expected = exception.getMessage();
+
+        var actual = "Entities must not be null";
+
+        assertEquals(actual, expected);
+
+
+    }
+
+    @Test
     public void testCountEmployee() {
 
         var count = 12;
@@ -79,7 +114,7 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         ids.forEach((id) -> {
             var isExists = employeeRepositories.existsById(id);
-            assertTrue( isExists);
+            assertTrue(isExists);
         });
     }
 
@@ -138,6 +173,20 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
         assertEquals(foundEmployee.getLastName(), saveEmployee.getLastName());
 
         assertEquals(foundEmployee, saveEmployee);
+
+    }
+
+    @Test
+    public void testFoundByIdIfIdIsNull() {
+        Long id = null;
+
+        var exception = assertThrows(InvalidDataAccessApiUsageException.class, () -> employeeRepositories.findById(id).get());
+
+        String expectedMessage = "The given id must not be null";
+
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
 
     }
 

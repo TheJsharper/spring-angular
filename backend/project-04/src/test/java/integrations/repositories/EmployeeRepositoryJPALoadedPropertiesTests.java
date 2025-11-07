@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 
 @DataJpaTest(
         excludeAutoConfiguration = {DataSourceAutoConfiguration.class}
@@ -38,14 +40,47 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         var foundEmployee = employeeRepositories.save(employee);
 
-        Assertions.assertEquals(foundEmployee.getId(), employee.getId());
+        assertEquals(foundEmployee.getId(), employee.getId());
 
-        Assertions.assertEquals(foundEmployee.getFirstName(), employee.getFirstName());
+        assertEquals(foundEmployee.getFirstName(), employee.getFirstName());
 
-        Assertions.assertEquals(foundEmployee.getLastName(), employee.getLastName());
+        assertEquals(foundEmployee.getLastName(), employee.getLastName());
 
-        Assertions.assertEquals(foundEmployee, employee);
+        assertEquals(foundEmployee, employee);
 
+    }
+
+    @Test
+    public void testCountEmployee() {
+
+        var count = 12;
+
+        var all = IntStream.range(0, count).mapToObj((next) -> new Employee("Test firstName :" + next, "Test lastName:" + next)).toList();
+
+        var allSavedEmployeeIterable = employeeRepositories.saveAll(all);
+
+        var ids = StreamSupport.stream(allSavedEmployeeIterable.spliterator(), false).map(Employee::getId).toList();
+
+        assertEquals(count, ids.size());
+    }
+
+    @Test
+    public void testExistsByIdEmployee() {
+
+        var count = 12;
+
+        var all = IntStream.range(0, count).mapToObj((next) -> new Employee("Test firstName :" + next, "Test lastName:" + next)).toList();
+
+        var allSavedEmployeeIterable = employeeRepositories.saveAll(all);
+
+        var ids = StreamSupport.stream(allSavedEmployeeIterable.spliterator(), false).map(Employee::getId).toList();
+
+        assertEquals(count, ids.size());
+
+        ids.forEach((id) -> {
+            var isExists = employeeRepositories.existsById(id);
+            assertTrue( isExists);
+        });
     }
 
     @Test
@@ -62,13 +97,13 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         employeeRepositories.save(foundEmployee);
 
-        Assertions.assertEquals(foundEmployee.getId(), saveEmployee.getId());
+        assertEquals(foundEmployee.getId(), saveEmployee.getId());
 
-        Assertions.assertEquals(foundEmployee.getFirstName(), saveEmployee.getFirstName());
+        assertEquals(foundEmployee.getFirstName(), saveEmployee.getFirstName());
 
-        Assertions.assertEquals(foundEmployee.getLastName(), saveEmployee.getLastName());
+        assertEquals(foundEmployee.getLastName(), saveEmployee.getLastName());
 
-        Assertions.assertEquals(saveEmployee, foundEmployee);
+        assertEquals(saveEmployee, foundEmployee);
 
 
         foundEmployee.setFirstName("!Test update firstName");
@@ -78,13 +113,13 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
         var updateEmployee = employeeRepositories.save(foundEmployee);
 
 
-        Assertions.assertEquals(foundEmployee.getId(), updateEmployee.getId());
+        assertEquals(foundEmployee.getId(), updateEmployee.getId());
 
-        Assertions.assertEquals(foundEmployee.getFirstName(), updateEmployee.getFirstName());
+        assertEquals(foundEmployee.getFirstName(), updateEmployee.getFirstName());
 
-        Assertions.assertEquals(foundEmployee.getLastName(), updateEmployee.getLastName());
+        assertEquals(foundEmployee.getLastName(), updateEmployee.getLastName());
 
-        Assertions.assertEquals(foundEmployee, updateEmployee);
+        assertEquals(foundEmployee, updateEmployee);
 
     }
 
@@ -96,13 +131,13 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         var foundEmployee = employeeRepositories.findById(employee.getId()).orElseThrow();
 
-        Assertions.assertEquals(foundEmployee.getId(), saveEmployee.getId());
+        assertEquals(foundEmployee.getId(), saveEmployee.getId());
 
-        Assertions.assertEquals(foundEmployee.getFirstName(), saveEmployee.getFirstName());
+        assertEquals(foundEmployee.getFirstName(), saveEmployee.getFirstName());
 
-        Assertions.assertEquals(foundEmployee.getLastName(), saveEmployee.getLastName());
+        assertEquals(foundEmployee.getLastName(), saveEmployee.getLastName());
 
-        Assertions.assertEquals(foundEmployee, saveEmployee);
+        assertEquals(foundEmployee, saveEmployee);
 
     }
 
@@ -120,7 +155,7 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         String actualMessage = exception.getMessage();
 
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage, actualMessage);
 
 
     }
@@ -139,11 +174,88 @@ public class EmployeeRepositoryJPALoadedPropertiesTests {
 
         String actualMessage = exception.getMessage();
 
-        Assertions.assertEquals(expectedMessage, actualMessage);
+        assertEquals(expectedMessage, actualMessage);
 
 
     }
 
+    @Test
+    public void testDeleteAllId() {
+        var count = 12;
+
+        var all = IntStream.range(0, count).mapToObj((next) -> new Employee("Test firstName :" + next, "Test lastName:" + next)).toList();
+
+        var allSavedEmployeeIterable = employeeRepositories.saveAll(all);
+
+        var ids = StreamSupport.stream(allSavedEmployeeIterable.spliterator(), false).map(Employee::getId).toList();
+
+        assertEquals(count, ids.size());
+
+        employeeRepositories.deleteAllById(ids);
+
+        String expectedMessage = "No value present";
+
+        ids.forEach((id) -> {
+            var exception = assertThrows(NoSuchElementException.class, () -> employeeRepositories.findById(id).orElseThrow());
+
+            String actualMessage = exception.getMessage();
+
+            assertEquals(expectedMessage, actualMessage);
+        });
+
+
+    }
+
+    @Test
+    public void testDeleteAll() {
+        var count = 12;
+
+        var all = IntStream.range(0, count).mapToObj((next) -> new Employee("Test firstName :" + next, "Test lastName:" + next)).toList();
+
+        var allSavedEmployeeIterable = employeeRepositories.saveAll(all);
+
+        var allSaved = StreamSupport.stream(allSavedEmployeeIterable.spliterator(), false).toList();
+
+        assertEquals(count, allSaved.size());
+
+        employeeRepositories.deleteAll(allSaved);
+
+        String expectedMessage = "No value present";
+
+        allSaved.forEach((e) -> {
+            var exception = assertThrows(NoSuchElementException.class, () -> employeeRepositories.findById(e.getId()).orElseThrow());
+
+            String actualMessage = exception.getMessage();
+
+            assertEquals(expectedMessage, actualMessage);
+        });
+    }
+
+
+    @Test
+    public void testClearAllEntities() {
+        var count = 12;
+
+        var all = IntStream.range(0, count).mapToObj((next) -> new Employee("Test firstName :" + next, "Test lastName:" + next)).toList();
+
+        var allSavedEmployeeIterable = employeeRepositories.saveAll(all);
+
+        var allSaved = StreamSupport.stream(allSavedEmployeeIterable.spliterator(), false).toList();
+
+        assertEquals(count, allSaved.size());
+
+        employeeRepositories.deleteAll();
+
+        String expectedMessage = "No value present";
+
+        allSaved.forEach((e) -> {
+            var exception = assertThrows(NoSuchElementException.class, () -> employeeRepositories.findById(e.getId()).orElseThrow());
+
+            String actualMessage = exception.getMessage();
+
+            assertEquals(expectedMessage, actualMessage);
+        });
+    }
 
     @Test
     public void testFindAllEmployee() {

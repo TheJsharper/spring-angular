@@ -21,9 +21,13 @@ public class DevActiveProfileUnitTest {
 
     @Test
     void whenDevIsActive_thenValueShouldBeKeptFromDedicatedApplicationFile() {
-        String currentProfile = env.getActiveProfiles()[0];
+        var currentProfile = env.getActiveProfiles()[0];
 
-        Assertions.assertEquals(String.format("This is the TEST Environment property file", currentProfile), propertyString);
+        var expected = String.format("This is the TEST Environment property file %s", currentProfile);
+
+        var actual = String.format(propertyString + " %s", currentProfile);
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -32,6 +36,10 @@ public class DevActiveProfileUnitTest {
 
         var message = env.getProperty("app.info");
 
-        Assertions.assertEquals(String.format("This is the TEST Environment property file", currentProfile), message);
+        var expected = String.format("This is the TEST Environment property file %s", currentProfile);
+
+        var actual = String.format(message + " %s", currentProfile);
+
+        Assertions.assertEquals(expected, actual);
     }
 }

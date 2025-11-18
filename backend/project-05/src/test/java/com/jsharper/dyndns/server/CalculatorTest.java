@@ -1,4 +1,5 @@
-import com.jsharper.dyndns.server.Calculator;
+package com.jsharper.dyndns.server;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,52 @@ public class CalculatorTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+
+    @Test
+    public void testMultiply_FourDivideTwo_ExpectedEight(){
+        //Arrange
+        int multiplier = 4;
+        int multiplicand = 2;
+
+        //Act
+
+        int result = calculator.multiply(multiplier, multiplicand);
+        int expected = 8;
+        //Assert
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    public void testSum_FourDivideTwo_ExpectedSix(){
+        //Arrange
+        int summandOne = 4;
+        int summandTwo = 2;
+
+        //Act
+
+        int result = calculator.sum(summandOne, summandTwo);
+        int expected = 6;
+        //Assert
+        assertEquals(expected, result);
+    }
+
+
+
+
+    @Test
+    public void testSubtract_FourDivideTwo_ExpectedTwo(){
+        //Arrange
+        int minuend = 4;
+        int subtrahend = 2;
+
+        //Act
+
+        int result = calculator.subtract(minuend, subtrahend);
+        int expected = 2;
+        //Assert
+        assertEquals(expected, result);
+    }
 
 
 

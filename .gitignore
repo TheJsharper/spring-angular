@@ -4,6 +4,7 @@
 /out-tsc
 /bazel-out
 /target/*
+**/target
 
 # Node
 /node_modules

@@ -1,6 +1,7 @@
 package com.jsharper.dyndns.server;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +14,7 @@ public class CalculatorTest {
     public  void setup(){
         calculator = new Calculator();
     }
+    @DisplayName("divide 4/2 = 2")
     @Test
     public void testDivide_FourDivideTwo_ExpectedTwo(){
         //Arrange
@@ -31,6 +33,7 @@ public class CalculatorTest {
         assertEquals(expected, result, ()-> failureMessage);
     }
 
+    @DisplayName("divide 4/0 = IllegalArgumentException")
     @Test
     public void testDivideFourDivideZero_ExpectedIllegalException(){
 
@@ -48,6 +51,7 @@ public class CalculatorTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @DisplayName("multiply 4*2 = 8")
     @Test
     public void testMultiply_FourDivideTwo_ExpectedEight(){
         //Arrange
@@ -65,6 +69,7 @@ public class CalculatorTest {
         assertEquals(expected, result, ()-> failureMessage);
     }
 
+    @DisplayName("sum 4+2 = 6")
     @Test
     public void testSum_FourDivideTwo_ExpectedSix(){
         //Arrange
@@ -83,6 +88,7 @@ public class CalculatorTest {
         assertEquals(expected, result, ()-> failureMessage);
     }
 
+    @DisplayName("subtract 4 -2 = 2")
     @Test
     public void testSubtract_FourDivideTwo_ExpectedTwo(){
         //Arrange

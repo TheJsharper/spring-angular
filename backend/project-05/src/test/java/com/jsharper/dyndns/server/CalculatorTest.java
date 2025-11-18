@@ -3,6 +3,9 @@ package com.jsharper.dyndns.server;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static  java.lang.String.*;
@@ -100,7 +103,7 @@ public class CalculatorTest {
 
         String failureMessage = format("subtract could NOT procedure minuend %d and subtrahend %d and expected %d", minuend, subtrahend, expected);
 
-       // String message ="""";
+
         //Act
 
         int result = calculator.subtract(minuend, subtrahend);
@@ -108,6 +111,49 @@ public class CalculatorTest {
         assertEquals(expected, result, ()-> failureMessage);
     }
 
+
+
+    @DisplayName("square (9) = 3")
+    @Test
+    public void testSquare_ResultSquareFromTen_ExpectedThree(){
+        //Arrange
+       double number = 9d;
+
+       double expected = 3d;
+
+       String failureMessage = format("square could NOT procedure number %f expected %f", number, expected);
+
+        // String message ="""";
+        //Act
+
+        double result = calculator.square(number);
+        //Assert
+        assertEquals(expected, result, ()-> failureMessage);
+    }
+
+
+    @DisplayName("square (-1) = Exception")
+    @Test
+    public void testSquare_ResultSquareFromMinusOne_ExpectedException(){
+        //Arrange
+        double number = -1;
+
+        String expected = format("calculation square need positive number %f", number);
+
+        String failureMessage = format("square could NOT procedure number %f expected %s", number, expected);
+
+        Executable executable = ()-> calculator.square(number);
+
+        Supplier<String> message = ()-> failureMessage;
+
+
+        //Act
+
+       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, executable,message );
+
+        //Assert
+        assertEquals(expected, exception.getMessage(), ()-> failureMessage);
+    }
 
 
 

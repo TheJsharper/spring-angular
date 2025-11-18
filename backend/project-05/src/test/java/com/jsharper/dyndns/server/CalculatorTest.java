@@ -26,7 +26,6 @@ public class CalculatorTest {
         assertEquals(expected, result);
     }
 
-
     @Test
     public void testDivideFourDivideZero_ExpectedIllegalException(){
 
@@ -42,7 +41,6 @@ public class CalculatorTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
-
     @Test
     public void testMultiply_FourDivideTwo_ExpectedEight(){
         //Arrange
@@ -57,7 +55,6 @@ public class CalculatorTest {
         assertEquals(expected, result);
     }
 
-
     @Test
     public void testSum_FourDivideTwo_ExpectedSix(){
         //Arrange
@@ -71,9 +68,6 @@ public class CalculatorTest {
         //Assert
         assertEquals(expected, result);
     }
-
-
-
 
     @Test
     public void testSubtract_FourDivideTwo_ExpectedTwo(){

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static  java.lang.String.*;
 
 public class CalculatorTest {
 
@@ -16,14 +17,18 @@ public class CalculatorTest {
     public void testDivide_FourDivideTwo_ExpectedTwo(){
         //Arrange
         int dividend = 4;
+
         int divisor = 2;
+
+        int expected = 2;
+
+        String failureMessage = format("divide could NOT procedure dividend %d and divisor %d and expected %d", dividend, divisor, expected);
 
         //Act
 
         int result = calculator.divide(dividend, divisor);
-        int expected = 2;
         //Assert
-        assertEquals(expected, result);
+        assertEquals(expected, result, ()-> failureMessage);
     }
 
     @Test
@@ -31,8 +36,10 @@ public class CalculatorTest {
 
         //Arrange
         int dividend = 4;
+
         int divisor = 0;
-       String expectedMessage= String.format("Divisor should NOT be ===> %s", divisor);
+
+       String expectedMessage= format("Divisor should NOT be ===> %s", divisor);
 
         //ACT
        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->calculator.divide(dividend, divisor));
@@ -45,42 +52,54 @@ public class CalculatorTest {
     public void testMultiply_FourDivideTwo_ExpectedEight(){
         //Arrange
         int multiplier = 4;
+
         int multiplicand = 2;
 
+        int expected = 8;
+
+        String failureMessage = format("multiply could NOT procedure multiplier %d and  multiplicand %d and expected %d", multiplier, multiplicand, expected);
         //Act
 
         int result = calculator.multiply(multiplier, multiplicand);
-        int expected = 8;
         //Assert
-        assertEquals(expected, result);
+        assertEquals(expected, result, ()-> failureMessage);
     }
 
     @Test
     public void testSum_FourDivideTwo_ExpectedSix(){
         //Arrange
         int summandOne = 4;
+
         int summandTwo = 2;
+
+        int expected = 6;
+
+        String failureMessage = format("sum could NOT procedure summandOne %d and  summandTwo %d and expected %d", summandOne, summandTwo, expected);
 
         //Act
 
         int result = calculator.sum(summandOne, summandTwo);
-        int expected = 6;
         //Assert
-        assertEquals(expected, result);
+        assertEquals(expected, result, ()-> failureMessage);
     }
 
     @Test
     public void testSubtract_FourDivideTwo_ExpectedTwo(){
         //Arrange
         int minuend = 4;
+
         int subtrahend = 2;
 
+        int expected = 2;
+
+        String failureMessage = format("subtract could NOT procedure minuend %d and subtrahend %d and expected %d", minuend, subtrahend, expected);
+
+       // String message ="""";
         //Act
 
         int result = calculator.subtract(minuend, subtrahend);
-        int expected = 2;
         //Assert
-        assertEquals(expected, result);
+        assertEquals(expected, result, ()-> failureMessage);
     }
 
 

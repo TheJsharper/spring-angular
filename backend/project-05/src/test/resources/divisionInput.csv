@@ -1,0 +1,5 @@
+   DIVIDEND, DIVISOR,EXPECTED
+   4, 2, 2
+   8, 2, 4
+   16, 2, 8
+   16, 4, 4

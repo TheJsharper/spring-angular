@@ -13,10 +13,10 @@ public class SquareArgumentsProvider implements ArgumentsProvider {
     public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters, ExtensionContext context) throws Exception {
 
         return Stream.of(
-          Arguments.of( new SquareArgument(9, 3)),
-          Arguments.of( new SquareArgument(16, 4)),
-          Arguments.of( new SquareArgument(21, 4.58257569495584)),
-          Arguments.of( new SquareArgument(32, 5.656854249492381))
+                Arguments.of(new SquareArgument(9, 3)),
+                Arguments.of(new SquareArgument(16, 4)),
+                Arguments.of(new SquareArgument(21, 4.58257569495584)),
+                Arguments.of(new SquareArgument(32, 5.656854249492381))
         );
     }
 }

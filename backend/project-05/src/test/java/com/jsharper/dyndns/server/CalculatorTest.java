@@ -8,18 +8,20 @@ import org.junit.jupiter.api.function.Executable;
 import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static  java.lang.String.*;
+import static java.lang.String.*;
 
 public class CalculatorTest {
 
     private Calculator calculator;
+
     @BeforeEach
-    public  void setup(){
+    public void setup() {
         calculator = new Calculator();
     }
+
     @DisplayName("divide 4/2 = 2")
     @Test
-    public void testDivide_FourDivideTwo_ExpectedTwo(){
+    public void testDivide_FourDivideTwo_ExpectedTwo() {
         //Arrange
         int dividend = 4;
 
@@ -33,30 +35,30 @@ public class CalculatorTest {
 
         int result = calculator.divide(dividend, divisor);
         //Assert
-        assertEquals(expected, result, ()-> failureMessage);
+        assertEquals(expected, result, () -> failureMessage);
     }
 
     @DisplayName("divide 4/0 = IllegalArgumentException")
     @Test
-    public void testDivideFourDivideZero_ExpectedIllegalException(){
+    public void testDivideFourDivideZero_ExpectedIllegalException() {
 
         //Arrange
         int dividend = 4;
 
         int divisor = 0;
 
-       String expectedMessage= format("Divisor should NOT be ===> %s", divisor);
+        String expectedMessage = format("Divisor should NOT be ===> %s", divisor);
 
         //ACT
-       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->calculator.divide(dividend, divisor));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> calculator.divide(dividend, divisor));
 
-       //Assert
+        //Assert
         assertEquals(expectedMessage, exception.getMessage());
     }
 
     @DisplayName("multiply 4*2 = 8")
     @Test
-    public void testMultiply_FourDivideTwo_ExpectedEight(){
+    public void testMultiply_FourDivideTwo_ExpectedEight() {
         //Arrange
         int multiplier = 4;
 
@@ -69,12 +71,12 @@ public class CalculatorTest {
 
         int result = calculator.multiply(multiplier, multiplicand);
         //Assert
-        assertEquals(expected, result, ()-> failureMessage);
+        assertEquals(expected, result, () -> failureMessage);
     }
 
     @DisplayName("sum 4+2 = 6")
     @Test
-    public void testSum_FourDivideTwo_ExpectedSix(){
+    public void testSum_FourDivideTwo_ExpectedSix() {
         //Arrange
         int summandOne = 4;
 
@@ -88,12 +90,12 @@ public class CalculatorTest {
 
         int result = calculator.sum(summandOne, summandTwo);
         //Assert
-        assertEquals(expected, result, ()-> failureMessage);
+        assertEquals(expected, result, () -> failureMessage);
     }
 
     @DisplayName("subtract 4 -2 = 2")
     @Test
-    public void testSubtract_FourDivideTwo_ExpectedTwo(){
+    public void testSubtract_FourDivideTwo_ExpectedTwo() {
         //Arrange
         int minuend = 4;
 
@@ -108,33 +110,32 @@ public class CalculatorTest {
 
         int result = calculator.subtract(minuend, subtrahend);
         //Assert
-        assertEquals(expected, result, ()-> failureMessage);
+        assertEquals(expected, result, () -> failureMessage);
     }
-
 
 
     @DisplayName("square (9) = 3")
     @Test
-    public void testSquare_ResultSquareFromTen_ExpectedThree(){
+    public void testSquare_ResultSquareFromTen_ExpectedThree() {
         //Arrange
-       double number = 9d;
+        double number = 9d;
 
-       double expected = 3d;
+        double expected = 3d;
 
-       String failureMessage = format("square could NOT procedure number %f expected %f", number, expected);
+        String failureMessage = format("square could NOT procedure number %f expected %f", number, expected);
 
         // String message ="""";
         //Act
 
         double result = calculator.square(number);
         //Assert
-        assertEquals(expected, result, ()-> failureMessage);
+        assertEquals(expected, result, () -> failureMessage);
     }
 
 
     @DisplayName("square (-1) = Exception")
     @Test
-    public void testSquare_ResultSquareFromMinusOne_ExpectedException(){
+    public void testSquare_ResultSquareFromMinusOne_ExpectedException() {
         //Arrange
         double number = -1;
 
@@ -142,19 +143,18 @@ public class CalculatorTest {
 
         String failureMessage = format("square could NOT procedure number %f expected %s", number, expected);
 
-        Executable executable = ()-> calculator.square(number);
+        Executable executable = () -> calculator.square(number);
 
-        Supplier<String> message = ()-> failureMessage;
+        Supplier<String> message = () -> failureMessage;
 
 
         //Act
 
-       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, executable,message );
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, executable, message);
 
         //Assert
-        assertEquals(expected, exception.getMessage(), ()-> failureMessage);
+        assertEquals(expected, exception.getMessage(), () -> failureMessage);
     }
-
 
 
 }

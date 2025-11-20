@@ -23,7 +23,7 @@ public class CalculatorCSVSourceFileTest {
     }
 
     @DisplayName("divide Dividend/Divisor = Expected")
-    @ParameterizedTest(name="[{index}] {arguments}")
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvFileSource(resources = "/divisionInput.csv", useHeadersInDisplayName = true)
     public void testDivide_FourDivideTwo_ExpectedTwo(int dividend, int divisor, int expected) {
         //Arrange
@@ -57,7 +57,6 @@ public class CalculatorCSVSourceFileTest {
     }
 
 
-
     @DisplayName("multiply Multiplier*Multiplicand = Expected")
     @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvFileSource(resources = "/multiplicationInput.csv", useHeadersInDisplayName = true)
@@ -72,7 +71,6 @@ public class CalculatorCSVSourceFileTest {
         //Assert
         assertEquals(expected, result, () -> failureMessage);
     }
-
 
 
     @DisplayName("sum SummandOne+SummandTwo = Expected")
@@ -92,9 +90,8 @@ public class CalculatorCSVSourceFileTest {
     }
 
 
-
     @DisplayName("subtract Minuend - Subtrahend = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvFileSource(useHeadersInDisplayName = true, resources = "/subtractionInput.csv", delimiterString = "|")
     public void testSubtract_FourDivideTwo_ExpectedTwo(int minuend, int subtrahend, int expected) {
         //Arrange
@@ -110,10 +107,9 @@ public class CalculatorCSVSourceFileTest {
     }
 
 
-
     @DisplayName("square (Number) = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
-    @CsvFileSource( resources = "/squareInput.cvs", useHeadersInDisplayName = true, delimiterString = "*")
+    @ParameterizedTest(name = "[{index}] {arguments}")
+    @CsvFileSource(resources = "/squareInput.cvs", useHeadersInDisplayName = true, delimiterString = "*")
     public void testSquare_ResultSquareFromTen_ExpectedThree(double number, double expected) {
         //Arrange
         // Parameters
@@ -129,7 +125,7 @@ public class CalculatorCSVSourceFileTest {
 
 
     @DisplayName("square (-1) = Exception")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
                 Number; Expected
                 -1d; 'calculation square need positive number -1,000000'

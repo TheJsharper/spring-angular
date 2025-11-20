@@ -4,13 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.CsvSources;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +61,6 @@ public class CalculatorCSVSourceTest {
     }
 
 
-
     @DisplayName("multiply Multiplier*Multiplicand = Expected")
     @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
@@ -87,7 +82,6 @@ public class CalculatorCSVSourceTest {
     }
 
 
-
     @DisplayName("sum SummandOne+SummandTwo = Expected")
     @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
@@ -97,7 +91,6 @@ public class CalculatorCSVSourceTest {
                 10, 2, 12
                 25, 25, 50
             """, useHeadersInDisplayName = true)
-
 
 
     public void testSum_FourDivideTwo_ExpectedSix(int summandOne, int summandTwo, int expected) {
@@ -114,9 +107,8 @@ public class CalculatorCSVSourceTest {
     }
 
 
-
     @DisplayName("subtract Minuend - Subtrahend = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(useHeadersInDisplayName = true, textBlock = """ 
             Minuend| Subtrahend| expected
             4|2| 2
@@ -138,9 +130,8 @@ public class CalculatorCSVSourceTest {
     }
 
 
-
     @DisplayName("square (Number) = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
             9* 3
             16* 4
@@ -162,7 +153,7 @@ public class CalculatorCSVSourceTest {
 
 
     @DisplayName("square (-1) = Exception")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
                 Number; Expected
                 -1d; 'calculation square need positive number -1,000000'

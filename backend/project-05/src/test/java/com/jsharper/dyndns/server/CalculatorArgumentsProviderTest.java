@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.function.Supplier;
@@ -26,9 +25,9 @@ public class CalculatorArgumentsProviderTest {
     }
 
     @DisplayName("divide Dividend/Divisor = Expected")
-    @ParameterizedTest(name="[{index}] {arguments}")
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @ArgumentsSource(DivisionArgumentsProvider.class)
-    public void testDivide_FourDivideTwo_ExpectedTwo( DivisionArgument divisionArgument) {
+    public void testDivide_FourDivideTwo_ExpectedTwo(DivisionArgument divisionArgument) {
         //Arrange
         int dividend = divisionArgument.dividend();
         int divisor = divisionArgument.divisor();
@@ -63,7 +62,6 @@ public class CalculatorArgumentsProviderTest {
     }
 
 
-
     @DisplayName("multiply Multiplier*Multiplicand = Expected")
     @ParameterizedTest(name = "[{index}] {arguments}")
     @ArgumentsSource(MultiplicationArgumentsProvider.class)
@@ -83,11 +81,10 @@ public class CalculatorArgumentsProviderTest {
     }
 
 
-
     @DisplayName("sum SummandOne+SummandTwo = Expected")
     @ParameterizedTest(name = "[{index}] {arguments}")
     @ArgumentsSource(AdditionArgumentsProvider.class)
-    public void testSum_FourDivideTwo_ExpectedSix( AdditionArgument additionArgument) {
+    public void testSum_FourDivideTwo_ExpectedSix(AdditionArgument additionArgument) {
         //Arrange
         int summandOne = additionArgument.summandOne();
         int summandTwo = additionArgument.summandTwo();
@@ -104,9 +101,8 @@ public class CalculatorArgumentsProviderTest {
     }
 
 
-
     @DisplayName("subtract Minuend - Subtrahend = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @ArgumentsSource(SubtractionArgumentsProvider.class)
     public void testSubtract_FourDivideTwo_ExpectedTwo(SubtractionArgument subtractionArgument) {
         //Arrange
@@ -125,9 +121,8 @@ public class CalculatorArgumentsProviderTest {
     }
 
 
-
     @DisplayName("square (Number) = Expected")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @ArgumentsSource(SquareArgumentsProvider.class)
     public void testSquare_ResultSquareFromTen_ExpectedThree(SquareArgument squareArgument) {
         //Arrange
@@ -146,7 +141,7 @@ public class CalculatorArgumentsProviderTest {
 
 
     @DisplayName("square (-1) = Exception")
-    @ParameterizedTest(name ="[{index}] {arguments}" )
+    @ParameterizedTest(name = "[{index}] {arguments}")
     @CsvSource(textBlock = """
                 Number; Expected
                 -1d; 'calculation square need positive number -1,000000'

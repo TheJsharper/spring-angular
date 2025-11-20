@@ -14,11 +14,11 @@ public class MultiplicationArgumentsProvider implements ArgumentsProvider {
     public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters, ExtensionContext context) throws Exception {
 
         return Stream.of(
-                Arguments.of(new MultiplicationArgument(4,2,8)),
-                Arguments.of(new MultiplicationArgument(4,4,16)),
-                Arguments.of(new MultiplicationArgument(5,5,25)),
-                Arguments.of(new MultiplicationArgument(2,5,10)),
-                Arguments.of(new MultiplicationArgument(9,9,81))
+                Arguments.of(new MultiplicationArgument(4, 2, 8)),
+                Arguments.of(new MultiplicationArgument(4, 4, 16)),
+                Arguments.of(new MultiplicationArgument(5, 5, 25)),
+                Arguments.of(new MultiplicationArgument(2, 5, 10)),
+                Arguments.of(new MultiplicationArgument(9, 9, 81))
         );
     }
 }

@@ -29,15 +29,16 @@ public class DivisionDynamicTests {
 
 
     @TestFactory
-    Stream<DynamicTest> dynamicTestDivisionFromStream(){
-        return  getArguments().map( (argument)->
+    Stream<DynamicTest> dynamicTestDivisionFromStream() {
+        return getArguments().map((argument) ->
                 dynamicTest(
                         format("test dynamic Dividend(%d) * Divisor(%d) = Expected(%d) ", argument.dividend(), argument.divisor(), argument.expected()),
                         () -> assertEquals(argument.expected(), calculator.divide(argument.dividend(), argument.divisor())))
         );
     }
 
-    private Stream<DivisionArgument> getArguments(){
+
+    private Stream<DivisionArgument> getArguments() {
         return Stream.of(
                 new DivisionArgument(8, 2, 4),
                 new DivisionArgument(16, 2, 8),

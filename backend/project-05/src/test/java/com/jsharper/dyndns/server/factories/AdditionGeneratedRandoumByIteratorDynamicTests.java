@@ -60,7 +60,8 @@ public class AdditionGeneratedRandoumByIteratorDynamicTests {
             public boolean hasNext() {
                 var summandOne = random.nextInt(100, 10000);
                 var summandTwo = random.nextInt(100, 10000);
-                current = new AdditionArgument(summandOne, summandTwo, summandOne + summandTwo);
+                var expected = summandOne + summandTwo;
+                current = new AdditionArgument(summandOne, summandTwo, expected);
                 return summandOne % 7 != 0;
             }
 

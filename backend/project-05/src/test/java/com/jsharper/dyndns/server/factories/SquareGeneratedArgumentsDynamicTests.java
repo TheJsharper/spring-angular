@@ -46,7 +46,6 @@ public class SquareGeneratedArgumentsDynamicTests {
 
         return IntStream.iterate(0, (n) -> n + 2).limit(100).mapToObj((_) -> {
             var number = random.nextInt(25000, 50000);
-            //var subtrahend = random.nextInt(255, 10000);
             var expected = Math.sqrt(number);
             return new SquareArgument(number, expected);
         });

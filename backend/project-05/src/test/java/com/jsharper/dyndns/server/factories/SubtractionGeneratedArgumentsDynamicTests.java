@@ -1,20 +1,22 @@
 package com.jsharper.dyndns.server.factories;
 
 import com.jsharper.dyndns.server.Calculator;
-import com.jsharper.dyndns.server.arguments.AdditionArgument;
+import com.jsharper.dyndns.server.arguments.MultiplicationArgument;
 import com.jsharper.dyndns.server.arguments.SubtractionArgument;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Random;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
-public class SubtractionDynamicTests {
+public class SubtractionGeneratedArgumentsDynamicTests {
 
     private final Calculator calculator = new Calculator();
 
@@ -39,17 +41,17 @@ public class SubtractionDynamicTests {
         );
     }
 
-
     private Stream<SubtractionArgument> getArguments() {
-        return Stream.of(
-                new SubtractionArgument(8, 2, 6),
-                new SubtractionArgument(16, 2, 14),
-                new SubtractionArgument(80, 2, 78),
-                new SubtractionArgument(10, 2, 8),
-                new SubtractionArgument(10, 2, 8),
-                new SubtractionArgument(80, 2, 78),
-                new SubtractionArgument(800, 2, 798),
-                new SubtractionArgument(6, 2, 4)
-        );
+        Random random = new Random();
+
+        return IntStream.iterate(0, (n) -> n + 2).limit(100).mapToObj((_) -> {
+            var minuend = random.nextInt(25000, 50000);
+            var subtrahend = random.nextInt(255, 10000);
+            return new SubtractionArgument(minuend, subtrahend, minuend - subtrahend);
+        });
+
+
     }
+
+
 }

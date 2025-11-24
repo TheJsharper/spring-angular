@@ -51,7 +51,7 @@ public class AdditionGeneratedRandoumByIteratorDynamicTests {
     private Iterator<AdditionArgument> getArguments() {
 
 
-        Iterator<AdditionArgument> inputGenerator = new Iterator<>() {
+         return new Iterator<>() {
 
             final Random random = new Random();
             AdditionArgument current;
@@ -70,17 +70,5 @@ public class AdditionGeneratedRandoumByIteratorDynamicTests {
                 return current;
             }
         };
-
-        // Generates display names like: input:5, input:37, input:85, etc.
-        Function<AdditionArgument, String> displayNameGenerator = (argument) -> format("test dynamic SummandOne(%d) + SummandTwo(%d) = Expected(%d) ", argument.summandOne(), argument.summandTwo(), argument.expected());
-
-        // Executes tests based on the current input value.
-        ThrowingConsumer<AdditionArgument> testExecutor = (argument) -> assertEquals(argument.expected(), calculator.sum(argument.summandOne(), argument.summandTwo()));
-
-
-        DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);
-
-
-        return inputGenerator;
     }
 }

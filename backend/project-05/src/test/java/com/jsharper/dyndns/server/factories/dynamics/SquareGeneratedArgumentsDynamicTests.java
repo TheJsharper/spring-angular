@@ -1,8 +1,7 @@
-package com.jsharper.dyndns.server.factories;
+package com.jsharper.dyndns.server.factories.dynamics;
 
 import com.jsharper.dyndns.server.Calculator;
 import com.jsharper.dyndns.server.arguments.SquareArgument;
-import com.jsharper.dyndns.server.arguments.SubtractionArgument;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 

@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.factories;
+package com.jsharper.dyndns.server.factories.dynamics;
 
 import com.jsharper.dyndns.server.Calculator;
 import com.jsharper.dyndns.server.arguments.DivisionArgument;

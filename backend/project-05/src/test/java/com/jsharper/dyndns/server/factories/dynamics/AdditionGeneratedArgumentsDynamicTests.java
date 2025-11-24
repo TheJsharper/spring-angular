@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.factories;
+package com.jsharper.dyndns.server.factories.dynamics;
 
 import com.jsharper.dyndns.server.Calculator;
 import com.jsharper.dyndns.server.arguments.AdditionArgument;
@@ -8,7 +8,6 @@ import org.junit.jupiter.api.TestFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
-import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 

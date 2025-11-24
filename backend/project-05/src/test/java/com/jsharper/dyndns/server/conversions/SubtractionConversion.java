@@ -11,7 +11,7 @@ import java.util.Objects;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class subtractionconversion {
+public class SubtractionConversion {
 
     private Calculator calculator;
 

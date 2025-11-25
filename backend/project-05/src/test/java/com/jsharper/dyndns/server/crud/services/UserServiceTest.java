@@ -71,4 +71,28 @@ public class UserServiceTest {
         assertNotNull(user.getId(), "User's returned null");
 
     }
+    @Test
+    void testCreateUser_whenFistNameIsEmpty_throwsIllegalArgumentException(){
+        //Arrange
+        UserService userService = new UserServiceImpl();
+
+        String firstName = "      ";
+        String lastName = "Dune";
+        String email = "joe.dune@server.com";
+        String password = "123456789";
+        String repeatPassword = "123456789";
+
+        // Act & Assert
+   var exception = assertThrows( IllegalArgumentException.class, ()->{
+
+        userService.createUser(firstName, lastName, email, password, repeatPassword);
+    }, "Empty first name should have caused an Illegal Argument Exception");
+
+
+        //Assert
+
+        assertEquals("FirstName should not be null or empty", exception.getMessage());
+
+
+    }
 }

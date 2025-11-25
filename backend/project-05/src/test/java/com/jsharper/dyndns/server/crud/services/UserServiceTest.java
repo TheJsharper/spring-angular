@@ -1,21 +1,36 @@
 package com.jsharper.dyndns.server.crud.services;
 
 import com.jsharper.dyndns.server.crud.models.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static  org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
+
+    private UserService userService;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String repeatPassword;
+
+    @BeforeEach
+    public void init() {
+        userService = new UserServiceImpl();
+
+        firstName = "Joe";
+        lastName = "Dune";
+        email = "joe.dune@server.com";
+        password = "123456789";
+        repeatPassword = "123456789";
+
+    }
 
     @Test
     void testCreateUser_whenUserDetailsProvided_returnUserObject() {
         // Arrange
-        UserService userService = new UserServiceImpl();
-
-        String firstName = "Joe";
-        String lastName = "Dune";
-        String email = "joe.dune@server.com";
-        String password = "123456789";
-        String repeatPassword = "123456789";
 
 
         //Act
@@ -27,15 +42,9 @@ public class UserServiceTest {
     }
 
     @Test
-    void testCreateUser_whenUserCreated_returnUserObjectContainersSameFirstName(){
+    void testCreateUser_whenUserCreated_returnUserObjectContainersSameFirstName() {
         //Arrange
-        UserService userService = new UserServiceImpl();
 
-        String firstName = "Joe";
-        String lastName = "Dune";
-        String email = "joe.dune@server.com";
-        String password = "123456789";
-        String repeatPassword = "123456789";
 
         //Act
         User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
@@ -46,16 +55,11 @@ public class UserServiceTest {
         assertEquals(firstName, user.getFirstName(), "User's first name is incorrect");
 
     }
-    @Test
-    void testCreateUser_whenUserDetailsProvided_returnUserObjectWithProperties(){
-        //Arrange
-        UserService userService = new UserServiceImpl();
 
-        String firstName = "Joe";
-        String lastName = "Dune";
-        String email = "joe.dune@server.com";
-        String password = "123456789";
-        String repeatPassword = "123456789";
+    @Test
+    void testCreateUser_whenUserDetailsProvided_returnUserObjectWithProperties() {
+        //Arrange
+
 
         //Act
         User user = userService.createUser(firstName, lastName, email, password, repeatPassword);
@@ -71,22 +75,18 @@ public class UserServiceTest {
         assertNotNull(user.getId(), "User's returned null");
 
     }
+
     @Test
-    void testCreateUser_whenFistNameIsEmpty_throwsIllegalArgumentException(){
+    void testCreateUser_whenFistNameIsEmpty_throwsIllegalArgumentException() {
         //Arrange
-        UserService userService = new UserServiceImpl();
 
         String firstName = "      ";
-        String lastName = "Dune";
-        String email = "joe.dune@server.com";
-        String password = "123456789";
-        String repeatPassword = "123456789";
 
         // Act & Assert
-   var exception = assertThrows( IllegalArgumentException.class, ()->{
+        var exception = assertThrows(IllegalArgumentException.class, () -> {
 
-        userService.createUser(firstName, lastName, email, password, repeatPassword);
-    }, "Empty first name should have caused an Illegal Argument Exception");
+            userService.createUser(firstName, lastName, email, password, repeatPassword);
+        }, "Empty first name should have caused an Illegal Argument Exception");
 
 
         //Assert

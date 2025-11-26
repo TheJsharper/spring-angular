@@ -165,5 +165,22 @@ public class UserServiceTest {
 
 
     }
+    @DisplayName("Schedule Email Confirmation is executed")
+    @Test
+    void testCreateUser_whenUserCreated_schedulesEmailConfirmation(){
+        //Arrange
+        Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(true);
+
+        Mockito.doCallRealMethod().when(emailVerificationService)
+                .scheduleEmailConfirmation(Mockito.any(User.class));
+
+        //Act
+        userService.createUser(firstName, lastName, email, password, repeatPassword);
+
+        //Assert
+        Mockito.verify(emailVerificationService, Mockito.times(1))
+                .scheduleEmailConfirmation(Mockito.any(User.class));
+
+    }
 
 }

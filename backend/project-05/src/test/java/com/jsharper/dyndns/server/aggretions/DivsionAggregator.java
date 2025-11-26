@@ -1,9 +1,7 @@
 package com.jsharper.dyndns.server.aggretions;
 
 import com.jsharper.dyndns.server.Calculator;
-import com.jsharper.dyndns.server.arguments.AdditionArgument;
 import com.jsharper.dyndns.server.arguments.DivisionArgument;
-import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -52,7 +50,7 @@ public class DivsionAggregator {
 }
 class DivisionArgumentAggregator  extends SimpleArgumentsAggregator {
     @Override
-    protected @Nullable DivisionArgument aggregateArguments(ArgumentsAccessor accessor,
+    protected /*@Nullable*/ DivisionArgument aggregateArguments(ArgumentsAccessor accessor,
                                                             Class<?> targetType,
                                                             AnnotatedElementContext context,
                                                             int parameterIndex) throws ArgumentsAggregationException {

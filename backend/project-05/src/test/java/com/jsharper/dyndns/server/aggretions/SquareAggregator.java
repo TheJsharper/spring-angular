@@ -2,7 +2,6 @@ package com.jsharper.dyndns.server.aggretions;
 
 import com.jsharper.dyndns.server.Calculator;
 import com.jsharper.dyndns.server.arguments.SquareArgument;
-import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -50,7 +49,7 @@ public class SquareAggregator {
 
 class SquareArgumentsAggregator extends SimpleArgumentsAggregator {
     @Override
-    protected @Nullable SquareArgument aggregateArguments(ArgumentsAccessor accessor, Class<?> targetType, AnnotatedElementContext context, int parameterIndex) throws ArgumentsAggregationException {
+    protected /*@Nullable*/ SquareArgument aggregateArguments(ArgumentsAccessor accessor, Class<?> targetType, AnnotatedElementContext context, int parameterIndex) throws ArgumentsAggregationException {
         return new SquareArgument(
                 Objects.requireNonNull(accessor.getDouble(0)),
                 Objects.requireNonNull(accessor.getDouble(1)));

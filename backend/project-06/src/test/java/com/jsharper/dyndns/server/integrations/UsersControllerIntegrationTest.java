@@ -27,6 +27,7 @@ import java.util.List;
 //)
 @AutoConfigureTestRestTemplate
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UsersControllerIntegrationTest {
 
     @Value("${server.port}")
@@ -37,6 +38,8 @@ public class UsersControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
+
+    private String authorizationToken;
 
     @Test
     @Order(1)
@@ -113,15 +116,43 @@ public class UsersControllerIntegrationTest {
         ResponseEntity response = testRestTemplate.postForEntity("/users/login", request, null);
 
         //Assert
+        authorizationToken = response.getHeaders().getValuesAsList(SecurityConstants.HEADER_STRING).get(0);
+
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "HTTP Status code should be 200 OK!");
 
-        Assertions.assertNotNull(response.getHeaders().getValuesAsList(SecurityConstants.HEADER_STRING).get(0),
+        Assertions.assertNotNull(authorizationToken,
                 "Response should contain Authorization header with JWT");
         Assertions.assertNotNull(response.getHeaders().getValuesAsList("UserID").get(0),
                 "Response should contain UserID in a response header");
 
 
+    }
+
+    @Test
+    @DisplayName("GET /users works")
+    void testGetUsers_whenValidJWTProvided_returnsUsers() {
+
+        //Arrange
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        System.out.println("TOKEN" +authorizationToken);
+        headers.setBearerAuth(authorizationToken);
+        HttpEntity requestEntity = new HttpEntity(headers);
+
+        // Act
+        ResponseEntity<List<UserRest>> response = testRestTemplate.exchange("/users",
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<List<UserRest>>() {
+                }
+        );
+
+        //Assert
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode(), "HTTP status code should be 200");
+        Assertions.assertTrue(response.getBody().size() == 1, "There should be exactly in the list");
     }
 
 }

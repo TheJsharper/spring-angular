@@ -4,17 +4,19 @@ import com.jsharper.dyndns.server.ui.response.UserRest;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 //@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT //,
@@ -61,17 +63,34 @@ public class UsersControllerIntegrationTest {
         //Assert
 
         Assertions.assertEquals(HttpStatus.OK, createUserDetailsEntity.getStatusCode());
-        Assertions.assertEquals(userDetailsRequestJson.getString("firstName"),
-                userRest.getFirstName(), "Returned user's first Name seens to be incorrect");
+        Assertions.assertEquals(userDetailsRequestJson.getString("firstName"), userRest.getFirstName(), "Returned user's first Name seens to be incorrect");
 
-        Assertions.assertEquals(userDetailsRequestJson.getString("lastName"),
-                userRest.getLastName(), "Returned user's last Name seens to be incorrect");
+        Assertions.assertEquals(userDetailsRequestJson.getString("lastName"), userRest.getLastName(), "Returned user's last Name seens to be incorrect");
 
-        Assertions.assertEquals(userDetailsRequestJson.getString("email"),
-                userRest.getEmail(), "Returned user's email Name seens to be incorrect");
+        Assertions.assertEquals(userDetailsRequestJson.getString("email"), userRest.getEmail(), "Returned user's email Name seens to be incorrect");
 
-        Assertions.assertFalse( userRest.getUserId().trim().isEmpty(), "User id should not be empty");
+        Assertions.assertFalse(userRest.getUserId().trim().isEmpty(), "User id should not be empty");
 
+    }
+
+    @Test
+
+    @DisplayName("GET /user requires JWT")
+    void testGetUsers_whenMissingJWT_returns403() {
+
+        //Arrange
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+
+        HttpEntity httpEntity = new HttpEntity(null, headers);
+
+        //Act
+
+        ResponseEntity<List<UserRest>> response = testRestTemplate.exchange("/users", HttpMethod.GET, httpEntity, new ParameterizedTypeReference<List<UserRest>>() {
+        });
+
+        //Assert
+        Assertions.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode(), "HTTP Status code 403 Forbidden should have been returned");
     }
 
 

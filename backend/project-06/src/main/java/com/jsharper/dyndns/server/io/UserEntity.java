@@ -1,31 +1,34 @@
 package com.jsharper.dyndns.server.io;
 
 import jakarta.persistence.*;
+
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 5313493413859894403L;
 
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String userId;
 
-    @Column(nullable=false, length=50)
+    @Column(nullable = false, length = 50)
     private String firstName;
 
-    @Column(nullable=false, length=50)
+    @Column(nullable = false, length = 50)
     private String lastName;
 
-    @Column(nullable=false, length=120)
+    @Column(nullable = false, length = 120)
     private String email;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String encryptedPassword;
 
     public long getId() {

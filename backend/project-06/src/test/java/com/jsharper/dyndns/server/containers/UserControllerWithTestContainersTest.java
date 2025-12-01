@@ -34,15 +34,17 @@ public class UserControllerWithTestContainersTest {
     private String appName;
 
     @Value("${app.database.username}")
-    private String databaseUserName;
+    private static String databaseUserName;
 
     @Value("${app.database.password}")
-    private String databasePassword;
+    private static String databasePassword;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+
     private String authorizationToken;
+
 
     @Container
     private static final MySQLContainer mySQLContainer = new MySQLContainer("mysql:9.5.0")
@@ -61,6 +63,7 @@ public class UserControllerWithTestContainersTest {
         mySQLContainer.start();
     }
 
+
     @Test
     @DisplayName("The test container is created and is running...")
     @Order(1)
@@ -73,7 +76,6 @@ public class UserControllerWithTestContainersTest {
     @Order(2)
     void testCreateUser_whenValidDetailsProvided_returnsUserDetails() throws JSONException {
         //Arrange
-
         JSONObject userDetailsRequestJson = new JSONObject();
         userDetailsRequestJson.put("firstName", "Joe");
         userDetailsRequestJson.put("lastName", "Burry");

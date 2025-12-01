@@ -1,10 +1,15 @@
 package com.jsharper.dyndns.server.containers.rest.assured;
 
-import com.jsharper.dyndns.server.io.UserEntity;
 import com.jsharper.dyndns.server.ui.request.UserDetailsRequestModel;
 import com.jsharper.dyndns.server.ui.response.UserRest;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import org.hamcrest.Matchers;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
@@ -18,8 +23,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.mysql.MySQLContainer;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -39,6 +43,9 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
             .withUsername("sa")
             .withPassword("secr3t");
 
+    private final RequestLoggingFilter requestLoggingFilter = new RequestLoggingFilter(LogDetail.ALL);
+
+    private final ResponseLoggingFilter responseLoggingFilter = new ResponseLoggingFilter(LogDetail.ALL);
 
     static {
         mySQLContainer.start();
@@ -48,8 +55,16 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
     void setUp() {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = port;
-    }
+        RestAssured.filters(requestLoggingFilter, responseLoggingFilter);
 
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setContentType(ContentType.JSON)
+                .setAccept(ContentType.JSON)
+                .build();
+        /*RestAssured.requestSpecification = new ResponseSpecBuilder()
+                //.expectBody(Matchers.is(200).)
+                .build();*/
+    }
 
     @Order(1)
     @Test
@@ -72,8 +87,6 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
 
         //Act
         var response = given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
                 .body(userDetailsRequestModel)
                 .when().post("/users")
                 .then()
@@ -102,8 +115,6 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
 
         //Act
         var response = given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
                 .body(userDetailsRequestModel.toString())
                 .when().post("/users")
                 .then()
@@ -131,12 +142,10 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
 
         //Act
         given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
                 .body(userDetailsRequestModel)
                 .when().post("/users")
                 .then()
-                .log().all()
+                // .log().all()
                 .statusCode(200)
                 .body("userId", notNullValue())
                 .body("firstName", equalTo(userDetailsRequestModel.getFirstName()))

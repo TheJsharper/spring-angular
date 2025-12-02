@@ -61,7 +61,8 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
                 .setAccept(ContentType.JSON)
                 .build();
         /*RestAssured.requestSpecification = new ResponseSpecBuilder()
-                //.expectBody(Matchers.is(200).)
+                .expectBody(anyOf(is(200), is(201), is(204)))
+                .expectResponseTime(lessThan(5000L))
                 .build();*/
     }
 

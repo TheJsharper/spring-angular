@@ -4,6 +4,7 @@ import com.jsharper.dyndns.server.exceptions.UsersServiceException;
 import com.jsharper.dyndns.server.io.UserEntity;
 import com.jsharper.dyndns.server.io.UsersRepository;
 import com.jsharper.dyndns.server.shared.UserDto;
+import com.jsharper.dyndns.server.ui.response.UserRest;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
@@ -49,7 +50,7 @@ public class UsersServiceImpl implements UsersService {
 
         UserEntity storedUserDetails = usersRepository.save(userEntity);
 
-        UserDto returnValue  = modelMapper.map(storedUserDetails, UserDto.class);
+        UserDto returnValue = modelMapper.map(storedUserDetails, UserDto.class);
 
         return returnValue;
     }
@@ -58,14 +59,15 @@ public class UsersServiceImpl implements UsersService {
     public List<UserDto> getUsers(int page, int limit) {
         List<UserDto> returnValue = new ArrayList<>();
 
-        if (page > 0) page -=1;
+        if (page > 0) page -= 1;
 
         Pageable pageableRequest = PageRequest.of(page, limit);
 
         Page<UserEntity> usersPage = usersRepository.findAll(pageableRequest);
         List<UserEntity> users = usersPage.getContent();
 
-        Type listType = new TypeToken<List<UserDto>>() {}.getType();
+        Type listType = new TypeToken<List<UserDto>>() {
+        }.getType();
         returnValue = new ModelMapper().map(users, listType);
 
         return returnValue;
@@ -94,4 +96,8 @@ public class UsersServiceImpl implements UsersService {
         return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), new ArrayList<>());
     }
 
+    @Override
+    public UserEntity getUserById(String userId) {
+        return this.usersRepository.findByUserId(userId);
+    }
 }

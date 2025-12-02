@@ -168,7 +168,7 @@ public class UserControllerWithTestContainersTest {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        System.out.println("TOKEN" + authorizationToken);
+
         headers.setBearerAuth(authorizationToken);
         HttpEntity requestEntity = new HttpEntity(headers);
 

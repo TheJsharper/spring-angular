@@ -8,17 +8,21 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.http.Header;
+import org.hamcrest.Matchers;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
-import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.mysql.MySQLContainer;
+
+import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -27,7 +31,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AutoConfigureTestRestTemplate
+//@AutoConfigureTestRestTemplate
 @Testcontainers
 @ActiveProfiles("test")
 public class UsersControllerWithTestContainerAndRestAssuredTest {
@@ -45,6 +49,9 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
     private final RequestLoggingFilter requestLoggingFilter = new RequestLoggingFilter(LogDetail.ALL);
 
     private final ResponseLoggingFilter responseLoggingFilter = new ResponseLoggingFilter(LogDetail.ALL);
+
+    private String userId;
+    private String token;
 
     static {
         mySQLContainer.start();
@@ -151,6 +158,86 @@ public class UsersControllerWithTestContainerAndRestAssuredTest {
                 .body("firstName", equalTo(userDetailsRequestModel.getFirstName()))
                 .body("lastName", equalTo(userDetailsRequestModel.getLastName()))
                 .body("email", equalTo(userDetailsRequestModel.getEmail()));
+    }
+
+    @Order(5)
+    @Test
+    void testLogin_whenValidCredentialsProvided_returnsTokenAndUserIdHeader() {
+        //Arrange
+        var credentials = new HashMap<String, String>();
+        credentials.put("email", "joe3@gmail.com");
+        credentials.put("password", "12345678");
+
+        //Act
+
+        var response = given().body(credentials)
+                .when()
+                .post("/users/login");
+        response.headers().asList().forEach(h -> System.out.println("======> key===>:" + h.getName() + "-----> :" + h.getValue()));
+
+        userId = response.headers().getValue("userId");
+
+        token = response.headers().getValue("Authorization");
+
+        // Assert
+        Assertions.assertNotNull(userId);
+        Assertions.assertNotNull(token);
+        Assertions.assertFalse(userId.isEmpty());
+        Assertions.assertFalse(token.isEmpty());
+
+    }
+
+    @Order(6)
+    @Test
+    @DisplayName("GET List of users")
+    @Disabled
+    void testGetAllUser_whenValidCredentialsProvided_returnsListOfUser() {
+        // Arrange
+        var response = given()
+                .header(new Header("Authorization", token))
+                .queryParam("page", 1)
+                .queryParam("limit", 10)
+                .get("/users");
+        response.then().statusCode(200);
+
+        var list = response.as(UserRest[].class);
+        Assertions.assertTrue(list.length > 0);
+
+
+        // Act
+
+
+        // Assert
+
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("Get User By Id")
+    @Disabled
+    void testGetUser_withValidAuthenticationToken_returnsUser() {
+        given().pathParams("userId", userId)
+                //   .header("Authorization", "Bearer "+ token)
+                .auth().oauth2(token)
+                .when().get("/users/{userId}")
+                .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("id", equalTo(this.userId))
+                .body("firstName", Matchers.notNullValue())
+                .body("firstName", Matchers.notNullValue())
+                .body("email", Matchers.notNullValue());
+    }
+
+    @Test
+    @Order(8)
+    @DisplayName("Get User By Id without Authorization")
+    @Disabled
+    void testGetUser_withMissingAuthHeader_returnsForbidden() {
+        given().pathParams("userId", userId)
+                .when()
+                .get("/users/{userId}")
+                .then()
+                .statusCode(HttpStatus.FORBIDDEN.value());
     }
 
 }

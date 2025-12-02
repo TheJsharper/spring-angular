@@ -7,6 +7,7 @@ import com.jsharper.dyndns.server.ui.response.UserRest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,12 @@ public class UsersController {
         }.getType();
 
         return new ModelMapper().map(users, listType);
+    }
+
+    @GetMapping("/{userId}")
+    public UserRest getUser(@PathVariable String userId) {
+        UserRest returnValue = new UserRest();
+        BeanUtils.copyProperties(usersService.getUserById(userId), returnValue);
+        return returnValue;
     }
 }

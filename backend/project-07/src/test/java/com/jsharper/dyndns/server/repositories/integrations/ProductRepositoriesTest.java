@@ -92,4 +92,3 @@ public class ProductRepositoriesTest {
     }
 
 }
-//record testProduct()

@@ -5,9 +5,17 @@ import com.jsharper.dyndns.server.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.util.Pair;
+import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Random;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -40,7 +48,7 @@ public class ProductRepositoriesTest {
 
     @Test
     @Order(2)
-    @DisplayName("Create Product and test return object with it")
+    @DisplayName("Find by Product id and test with stored Product")
     void createProduct_whenValidObject_returnsFindById() {
         //Arrange
 
@@ -58,4 +66,30 @@ public class ProductRepositoriesTest {
         assertEquals(storedProduct.getDesc(), this.storedProduct.getDesc());
         assertEquals(storedProduct.getPrice(), this.storedProduct.getPrice());
     }
+
+    @TestFactory
+    @Order(3)
+    @DisplayName("create with saveAll(iterable) returns stored list ")
+    Stream<DynamicTest> testIterateProduct_whenGetsArguments_returnsDynamicTest() {
+        Iterable<ProductEntity> iterator = getArguments().toList();
+
+        var storedIterator = this.productRepository.saveAll(iterator).stream();
+
+        var stream = StreamSupport.stream(iterator.spliterator(), false);
+
+        var pairs = StreamUtils.zip(storedIterator, stream, Pair::of);
+
+        return pairs.map(p -> DynamicTest.dynamicTest(String.format("First Name %s Secund Name %s", p.getFirst().getName(), p.getSecond().getName()), () -> assertEquals(p.getFirst().getName(), p.getSecond().getName())));
+
+    }
+
+    private Stream<ProductEntity> getArguments() {
+        var random = new Random();
+        return IntStream
+                .iterate(0, (next) -> next + 2)
+                .limit(100)
+                .mapToObj(next -> new ProductEntity("Product" + next, "Product Description " + next, random.nextDouble(10.0, 500.00)));
+    }
+
 }
+//record testProduct()

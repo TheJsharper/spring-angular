@@ -78,10 +78,21 @@ public class ProductRepositoriesTest {
         var stream = StreamSupport.stream(iterator.spliterator(), false);
 
         var pairs = StreamUtils.zip(storedIterator, stream, Pair::of);
-
+        var breakLine = System.lineSeparator();
         return pairs.map(p ->
-                DynamicTest.dynamicTest(String.format("First Name %s Secund Name %s", p.getFirst().getName(), p.getSecond().getName()),
-                () -> assertEquals(p.getFirst().getName(), p.getSecond().getName())));
+                DynamicTest.dynamicTest(String.format("First Name %s second Name %s" + breakLine
+                                        + " First description %s Second Description %s" + breakLine
+                                        + "First price %f Second price %f",
+                                p.getFirst().getName(), p.getSecond().getName(),
+                                p.getFirst().getDesc(), p.getSecond().getDesc(),
+                                p.getFirst().getPrice(), p.getSecond().getPrice()
+                        ),
+                        () -> {
+                            assertEquals(p.getFirst().getName(), p.getSecond().getName());
+                            assertEquals(p.getFirst().getDesc(), p.getSecond().getDesc());
+                            assertEquals(p.getFirst().getPrice(), p.getSecond().getPrice());
+                        }
+                ));
 
     }
 

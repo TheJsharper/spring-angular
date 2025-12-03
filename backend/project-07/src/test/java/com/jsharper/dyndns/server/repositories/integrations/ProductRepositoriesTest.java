@@ -78,7 +78,9 @@ public class ProductRepositoriesTest {
         var stream = StreamSupport.stream(iterator.spliterator(), false);
 
         var pairs = StreamUtils.zip(storedIterator, stream, Pair::of);
+
         var breakLine = System.lineSeparator();
+
         return pairs.map(p ->
                 DynamicTest.dynamicTest(String.format("First Name %s second Name %s" + breakLine
                                         + " First description %s Second Description %s" + breakLine

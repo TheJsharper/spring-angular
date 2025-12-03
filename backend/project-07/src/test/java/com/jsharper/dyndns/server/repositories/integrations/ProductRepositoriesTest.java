@@ -79,7 +79,9 @@ public class ProductRepositoriesTest {
 
         var pairs = StreamUtils.zip(storedIterator, stream, Pair::of);
 
-        return pairs.map(p -> DynamicTest.dynamicTest(String.format("First Name %s Secund Name %s", p.getFirst().getName(), p.getSecond().getName()), () -> assertEquals(p.getFirst().getName(), p.getSecond().getName())));
+        return pairs.map(p ->
+                DynamicTest.dynamicTest(String.format("First Name %s Secund Name %s", p.getFirst().getName(), p.getSecond().getName()),
+                () -> assertEquals(p.getFirst().getName(), p.getSecond().getName())));
 
     }
 

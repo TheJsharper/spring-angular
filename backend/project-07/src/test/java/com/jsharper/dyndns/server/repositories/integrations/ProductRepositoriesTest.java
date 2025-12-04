@@ -17,8 +17,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.*;
-import static java.lang.String.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -182,7 +182,7 @@ public class ProductRepositoriesTest {
 
     }
 
-    @Order(8)
+    @Order(9)
     @Test
     @DisplayName("delete by id when given id must be valid")
     void delete_whenProvidedProductEntity_verifyFindById() {
@@ -200,7 +200,7 @@ public class ProductRepositoriesTest {
 
     }
 
-    @Order(9)
+    @Order(10)
     @TestFactory
     @DisplayName("delete by ids when given ids must be valid verify by existsById")
     Stream<DynamicTest> deleteByIds_whenProvidedValidListOfIds_verifyFindById() {
@@ -227,7 +227,7 @@ public class ProductRepositoriesTest {
         return Stream.concat(stepOneStream, stepTwoStream);
     }
 
-    @Order(9)
+    @Order(11)
     @TestFactory
     @DisplayName("deleteAll by entities when given ids must be valid verify by existsById")
     Stream<DynamicTest> deleteByEntities_whenProvidedValidListOfIds_verifyFindById() {

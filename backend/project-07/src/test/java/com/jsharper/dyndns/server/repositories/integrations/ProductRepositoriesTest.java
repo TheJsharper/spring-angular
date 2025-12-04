@@ -9,6 +9,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -172,5 +173,39 @@ public class ProductRepositoriesTest {
         return storeAllProductEntity.get().map(ProductEntity::getId)
                 .map(id -> DynamicTest.dynamicTest(String.format(" ProductEntity id %d", id), () -> assertTrue(productRepository.existsById(id))));
     }
+
+    @Order(8)
+    @Test
+    @DisplayName("delete by id when given id must be valid")
+    void deleteById_whenProvidedValidId_verifyFindById() {
+        //Arrange
+
+        // Act
+        this.productRepository.deleteById(this.storedProduct.getId());
+
+        var exception = assertThrows(NoSuchElementException.class, () -> this.productRepository.findById(this.storedProduct.getId()).orElseThrow());
+
+        //Assert
+        assertEquals("No value present", exception.getMessage());
+
+    }
+
+    @Order(8)
+    @Test
+    @DisplayName("delete by id when given id must be valid")
+    void delete_whenProvidedProductEntity_verifyFindById() {
+        //Arrange
+        var deletingEntity = this.storeAllProductEntity.get().findFirst().orElseThrow();
+        // Act
+        this.productRepository.delete(deletingEntity);
+
+        var exception = assertThrows(NoSuchElementException.class, () -> this.productRepository.findById(deletingEntity.getId()).orElseThrow());
+
+        //Assert
+        assertEquals("No value present", exception.getMessage());
+
+    }
+
+
 
 }

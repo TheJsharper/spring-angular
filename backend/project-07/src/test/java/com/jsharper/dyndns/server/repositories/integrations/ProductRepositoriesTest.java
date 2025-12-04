@@ -269,9 +269,9 @@ public class ProductRepositoriesTest {
 
         Executable ex = this.assertEqualProductEntity(pairs);
 
-        String msgs = this.getEqualTwoProductEntities(pairs);
+        String message = this.getEqualTwoProductEntities(pairs);
 
-        var stepOne = Stream.of(DynamicTest.dynamicTest(msgs, ex));
+        var stepOne = Stream.of(DynamicTest.dynamicTest(message, ex));
 
         //Act
 

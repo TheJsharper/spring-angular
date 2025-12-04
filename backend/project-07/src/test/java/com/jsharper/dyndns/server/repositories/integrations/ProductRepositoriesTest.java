@@ -30,6 +30,8 @@ public class ProductRepositoriesTest {
 
     private Supplier<Stream<ProductEntity>> storeAllProductEntity;
 
+    private final int countGeneratedEntities = 100;
+
 
     @TestFactory
     @Order(1)
@@ -68,7 +70,7 @@ public class ProductRepositoriesTest {
         var random = new Random();
         return IntStream
                 .iterate(0, (next) -> next + 2)
-                .limit(100)
+                .limit(countGeneratedEntities)
                 .mapToObj(next -> new ProductEntity("Product" + next, "Product Description " + next, random.nextDouble(10.0, 500.00)));
     }
 
@@ -115,6 +117,17 @@ public class ProductRepositoriesTest {
 
     @Test
     @Order(4)
+    @DisplayName("count  entities return store entities")
+    void count_whenCallingCountOfEntityManager_returnValueStoredEntities() {
+        var count = this.countGeneratedEntities;
+
+        var countOfEntities = this.productRepository.count();
+
+        assertEquals(count, countOfEntities, () -> String.format("expected value %d is not equals stored entity counts %d", count, countOfEntities));
+    }
+
+    @Test
+    @Order(5)
     @DisplayName("Create Product and test return object with it")
     void createProduct_whenValidObject_returnsStoredObject() {
         //Arrange
@@ -132,7 +145,7 @@ public class ProductRepositoriesTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     @DisplayName("Find by Product id and test with stored Product")
     void createProduct_whenValidObject_returnsFindById() {
         //Arrange
@@ -152,7 +165,7 @@ public class ProductRepositoriesTest {
         assertEquals(storedProduct.getPrice(), this.storedProduct.getPrice());
     }
 
-    @Order(6)
+    @Order(7)
     @TestFactory
     @DisplayName("exists ProductEntity if provided valid id")
     Stream<DynamicTest> existsByIdFromStoredList_whenProvidedProductEntityId_ReturnExistedBoolean() {

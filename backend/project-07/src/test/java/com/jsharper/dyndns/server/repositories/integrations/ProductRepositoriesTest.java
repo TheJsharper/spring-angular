@@ -15,8 +15,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -99,8 +98,23 @@ public class ProductRepositoriesTest {
                 ));
     }
 
-    @Test
     @Order(3)
+    @TestFactory
+    @DisplayName("find all by ids if provided valid ids return list of entities")
+    Stream<DynamicTest> findAllById_whenProvidedValidIds_ReturnIterableProductEntities() {
+        var productEntityIds = this.storeAllProductEntity.get().map(ProductEntity::getId).toList();
+
+        var returnValuesProductEntities = this.productRepository.findAllById(productEntityIds).stream();
+
+        var pairs = StreamUtils.zip(productEntityIds.stream(), returnValuesProductEntities, Pair::of);
+
+        return pairs.map(p ->
+                DynamicTest.dynamicTest(String.format("id %d equals id %d", p.getFirst(), p.getSecond().getId()),
+                        () -> assertEquals(p.getFirst(), p.getSecond().getId())));
+    }
+
+    @Test
+    @Order(4)
     @DisplayName("Create Product and test return object with it")
     void createProduct_whenValidObject_returnsStoredObject() {
         //Arrange
@@ -118,7 +132,7 @@ public class ProductRepositoriesTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     @DisplayName("Find by Product id and test with stored Product")
     void createProduct_whenValidObject_returnsFindById() {
         //Arrange
@@ -136,6 +150,14 @@ public class ProductRepositoriesTest {
         assertEquals(storedProduct.getName(), this.storedProduct.getName());
         assertEquals(storedProduct.getDesc(), this.storedProduct.getDesc());
         assertEquals(storedProduct.getPrice(), this.storedProduct.getPrice());
+    }
+
+    @Order(6)
+    @TestFactory
+    @DisplayName("exists ProductEntity if provided valid id")
+    Stream<DynamicTest> existsByIdFromStoredList_whenProvidedProductEntityId_ReturnExistedBoolean() {
+        return storeAllProductEntity.get().map(ProductEntity::getId)
+                .map(id -> DynamicTest.dynamicTest(String.format(" ProductEntity id %d", id), () -> assertTrue(productRepository.existsById(id))));
     }
 
 }

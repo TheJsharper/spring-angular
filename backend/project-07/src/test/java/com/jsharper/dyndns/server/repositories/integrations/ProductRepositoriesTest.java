@@ -227,5 +227,32 @@ public class ProductRepositoriesTest {
         return Stream.concat(stepOneStream, stepTwoStream);
     }
 
+    @Order(9)
+    @TestFactory
+    @DisplayName("deleteAll by entities when given ids must be valid verify by existsById")
+    Stream<DynamicTest> deleteByEntities_whenProvidedValidListOfIds_verifyFindById() {
+        //Arrange
+        Iterable<ProductEntity> iterator = getArguments().toList();
+
+        Supplier<Stream<ProductEntity>> storedIterator = () -> this.productRepository.saveAll(iterator).stream();
+
+        Supplier<Stream<ProductEntity>> stream = () -> StreamSupport.stream(iterator.spliterator(), false);
+
+        var pairs = StreamUtils.zip(storedIterator.get(), stream.get(), Pair::of);
+
+        var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
+
+        //Act
+
+        this.productRepository.deleteAll(stream.get().toList());
+
+        // Assert
+        var stepTwoStream = stream.get().map(p ->
+                DynamicTest.dynamicTest(String.format("ProductEntity Id %d not longer exist in DB", p.getId()),
+                        () -> assertFalse(this.productRepository.existsById(p.getId())))
+        );
+        return Stream.concat(stepOneStream, stepTwoStream);
+    }
+
 
 }

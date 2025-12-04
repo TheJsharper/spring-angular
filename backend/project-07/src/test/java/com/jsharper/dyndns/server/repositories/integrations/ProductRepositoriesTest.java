@@ -3,6 +3,7 @@ package com.jsharper.dyndns.server.repositories.integrations;
 import com.jsharper.dyndns.server.entities.ProductEntity;
 import com.jsharper.dyndns.server.repositories.ProductRepository;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.util.Pair;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static java.lang.String.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -48,22 +50,7 @@ public class ProductRepositoriesTest {
 
         var pairs = StreamUtils.zip(storedIterator.get(), stream, Pair::of);
 
-        var breakLine = System.lineSeparator();
-
-        return pairs.map(p ->
-                DynamicTest.dynamicTest(String.format("First Name %s second Name %s" + breakLine
-                                        + " First description %s Second Description %s" + breakLine
-                                        + "First price %f Second price %f",
-                                p.getFirst().getName(), p.getSecond().getName(),
-                                p.getFirst().getDesc(), p.getSecond().getDesc(),
-                                p.getFirst().getPrice(), p.getSecond().getPrice()
-                        ),
-                        () -> {
-                            assertEquals(p.getFirst().getName(), p.getSecond().getName());
-                            assertEquals(p.getFirst().getDesc(), p.getSecond().getDesc());
-                            assertEquals(p.getFirst().getPrice(), p.getSecond().getPrice());
-                        }
-                ));
+        return pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
 
     }
 
@@ -83,22 +70,27 @@ public class ProductRepositoriesTest {
 
         var pairs = StreamUtils.zip(this.storeAllProductEntity.get(), stream, Pair::of);
 
-        var breakLine = System.lineSeparator();
 
-        return pairs.map(p ->
-                DynamicTest.dynamicTest(String.format("First Name %s second Name %s" + breakLine
-                                        + " First description %s Second Description %s" + breakLine
-                                        + "First price %f Second price %f",
-                                p.getFirst().getName(), p.getSecond().getName(),
-                                p.getFirst().getDesc(), p.getSecond().getDesc(),
-                                p.getFirst().getPrice(), p.getSecond().getPrice()
-                        ),
-                        () -> {
-                            assertEquals(p.getFirst().getName(), p.getSecond().getName());
-                            assertEquals(p.getFirst().getDesc(), p.getSecond().getDesc());
-                            assertEquals(p.getFirst().getPrice(), p.getSecond().getPrice());
-                        }
-                ));
+        return pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
+    }
+
+    private Executable assertEqualProductEntity(Pair<ProductEntity, ProductEntity> p) {
+        return () -> {
+            assertEquals(p.getFirst().getName(), p.getSecond().getName());
+            assertEquals(p.getFirst().getDesc(), p.getSecond().getDesc());
+            assertEquals(p.getFirst().getPrice(), p.getSecond().getPrice());
+        };
+    }
+
+    private String getEqualTwoProductEntities(Pair<ProductEntity, ProductEntity> p) {
+        var breakLine = System.lineSeparator();
+        return format("First Name %s second Name %s" + breakLine
+                        + " First description %s Second Description %s" + breakLine
+                        + "First price %f Second price %f",
+                p.getFirst().getName(), p.getSecond().getName(),
+                p.getFirst().getDesc(), p.getSecond().getDesc(),
+                p.getFirst().getPrice(), p.getSecond().getPrice()
+        );
     }
 
     @Order(3)
@@ -195,7 +187,9 @@ public class ProductRepositoriesTest {
     @DisplayName("delete by id when given id must be valid")
     void delete_whenProvidedProductEntity_verifyFindById() {
         //Arrange
+
         var deletingEntity = this.storeAllProductEntity.get().findFirst().orElseThrow();
+
         // Act
         this.productRepository.delete(deletingEntity);
 
@@ -206,6 +200,32 @@ public class ProductRepositoriesTest {
 
     }
 
+    @Order(9)
+    @TestFactory
+    @DisplayName("delete by ids when given ids must be valid verify by existsById")
+    Stream<DynamicTest> deleteByIds_whenProvidedValidListOfIds_verifyFindById() {
+        //Arrange
+        Iterable<ProductEntity> iterator = getArguments().toList();
+
+        Supplier<Stream<ProductEntity>> storedIterator = () -> this.productRepository.saveAll(iterator).stream();
+
+        Supplier<Stream<ProductEntity>> stream = () -> StreamSupport.stream(iterator.spliterator(), false);
+
+        var pairs = StreamUtils.zip(storedIterator.get(), stream.get(), Pair::of);
+
+        var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
+
+        //Act
+
+        this.productRepository.deleteAllById(stream.get().map(ProductEntity::getId).toList());
+
+        // Assert
+        var stepTwoStream = stream.get().map(p ->
+                DynamicTest.dynamicTest(String.format("ProductEntity Id %d not longer exist in DB", p.getId()),
+                        () -> assertFalse(this.productRepository.existsById(p.getId())))
+        );
+        return Stream.concat(stepOneStream, stepTwoStream);
+    }
 
 
 }

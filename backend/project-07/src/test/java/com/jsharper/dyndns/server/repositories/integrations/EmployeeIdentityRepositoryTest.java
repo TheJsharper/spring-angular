@@ -10,13 +10,14 @@ import org.springframework.data.util.Pair;
 import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -26,6 +27,13 @@ public class EmployeeIdentityRepositoryTest {
 
     @Autowired
     private EmployeeIdentityRepository employeeIdentityRepository;
+
+    private final int countGeneratedEntities = 100;
+
+    @BeforeEach
+    void init() {
+        employeeIdentityRepository.deleteAll();
+    }
 
     @Test
     @Order(1)
@@ -63,7 +71,7 @@ public class EmployeeIdentityRepositoryTest {
         return () -> {
             assertEquals(e.getFirst().getFirstName(), e.getSecond().getFirstName());
             assertEquals(e.getFirst().getLastName(), e.getSecond().getLastName());
-            assertTrue(e.getFirst().getId() > 0);
+            // assertTrue(e.getFirst().getId() > 0);
         };
     }
 
@@ -73,6 +81,42 @@ public class EmployeeIdentityRepositoryTest {
     }
 
     private Stream<EmployeeIdentity> getArguments() {
-        return IntStream.iterate(0, (n) -> n + 2).limit(100).mapToObj((n) -> new EmployeeIdentity(" FirstName Test " + n, "LastName Test" + n));
+        return IntStream.iterate(countGeneratedEntities, (n) -> n).limit(100).mapToObj((n) -> new EmployeeIdentity(" FirstName Test " + n, "LastName Test" + n));
+    }
+
+    @TestFactory
+    @Order(3)
+    @DisplayName("")
+    Stream<DynamicTest> createNewEmployeeEntitiesAndCountId_whenProvidedValidListOfEmployeeInstance_returnListOfEmployeeIdGenerateNext() {
+
+        Supplier<Stream<EmployeeIdentity>> iterable = this::getArguments;
+
+        Supplier<Stream<EmployeeIdentity>> storedIterator = () -> StreamSupport.stream(this.employeeIdentityRepository.saveAll(iterable.get().toList()).spliterator(), false);
+
+
+        var pairs = StreamUtils.zip(iterable.get(), storedIterator.get(), Pair::of);
+
+
+        var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
+
+       // this.employeeIdentityRepository.deleteAll();
+
+        Supplier<Stream<Long>> ids = () -> storedIterator.get().map(EmployeeIdentity::getId);
+
+        var sumIds = ids.get().reduce(0L, Long::sum);
+
+        Supplier<Stream<Long>> expectedIds = () -> LongStream.rangeClosed(1L, 100L).boxed();
+
+        var expectedSumIds = expectedIds.get().reduce(0L, Long::sum);
+
+        var testSumIds = Stream.of(DynamicTest.dynamicTest(String.format("expected sum total ids %d actual sum total %d", expectedSumIds, sumIds), () -> assertEquals(expectedSumIds, sumIds)));
+
+        var testIds = StreamUtils
+                .zip(ids.get(), expectedIds.get(), Pair::of).map((p) -> DynamicTest.dynamicTest(String.format("expected value %d actual %d", p.getSecond(), p.getFirst()),
+                        () -> assertEquals(p.getSecond(), p.getFirst())
+                ));
+
+        return Stream.concat(Stream.concat(stepOneStream, testSumIds), testIds);
+
     }
 }

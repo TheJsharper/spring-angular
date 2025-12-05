@@ -99,7 +99,7 @@ public class EmployeeIdentityRepositoryTest {
 
         var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
 
-       // this.employeeIdentityRepository.deleteAll();
+        // this.employeeIdentityRepository.deleteAll();
 
         Supplier<Stream<Long>> ids = () -> storedIterator.get().map(EmployeeIdentity::getId);
 

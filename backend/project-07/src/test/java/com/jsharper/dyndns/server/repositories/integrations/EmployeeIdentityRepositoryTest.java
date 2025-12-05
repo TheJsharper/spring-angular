@@ -1,7 +1,6 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
 import com.jsharper.dyndns.server.entities.EmployeeIdentity;
-import com.jsharper.dyndns.server.entities.ProductEntity;
 import com.jsharper.dyndns.server.repositories.EmployeeIdentityRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
@@ -16,7 +15,8 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -69,18 +69,10 @@ public class EmployeeIdentityRepositoryTest {
 
     private String getEqualTwoProductEntities(Pair<EmployeeIdentity, EmployeeIdentity> e) {
         var breakLine = System.lineSeparator();
-        return format("First FirstName %s second FirstName %s" + breakLine
-                        + " First LastName %s Second LastName %s" + breakLine
-                        + "First id %d Second id %d",
-                e.getFirst().getFirstName(), e.getSecond().getFirstName(),
-                e.getFirst().getLastName(), e.getSecond().getLastName(),
-                e.getFirst().getId(), e.getSecond().getId()
-        );
+        return format("First FirstName %s second FirstName %s" + breakLine + " First LastName %s Second LastName %s" + breakLine + "First id %d Second id %d", e.getFirst().getFirstName(), e.getSecond().getFirstName(), e.getFirst().getLastName(), e.getSecond().getLastName(), e.getFirst().getId(), e.getSecond().getId());
     }
 
     private Stream<EmployeeIdentity> getArguments() {
-        return IntStream.iterate(0, (n) -> n + 2)
-                .limit(100)
-                .mapToObj((n) -> new EmployeeIdentity(" FirstName Test " + n, "LastName Test" + n));
+        return IntStream.iterate(0, (n) -> n + 2).limit(100).mapToObj((n) -> new EmployeeIdentity(" FirstName Test " + n, "LastName Test" + n));
     }
 }

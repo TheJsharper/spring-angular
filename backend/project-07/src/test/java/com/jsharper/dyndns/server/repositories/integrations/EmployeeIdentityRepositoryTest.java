@@ -54,7 +54,7 @@ public class EmployeeIdentityRepositoryTest {
 
     @TestFactory
     @Order(2)
-    @DisplayName("")
+    @DisplayName("Create new entities if provided valid list of employee entities return list of employee entities id generated next")
     Stream<DynamicTest> createNewEmployeeEntities_whenProvidedValidListOfEmployeeEntities_returnsListOfEmployeeEntityIdGeneratedNext() {
         var iterable = getArguments().toList();
 
@@ -86,12 +86,15 @@ public class EmployeeIdentityRepositoryTest {
 
     @TestFactory
     @Order(3)
-    @DisplayName("")
+    @DisplayName("create new employee and count id if provided valid list of employee instance return list of employee id generated next")
     Stream<DynamicTest> createNewEmployeeEntitiesAndCountId_whenProvidedValidListOfEmployeeInstance_returnListOfEmployeeIdGenerateNext() {
 
         Supplier<Stream<EmployeeIdentity>> iterable = this::getArguments;
 
-        Supplier<Stream<EmployeeIdentity>> storedIterator = () -> StreamSupport.stream(this.employeeIdentityRepository.saveAll(iterable.get().toList()).spliterator(), false);
+        var iterator = this.employeeIdentityRepository.saveAll(iterable.get().toList());
+
+
+        Supplier<Stream<EmployeeIdentity>> storedIterator = () -> StreamSupport.stream(iterator.spliterator(), false);
 
 
         var pairs = StreamUtils.zip(iterable.get(), storedIterator.get(), Pair::of);
@@ -99,24 +102,25 @@ public class EmployeeIdentityRepositoryTest {
 
         var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
 
-        // this.employeeIdentityRepository.deleteAll();
 
-        Supplier<Stream<Long>> ids = () -> storedIterator.get().map(EmployeeIdentity::getId);
+        var values = storedIterator.get().toArray(EmployeeIdentity[]::new);
 
-        var sumIds = ids.get().reduce(0L, Long::sum);
 
-        Supplier<Stream<Long>> expectedIds = () -> LongStream.rangeClosed(1L, 100L).boxed();
+        Supplier<LongStream> keys = () -> IntStream.range(0, values.length)
 
-        var expectedSumIds = expectedIds.get().reduce(0L, Long::sum);
+                .mapToLong(index -> index + 1 < values.length ? Math.abs(values[index + 1].getId()) - values[index].getId() : 9999)
+                .filter(v -> v != 9999);
 
-        var testSumIds = Stream.of(DynamicTest.dynamicTest(String.format("expected sum total ids %d actual sum total %d", expectedSumIds, sumIds), () -> assertEquals(expectedSumIds, sumIds)));
+        var min = keys.get().min().orElseThrow();
+        var max = keys.get().min().orElseThrow();
 
-        var testIds = StreamUtils
-                .zip(ids.get(), expectedIds.get(), Pair::of).map((p) -> DynamicTest.dynamicTest(String.format("expected value %d actual %d", p.getSecond(), p.getFirst()),
-                        () -> assertEquals(p.getSecond(), p.getFirst())
-                ));
 
-        return Stream.concat(Stream.concat(stepOneStream, testSumIds), testIds);
+        var maxDynamicTest = DynamicTest.dynamicTest(String.format("Max generated id value is %d equals to %d", 1, max), () -> Assertions.assertEquals(1, max));
 
+        var minDynamicTest = DynamicTest.dynamicTest(String.format("Min generated id value is %d equals to %d", 1, min), () -> Assertions.assertEquals(1, min));
+
+        var stepTwo = Stream.of(maxDynamicTest, minDynamicTest);
+
+        return Stream.concat(stepOneStream, stepTwo);
     }
 }

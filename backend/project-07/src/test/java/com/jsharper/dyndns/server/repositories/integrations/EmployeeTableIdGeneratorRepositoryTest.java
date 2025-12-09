@@ -1,6 +1,5 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
-import com.jsharper.dyndns.server.entities.EmployeeIdentity;
 import com.jsharper.dyndns.server.entities.EmployeeTableIdGenerator;
 import com.jsharper.dyndns.server.repositories.EmployeeTableIdGeneratorRepository;
 import org.junit.jupiter.api.*;

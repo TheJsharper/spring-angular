@@ -112,6 +112,7 @@ public class EmployeeIdentityRepositoryTest {
                 .filter(v -> v != 9999);
 
         var min = keys.get().min().orElseThrow();
+
         var max = keys.get().min().orElseThrow();
 
 

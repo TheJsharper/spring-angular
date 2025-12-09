@@ -1,5 +1,6 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
+import com.jsharper.dyndns.server.entities.EmployeeIdentity;
 import com.jsharper.dyndns.server.entities.EmployeeTableIdGenerator;
 import com.jsharper.dyndns.server.repositories.EmployeeTableIdGeneratorRepository;
 import org.junit.jupiter.api.*;
@@ -12,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -63,6 +65,47 @@ public class EmployeeTableIdGeneratorRepositoryTest {
         //Asserts
         return pairs.map(e -> DynamicTest.dynamicTest(getEqualTwoProductEntities(e), assertEqualProductEntity(e)));
 
+
+    }
+
+    @TestFactory
+    @Order(3)
+    @DisplayName("check id generate and create employee table id generator entities if provided list of entities return stored entities ")
+    Stream<DynamicTest> checkAndCreateEmployeeTableIdGeneratorEntities_whenProvidedEmployeeEntities_returnStoredEntitiesIterable() {
+
+        //Arrange
+        Supplier<Stream<EmployeeTableIdGenerator>> entities = this::getArguments;
+
+        //Act
+        Supplier<Iterable<EmployeeTableIdGenerator>> storeEntities = () -> er.saveAll(entities.get().toList());
+
+        Supplier<Stream<EmployeeTableIdGenerator>> stream = () -> StreamSupport.stream(storeEntities.get().spliterator(), false);
+
+        var pairs = StreamUtils.zip(entities.get(), stream.get(), Pair::of);
+
+        //Assert
+        var stepOneStream = pairs.map(p -> DynamicTest.dynamicTest(getEqualTwoProductEntities(p), assertEqualProductEntity(p)));
+
+
+        var values = stream.get().toArray(EmployeeTableIdGenerator[]::new);
+
+
+        Supplier<LongStream> keys = () -> IntStream.range(0, values.length)
+
+                .mapToLong(index -> index + 1 < values.length ? Math.abs(values[index + 1].getId()) - values[index].getId() : 9999)
+                .filter(v -> v != 9999);
+
+        var min = keys.get().min().orElseThrow();
+
+        var max = keys.get().min().orElseThrow();
+
+        var maxDynamicTest = DynamicTest.dynamicTest(String.format("Max generated id value is %d equals to %d", 1, max), () -> Assertions.assertEquals(1, max));
+
+        var minDynamicTest = DynamicTest.dynamicTest(String.format("Min generated id value is %d equals to %d", 1, min), () -> Assertions.assertEquals(1, min));
+
+        var stepTwo = Stream.of(maxDynamicTest, minDynamicTest);
+        //Asserts
+        return Stream.concat(stepOneStream, stepTwo);
     }
 
     private Executable assertEqualProductEntity(Pair<EmployeeTableIdGenerator, EmployeeTableIdGenerator> e) {

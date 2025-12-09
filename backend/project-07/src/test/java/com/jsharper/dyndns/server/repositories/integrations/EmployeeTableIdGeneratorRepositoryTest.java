@@ -60,7 +60,7 @@ public class EmployeeTableIdGeneratorRepositoryTest {
         var stream = StreamSupport.stream(storeEntities.spliterator(), false);
 
         var pairs = StreamUtils.zip(entities.get(), stream, Pair::of);
-
+        //Asserts
         return pairs.map(e -> DynamicTest.dynamicTest(getEqualTwoProductEntities(e), assertEqualProductEntity(e)));
 
     }

@@ -1,16 +1,34 @@
 package com.jsharper.dyndns.server.entities.gen;
 
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.IdentifierGenerator;
+import org.hibernate.generator.BeforeExecutionGenerator;
+import org.hibernate.generator.EventType;
 
-import java.io.Serializable;
-import java.util.Random;
+import java.util.EnumSet;
 
-public class CustomRandomIDGenerator implements IdentifierGenerator {
+import static org.hibernate.generator.EventTypeSets.INSERT_ONLY;
+
+public class CustomRandomIDGenerator implements BeforeExecutionGenerator {
+    @Override
+    public Object generate(SharedSessionContractImplementor session, Object owner, Object currentValue, EventType eventType) {
+        final var criteriaBuilder = session.getCriteriaBuilder();
+
+        final var query = criteriaBuilder.createQuery(Long.class);
+
+        final var baseRoot = query.from(owner.getClass());
+
+        final CriteriaQuery<Long> r = query.select(criteriaBuilder.count(baseRoot));
+
+        final Long currentCount = session.createSelectionQuery(r).getSingleResult();
+
+        return currentCount == 0 ? 1 : currentCount * 150;
+    }
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object) {
-        var random = new Random();
-        return random.nextLong(1_000_000_000L);
+    public EnumSet<EventType> getEventTypes() {
+        return INSERT_ONLY;
     }
+
+
 }

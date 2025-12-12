@@ -1,25 +1,25 @@
 package com.jsharper.dyndns.server.entities;
 
-import jakarta.persistence.*;
+import com.jsharper.dyndns.server.entities.gen.CustomIdGenerator;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-public class EmployeeTableIdGenerator {
-
-    @TableGenerator(name = "employee_gen", table = "id_gen", pkColumnName = "gen_name", valueColumnName = "gen_value", allocationSize = 100, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "employee_gen")
+public class EmployeeGenericGenerator {
     @Id
+    @CustomIdGenerator(name = "THE_SEQUENCE_NAME")
     private Long id;
 
     private String firstName;
 
     private String lastName;
 
-    public EmployeeTableIdGenerator(String firstName, String lastName) {
+    public EmployeeGenericGenerator(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public EmployeeTableIdGenerator() {
+    public EmployeeGenericGenerator() {
     }
 
     public Long getId() {
@@ -48,7 +48,7 @@ public class EmployeeTableIdGenerator {
 
     @Override
     public String toString() {
-        return "EmployeeTableIdGenerator{" +
+        return "EmployeeGenericGenerator{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

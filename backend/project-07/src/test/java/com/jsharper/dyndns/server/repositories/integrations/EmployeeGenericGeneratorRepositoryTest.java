@@ -71,7 +71,7 @@ public class EmployeeGenericGeneratorRepositoryTest {
 
     @TestFactory
     @Order(3)
-    @DisplayName("")
+    @DisplayName("check new if provided list of employee instances and return list of employee generator by distance ")
     Stream<DynamicTest> checkNewEntities_whenProvidedValidListOfEmployeeInstance_returnListOfEmployeeIdGeneratorBy150() {
 
         Supplier<Stream<EmployeeGenericGenerator>> iterable = this::getArguments;

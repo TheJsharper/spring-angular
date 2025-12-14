@@ -1,8 +1,6 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
-import com.jsharper.dyndns.server.entities.uuid.generators.EmployeeUUIDGenerator;
 import com.jsharper.dyndns.server.entities.uuid.generators.EmployeeUUIDGeneratorStyleTime;
-import com.jsharper.dyndns.server.repositories.EmployeeUUIDGeneratorRepository;
 import com.jsharper.dyndns.server.repositories.EmployeeUUIDGeneratorStyleTimeRepository;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.*;
@@ -62,7 +60,7 @@ public class EmployeeUUIDGeneratorStyleTimeTest {
 
     }
 
-    private Executable assertEqualProductEntity(Pair< @Nullable EmployeeUUIDGeneratorStyleTime, @Nullable EmployeeUUIDGeneratorStyleTime> e) {
+    private Executable assertEqualProductEntity(Pair<@Nullable EmployeeUUIDGeneratorStyleTime, @Nullable EmployeeUUIDGeneratorStyleTime> e) {
         return () -> {
             assertEquals(e.getFirst().getFirstName(), e.getSecond().getFirstName());
             assertEquals(e.getFirst().getLastName(), e.getSecond().getLastName());

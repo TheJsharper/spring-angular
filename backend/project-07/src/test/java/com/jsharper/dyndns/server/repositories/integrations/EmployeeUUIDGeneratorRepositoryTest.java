@@ -1,7 +1,7 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
-import com.jsharper.dyndns.server.entities.uuid.EmployeeStyleUUID;
-import com.jsharper.dyndns.server.repositories.EmployeeStyleUUIDRepository;
+import com.jsharper.dyndns.server.entities.uuid.generators.EmployeeUUIDGenerator;
+import com.jsharper.dyndns.server.repositories.EmployeeUUIDGeneratorRepository;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
@@ -24,35 +24,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class EmployeeStyleUUIDRepositoryTest {
+public class EmployeeUUIDGeneratorRepositoryTest {
 
     @Autowired
-    private EmployeeStyleUUIDRepository er;
+    private EmployeeUUIDGeneratorRepository er;
 
     @Test
     @Order(1)
-    @DisplayName("create new employeeStyleUUID instance entity if provided employeeStyleUUID entity instance return stored Employee StyleUUID Entity")
-    void createNewEmployeeStyleUUID_whenProvidedEmployeeStyleUUID_returnStoreEmployeeStyleUUID() {
-        var employee = new EmployeeStyleUUID("Test FirstName", "Test LastName");
+    @DisplayName("create new UUIDGenerator instance entity if provided UUIDGenerator entity instance return stored Employee StyleUUID Entity")
+    void createNewUUIDGenerator_whenProvidedUUIDGenerator_returnStoreUUIDGenerator() {
+        var employee = new EmployeeUUIDGenerator("Test FirstName", "Test LastName");
 
         var storedEmployee = er.save(employee);
 
         Assertions.assertEquals(employee.getFirstName(), storedEmployee.getFirstName());
         Assertions.assertEquals(employee.getLastName(), storedEmployee.getLastName());
-        Assertions.assertNotNull(storedEmployee.getId());
-        Assertions.assertInstanceOf(UUID.class,  storedEmployee.getId());
-        System.out.println(employee+"\n"+ storedEmployee);
+        Assertions.assertNotNull(employee.getId());
+        Assertions.assertInstanceOf(UUID.class, employee.getId());
+        Assertions.assertEquals(4, employee.getId().version());
     }
 
     @TestFactory
     @Order(2)
-    @DisplayName("create List Of New Employee if ProvidedNewEmployeeStyleUUID Instance and then return StoreEntitiesOfEmployeeStyleUUID")
-    Stream<DynamicTest> createListOfNewEmployee_whenProvidedNewEmployeeStyleUUIDInstance_returnStoreEntitiesOfEmployeeStyleUUID() {
-        Supplier<Stream<EmployeeStyleUUID>> supplier = this::getArguments;
+    @DisplayName("create List Of New Employee if ProvidedNewUUIDGenerator Instance and then return StoreEntitiesOfUUIDGenerator")
+    Stream<DynamicTest> createListOfNewEmployee_whenProvidedNewUUIDGeneratorInstance_returnStoreEntitiesOfUUIDGenerator() {
+        Supplier<Stream<EmployeeUUIDGenerator>> supplier = this::getArguments;
 
-        Supplier<Iterable<EmployeeStyleUUID>> iterableSupplier = () -> er.saveAll(supplier.get().toList());
+        Supplier<Iterable<EmployeeUUIDGenerator>> iterableSupplier = () -> er.saveAll(supplier.get().toList());
 
-        Supplier<Stream<EmployeeStyleUUID>> storeIterable = () -> StreamSupport.stream(iterableSupplier.get().spliterator(), false);
+        Supplier<Stream<EmployeeUUIDGenerator>> storeIterable = () -> StreamSupport.stream(iterableSupplier.get().spliterator(), false);
 
         var pairs = StreamUtils.zip(supplier.get(), storeIterable.get(), Pair::of);
 
@@ -60,21 +60,22 @@ public class EmployeeStyleUUIDRepositoryTest {
 
     }
 
-    private Executable assertEqualProductEntity(Pair< @Nullable  EmployeeStyleUUID, @Nullable EmployeeStyleUUID> e) {
+    private Executable assertEqualProductEntity(Pair< @Nullable EmployeeUUIDGenerator, @Nullable EmployeeUUIDGenerator> e) {
         return () -> {
             assertEquals(e.getFirst().getFirstName(), e.getSecond().getFirstName());
             assertEquals(e.getFirst().getLastName(), e.getSecond().getLastName());
-            // assertTrue(e.getFirst().getId() > 0);
+            Assertions.assertInstanceOf(UUID.class, e.getSecond().getId());
+            Assertions.assertEquals(4, e.getSecond().getId().version());
         };
     }
 
-    private String getEqualTwoProductEntities(Pair<EmployeeStyleUUID, EmployeeStyleUUID> e) {
+    private String getEqualTwoProductEntities(Pair<EmployeeUUIDGenerator, EmployeeUUIDGenerator> e) {
         var breakLine = System.lineSeparator();
         return format("First FirstName %s second FirstName %s" + breakLine + " First LastName %s Second LastName %s" + breakLine + "First id %s Second id %s", e.getFirst().getFirstName(), e.getSecond().getFirstName(), e.getFirst().getLastName(), e.getSecond().getLastName(), e.getFirst().getId(), e.getSecond().getId());
     }
 
-    private Stream<EmployeeStyleUUID> getArguments() {
+    private Stream<EmployeeUUIDGenerator> getArguments() {
         return IntStream.iterate(1, (next) -> next++).limit(100)
-                .mapToObj((index) -> new EmployeeStyleUUID(" Test FirstName : " + index, " Test LastName: " + index));
+                .mapToObj((index) -> new EmployeeUUIDGenerator(" Test FirstName : " + index, " Test LastName: " + index));
     }
 }

@@ -1,35 +1,32 @@
-package com.jsharper.dyndns.server.entities;
+package com.jsharper.dyndns.server.entities.uuid;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.UUID;
-
 @Entity
-public class EmployeeStyleUUID {
+public class EmployeeUUIString {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     private String firstName;
-
     private String lastName;
 
-    public EmployeeStyleUUID(String firstName, String lastName) {
+    public EmployeeUUIString(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public EmployeeStyleUUID() {
+    public EmployeeUUIString() {
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,8 +48,8 @@ public class EmployeeStyleUUID {
 
     @Override
     public String toString() {
-        return "EmployeeStyleUUID{" +
-                "id=" + id +
+        return "EmployeeUUIString{" +
+                "id='" + id + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';

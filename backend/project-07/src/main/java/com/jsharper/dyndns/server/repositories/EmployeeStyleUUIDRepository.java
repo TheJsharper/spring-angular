@@ -1,6 +1,6 @@
 package com.jsharper.dyndns.server.repositories;
 
-import com.jsharper.dyndns.server.entities.EmployeeStyleUUID;
+import com.jsharper.dyndns.server.entities.uuid.EmployeeStyleUUID;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;

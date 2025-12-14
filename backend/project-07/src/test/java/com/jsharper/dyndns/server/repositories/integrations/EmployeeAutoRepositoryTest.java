@@ -1,7 +1,6 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
 import com.jsharper.dyndns.server.entities.EmployeeAuto;
-import com.jsharper.dyndns.server.entities.EmployeeIdentity;
 import com.jsharper.dyndns.server.repositories.EmployeeAutoRepository;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;

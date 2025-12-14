@@ -1,6 +1,5 @@
 package com.jsharper.dyndns.server.repositories.integrations;
 
-import com.jsharper.dyndns.server.entities.EmployeeSequence;
 import com.jsharper.dyndns.server.entities.EmployeeUUIString;
 import com.jsharper.dyndns.server.repositories.EmployeeUUIStringRepository;
 import org.junit.jupiter.api.*;

@@ -1,0 +1,202 @@
+[
+  {
+    "name": "BubbleGrip Safety Gloves",
+    "desc": "Textured nitrile gloves with bubble-pattern grip for superior handling in wet or oily conditions.",
+    "price": 58.90
+  },
+  {
+    "name": "BuzzCut Rotary Tool",
+    "desc": "High-speed multi-tool for engraving, sanding, and cutting with 120 accessories included.",
+    "price": 139.99
+  },
+  {
+    "name": "DripperPro Oil Dispenser",
+    "desc": "Precision stainless steel oil dispenser with drip-free spout for workshop lubrication tasks.",
+    "price": 64.50
+  },
+  {
+    "name": "FuzzBall Dust Collector",
+    "desc": "Compact vacuum attachment that captures fine dust from sanders and grinders.",
+    "price": 89.75
+  },
+  {
+    "name": "Gripper Jaw Clamp Set",
+    "desc": "Heavy-duty parallel jaw clamps with non-marring pads for woodworking and assembly.",
+    "price": 198.00
+  },
+  {
+    "name": "Hammertop Nail Setter",
+    "desc": "Ergonomic nail set with magnetic tip and shock-absorbing hammer cap.",
+    "price": 52.30
+  },
+  {
+    "name": "JellyTape Measuring Reel",
+    "desc": "330ft fiberglass tape measure with jelly-coated casing for impact resistance.",
+    "price": 127.40
+  },
+  {
+    "name": "KnobTec Adjustment Tool",
+    "desc": "Precision knob tuner for machinery calibration with torque feedback.",
+    "price": 106.80
+  },
+  {
+    "name": "LadderLoop Safety Hook",
+    "desc": "Adjustable hook system to secure extension ladders on roofs or scaffolds.",
+    "price": 142.25
+  },
+  {
+    "name": "MalletMax Rubber Hammer",
+    "desc": "Dual-density rubber mallet for assembly without surface damage.",
+    "price": 73.60
+  },
+  {
+    "name": "NuzzleBit Drill Adapter",
+    "desc": "Magnetic quick-change bit holder with 360° swivel for tight spaces.",
+    "price": 59.95
+  },
+  {
+    "name": "PaddlePro Mixing Tool",
+    "desc": "Heavy-duty drill attachment for mixing paint, epoxy, and joint compound.",
+    "price": 84.20
+  },
+  {
+    "name": "QuiltWrap Tool Pouch",
+    "desc": "Padded multi-pocket tool belt with quilted lining to protect delicate instruments.",
+    "price": 97.50
+  },
+  {
+    "name": "RattleBox Socket Organizer",
+    "desc": "Stackable socket rail system that prevents rattling and keeps sockets sorted.",
+    "price": 115.00
+  },
+  {
+    "name": "SprocketSnap Chain Tool",
+    "desc": "Bike and light machinery chain breaker with quick-release sprocket alignment.",
+    "price": 68.40
+  },
+  {
+    "name": "TrolleyTote Mobile Cart",
+    "desc": "3-shelf steel utility cart with lockable casters for tool transport.",
+    "price": 235.99
+  },
+  {
+    "name": "VibraGrip Torque Screwdriver",
+    "desc": "Vibration-dampening screwdriver with preset torque for sensitive electronics.",
+    "price": 162.75
+  },
+  {
+    "name": "WobbleBit Flex Adapter",
+    "desc": "1/4\" hex flex extension that wobbles up to 15° for angled fastener access.",
+    "price": 51.20
+  },
+  {
+    "name": "XtendArm Pick-Up Tool",
+    "desc": "36-inch telescoping grabber with LED light and triple-claw grip.",
+    "price": 79.90
+  },
+  {
+    "name": "ZigZag Level Marker",
+    "desc": "Laser-guided level that projects zigzag reference lines for tile and panel alignment.",
+    "price": 219.00
+  },
+  {
+    "name": "Adjustable Wrench Set",
+    "desc": "Durable chrome-vanadium steel wrench set with ergonomic grip for precise turning.",
+    "price": 68.50
+  },
+  {
+    "name": "Angle Grinder 4.5\"",
+    "desc": "Compact and powerful grinder for cutting, grinding, and polishing metal and stone.",
+    "price": 129.99
+  },
+  {
+    "name": "Cable Stripper Tool",
+    "desc": "Professional-grade tool for cleanly stripping insulation from electrical wires.",
+    "price": 54.75
+  },
+  {
+    "name": "Circuit Tester Pen",
+    "desc": "Non-contact voltage detector for safe electrical diagnostics.",
+    "price": 52.00
+  },
+  {
+    "name": "Clamp Meter Multimeter",
+    "desc": "Digital multimeter with current clamp for AC/DC voltage, resistance, and continuity tests.",
+    "price": 189.00
+  },
+  {
+    "name": "Cordless Screwdriver Kit",
+    "desc": "Lightweight rechargeable screwdriver with multiple torque settings and bit set.",
+    "price": 98.25
+  },
+  {
+    "name": "Drywall Saw",
+    "desc": "Sharp-pointed saw for clean cuts in drywall, plaster, and paneling.",
+    "price": 57.30
+  },
+  {
+    "name": "Electric Heat Gun",
+    "desc": "Versatile 1800W heat gun for paint removal, shrink wrapping, and bending plastics.",
+    "price": 144.95
+  },
+  {
+    "name": "Extension Cord 50ft",
+    "desc": "Heavy-duty 14-gauge extension cord with grounded outlets and weather-resistant cover.",
+    "price": 76.40
+  },
+  {
+    "name": "Folding Work Table",
+    "desc": "Portable steel workbench with clamp and tool storage for on-site projects.",
+    "price": 210.00
+  },
+  {
+    "name": "Hex Key Allen Wrench Set",
+    "desc": "Precision-machined L-shaped hex keys in SAE and metric sizes.",
+    "price": 51.99
+  },
+  {
+    "name": "Insulated Tool Kit",
+    "desc": "10-piece VDE-certified insulated screwdrivers and pliers for safe electrical work.",
+    "price": 199.50
+  },
+  {
+    "name": "Job Site Radio",
+    "desc": "Rugged AM/FM radio with Bluetooth, USB charging, and dust/water resistance.",
+    "price": 115.75
+  },
+  {
+    "name": "Laser Distance Measure",
+    "desc": "Accurate laser measurer for distances up to 100 ft with area and volume calculation.",
+    "price": 225.00
+  },
+  {
+    "name": "LED Headlamp Rechargeable",
+    "desc": "Hands-free lighting with adjustable beam and 5-hour runtime for dark workspaces.",
+    "price": 62.80
+  },
+  {
+    "name": "Magnetic Pickup Tool",
+    "desc": "Retractable telescoping tool with strong magnet to retrieve dropped metal parts.",
+    "price": 50.25
+  },
+  {
+    "name": "Pliers Set (3-Piece)",
+    "desc": "Includes needle-nose, lineman’s, and slip-joint pliers with comfort grips.",
+    "price": 84.60
+  },
+  {
+    "name": "Power Drill Bit Set",
+    "desc": "65-piece drill bit assortment for wood, metal, and masonry applications.",
+    "price": 132.99
+  },
+  {
+    "name": "Socket Wrench Ratchet Set",
+    "desc": "1/4\" and 3/8\" drive ratchet with 20 metric and SAE sockets in a durable case.",
+    "price": 178.40
+  },
+  {
+    "name": "Torque Wrench 1/2\"",
+    "desc": "Click-type torque wrench with dual scale (ft-lb/Nm) for precise fastening.",
+    "price": 245.00
+  }
+]

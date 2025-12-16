@@ -13,4 +13,10 @@ public interface ProductFinderRepository extends CrudRepository<ProductEntity, L
     List<ProductEntity> findByPriceGreaterThan(double price);
 
     List<ProductEntity> findByDescContains(String desc);
+
+    List<ProductEntity> findByPriceBetween(double price1, double price2);
+
+    List<ProductEntity> findByDescLike(String desc);
+
+    List<ProductEntity> findByIdIn(List<Long> ids);
 }

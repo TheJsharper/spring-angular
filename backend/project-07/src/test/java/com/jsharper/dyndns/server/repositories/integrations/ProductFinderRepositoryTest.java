@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.util.Pair;
+import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -143,6 +146,83 @@ public class ProductFinderRepositoryTest {
         return Stream.concat(stepOne, stepTwo);
     }
 
+    @TestFactory
+    @Order(5)
+    @DisplayName("find by product between prices if provided product between prices return found by product between prices")
+    Stream<DynamicTest> findByProductBetweenPrices_whenProvidedProductBetweenPrices_returnListOfProductFoundByPriceBetween() {
+
+        var price1 = 50.00d;
+
+        var price2 = 100.00d;
+
+        var result = er.findByPriceBetween(price1, price2);
+
+        var sizeTest = DynamicTest.dynamicTest(String.format("Result size %d", result.size()), () -> Assertions.assertFalse(result.isEmpty()));
+
+        var stepOne = Stream.of(sizeTest);
+
+        var stepTwo = result.stream().map(
+                (p) -> DynamicTest.dynamicTest(
+                        String.format("Parameter between Price1 %f and Price2  %f return price value %f", price1, price2, p.getPrice()),
+                        () -> Assertions.assertTrue(p.getPrice() >= price1 && p.getPrice() <= price2)
+
+                )
+        );
+        return Stream.concat(stepOne, stepTwo);
+    }
+
+
+    @TestFactory
+    @Order(6)
+    @DisplayName("find by product description like than  if provided description like return found by product description like")
+    Stream<DynamicTest> findByProductDescLike_whenProvidedProductDescLikeContains_returnListOfProductFoundByProductDescLike() {
+
+        var desc = "voltage";
+
+        var result = er.findByDescLike("%" + desc + "%");
+
+        var sizeTest = DynamicTest.dynamicTest(String.format("Result size %d", result.size()), () -> Assertions.assertFalse(result.isEmpty()));
+
+        var stepOne = Stream.of(sizeTest);
+
+        var stepTwo = result.stream().map(
+                (p) -> DynamicTest.dynamicTest(
+                        String.format("Parameter Price %s return price value %s", desc, p.getDesc()),
+                        () -> Assertions.assertTrue(p.getDesc().contains(desc))
+
+                )
+        );
+        return Stream.concat(stepOne, stepTwo);
+    }
+
+
+    @TestFactory
+    @Order(7)
+    @DisplayName("find by product by ids if provided list of ids prices return found by ids")
+    Stream<DynamicTest> findByProductByIds_whenProvidedProductListOfIds_returnListOfProductFoundByIds() {
+
+
+        var ids = Arrays.asList(1L, 2L, 3L, 4L, 5L);
+
+        var result = er.findByIdIn(ids);
+
+        var sizeTest = DynamicTest.dynamicTest(String.format("Result size %d", result.size()), () -> Assertions.assertFalse(result.isEmpty()));
+
+        var stepOne = Stream.of(sizeTest);
+
+        var resultIds = result.stream().map(ProductEntity::getId).toArray(Long[]::new);
+
+        var testIds = ids.toArray(Long[]::new);
+
+        var pairs = StreamUtils.zip(Arrays.stream(testIds), Arrays.stream(resultIds), Pair::of);
+
+        var formatted = pairs.map((p) -> String.format(" Parameter id = %d value id = %d", p.getFirst(), p.getSecond())).collect(Collectors.joining("\n"));
+
+
+        var stepTwo = Stream.of(DynamicTest.dynamicTest(formatted, () -> Assertions.assertArrayEquals(testIds, resultIds)));
+
+        return Stream.concat(stepOne, stepTwo);
+    }
 
     private List<ProductEntity> getResource() throws IOException {
         var sources = resourceLoader.getResource("classpath:/products.json");

@@ -36,6 +36,10 @@ public class ProductRepositoriesTest {
     private final int countGeneratedEntities = 100;
 
 
+    @AfterAll
+    public void clean(){
+        productRepository.deleteAll();
+    }
     @TestFactory
     @Order(1)
     @DisplayName("create with saveAll(iterable) returns stored list ")

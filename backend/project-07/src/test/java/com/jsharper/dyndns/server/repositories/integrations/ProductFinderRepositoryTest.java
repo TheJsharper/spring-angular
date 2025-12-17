@@ -51,6 +51,10 @@ public class ProductFinderRepositoryTest {
         Assertions.assertTrue(products.get().findAny().isPresent());
     }
 
+    @AfterAll
+    public void cleanUp(){
+        er.deleteAll();
+    }
 
     @TestFactory
     @Order(1)

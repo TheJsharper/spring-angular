@@ -13,9 +13,13 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -52,14 +56,13 @@ public class ProductPageableAndSortableRepositoryTest {
     }
 
 
-
-
     @TestFactory
     @Order(1)
-    @DisplayName("find all paging and sorting if provided paging and sorting configuration as parameter return paged and sorted iterable products")
+    @DisplayName("find all paging  if provided paging configuration as parameter return paged iterable products")
     Stream<DynamicTest> findAllPaging_whenProvidedPagingAndSortingConfiguration_returnPagedAndSortedIterable() {
 
         Pageable p = PageRequest.of(0, 4);
+
         var result = er.findAll(p);
 
         var it = new ProductIterable(result, this.er);
@@ -77,6 +80,7 @@ public class ProductPageableAndSortableRepositoryTest {
                         Assertions.assertInstanceOf(Double.class, pp.getPrice());
                     }
             )).stream().toList().stream();
+
             var stepTwo = Stream.of(DynamicTest.dynamicTest(
                     String.format("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n TotalSize:%d\n PageNumber: %d\n pageSize: %d\n"
                             , product.getTotalPages(), product.getPageable().getPageNumber(), product.getPageable().getPageSize(),
@@ -90,6 +94,71 @@ public class ProductPageableAndSortableRepositoryTest {
                     }
             ));
             return Stream.concat(stepOne, stepTwo);
+        }));
+
+    }
+
+
+    @TestFactory
+    @Order(2)
+    @DisplayName("find all paging and sorting if provided paging and sorting configuration as parameter return paged and sorted iterable products")
+    Stream<DynamicTest> findAllPagingAndSorting_whenProvidedPagingAndSortingConfiguration_returnPagedAndSortedIterable() {
+
+        var initialPageNumber = 0;
+
+        var initialPageSize = 4;
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "name");
+
+        Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
+
+        var result = er.findAll(p);
+
+        this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
+
+        var manuallySorted = IntStream.range(0, this.inputProducts.size())
+                .boxed().collect(Collectors.groupingBy(i -> i / 4,
+                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList()
+                        )));
+
+        manuallySorted.forEach((key, values) -> {
+
+                    System.out.println("Key==>" + key);
+                    values.forEach(System.out::println);
+                }
+
+        );
+        var it = new ProductIterable(result, this.er);
+
+        var step = StreamSupport.stream(it.spliterator(), false);
+
+        return step.flatMap((product -> {
+            var stepOne = product.map((pp) -> DynamicTest.dynamicTest(
+                    String.format("Type of Id:%s Type of Name:%s Type of Price:%s Type of desc:%s",
+                            pp.getId().getClass().getName(), pp.getName().getClass().getName(), pp.getPrice().getClass().getName(), pp.getDesc().getClass().getName()),
+                    () -> {
+                        Assertions.assertInstanceOf(Long.class, pp.getId());
+                        Assertions.assertInstanceOf(String.class, pp.getName());
+                        Assertions.assertInstanceOf(String.class, pp.getDesc());
+                        Assertions.assertInstanceOf(Double.class, pp.getPrice());
+                    }
+            )).stream().toList().stream();
+
+            //   var stepTwo =
+
+            var stepThird = Stream.of(DynamicTest.dynamicTest(
+                    String.format("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n TotalSize:%d\n PageNumber: %d\n pageSize: %d\n"
+                            , product.getTotalPages(), product.getPageable().getPageNumber(), product.getPageable().getPageSize(),
+                            it.getTotalPages(), it.getPageNumber(), it.getPageSize()),
+                    () -> {
+
+                        Assertions.assertEquals(product.getPageable().getPageSize(), product.getSize());
+                        Assertions.assertEquals(it.getTotalPages(), product.getTotalPages());
+                        Assertions.assertEquals(it.getPageNumber(), product.getPageable().getPageNumber());
+                        Assertions.assertEquals(it.getPageSize(), product.getPageable().getPageSize());
+                    }
+            ));
+            return Stream.concat(stepOne, stepThird);
         }));
 
     }

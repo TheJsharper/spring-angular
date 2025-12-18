@@ -6,13 +6,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.test.context.ActiveProfiles;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
-import org.springframework.data.domain.Pageable;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +26,10 @@ import java.util.stream.StreamSupport;
 public class ProductPageableAndSortableRepositoryTest {
 
     @Autowired
-    public ProductPageableAndSortableRepository er;
+    private ProductPageableAndSortableRepository er;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
 
     private Supplier<Stream<ProductEntity>> products;
@@ -52,42 +52,48 @@ public class ProductPageableAndSortableRepositoryTest {
     }
 
 
-    @Autowired
-    private ResourceLoader resourceLoader;
 
 
-    /*@TestFactory*/
-    @Test
+    @TestFactory
     @Order(1)
     @DisplayName("find all paging and sorting if provided paging and sorting configuration as parameter return paged and sorted iterable products")
-    /*Stream<DynamicTest>*/ void findAllPaging_whenProvidedPagingAndSortingConfiguration_returnPagedAndSortedIterable() {
+    Stream<DynamicTest> findAllPaging_whenProvidedPagingAndSortingConfiguration_returnPagedAndSortedIterable() {
 
         Pageable p = PageRequest.of(0, 4);
         var result = er.findAll(p);
-       /* var s = StreamSupport.stream(result.spliterator(), false);
-        while (result.hasNext()) {
-            result.forEach(System.out::println);
-            result = er.findAll(result.nextOrLastPageable());
-            System.out.printf("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n"
-                    , result.getTotalPages(), result.getPageable().getPageNumber(), result.getPageable().getPageSize());
-        }*/
-        //result.forEach(System.out::println);
 
-        var it = new it(result, this.er);
-        var iterable = this.getIterablePage(it);
-        var step = StreamSupport.stream(iterable.spliterator(), false);
-        step.forEach(pp -> {
+        var it = new ProductIterable(result, this.er);
 
-            pp.forEach(System.out::println);
-            System.out.printf("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n"
-                    , pp.getTotalPages(), pp.getPageable().getPageNumber(), pp.getPageable().getPageSize());
-        });
+        var step = StreamSupport.stream(it.spliterator(), false);
+
+        return step.flatMap((product -> {
+            var stepOne = product.map((pp) -> DynamicTest.dynamicTest(
+                    String.format("Type of Id:%s Type of Name:%s Type of Price:%s Type of desc:%s",
+                            pp.getId().getClass().getName(), pp.getName().getClass().getName(), pp.getPrice().getClass().getName(), pp.getDesc().getClass().getName()),
+                    () -> {
+                        Assertions.assertInstanceOf(Long.class, pp.getId());
+                        Assertions.assertInstanceOf(String.class, pp.getName());
+                        Assertions.assertInstanceOf(String.class, pp.getDesc());
+                        Assertions.assertInstanceOf(Double.class, pp.getPrice());
+                    }
+            )).stream().toList().stream();
+            var stepTwo = Stream.of(DynamicTest.dynamicTest(
+                    String.format("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n TotalSize:%d\n PageNumber: %d\n pageSize: %d\n"
+                            , product.getTotalPages(), product.getPageable().getPageNumber(), product.getPageable().getPageSize(),
+                            it.getTotalPages(), it.getPageNumber(), it.getPageSize()),
+                    () -> {
+
+                        Assertions.assertEquals(product.getPageable().getPageSize(), product.getSize());
+                        Assertions.assertEquals(it.getTotalPages(), product.getTotalPages());
+                        Assertions.assertEquals(it.getPageNumber(), product.getPageable().getPageNumber());
+                        Assertions.assertEquals(it.getPageSize(), product.getPageable().getPageSize());
+                    }
+            ));
+            return Stream.concat(stepOne, stepTwo);
+        }));
 
     }
 
-    private Iterable<Page> getIterablePage(Iterator<Page> iterator) {
-        return () -> iterator;
-    }
 
     private List<ProductEntity> getResource() throws IOException {
         var sources = resourceLoader.getResource("classpath:/products.json");
@@ -98,22 +104,51 @@ public class ProductPageableAndSortableRepositoryTest {
 
 }
 
-class it implements Iterator<Page> {
-    private Page page;
+class ProductIterable implements Iterator<Page<ProductEntity>>, Iterable<Page<ProductEntity>> {
+    private Page<ProductEntity> page;
+    private int totalPages;
+    private int pageNumber;
+    private int pageSize;
     private ProductPageableAndSortableRepository er;
 
-    public it(Page page, ProductPageableAndSortableRepository er) {
+    public ProductIterable(Page page, ProductPageableAndSortableRepository er) {
         this.page = page;
         this.er = er;
+        this.totalPages = page.getTotalPages();
+        this.pageNumber = page.getNumber();
+        this.pageSize = page.getSize();
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public int getPageSize() {
+        return pageSize;
     }
 
     @Override
     public boolean hasNext() {
+        this.totalPages++;
         return page.hasNext();
     }
 
     @Override
     public Page next() {
-        return er.findAll(this.page.nextOrLastPageable());
+        var returnValue = this.page;
+        this.pageSize = this.page.getSize();
+        this.totalPages = this.page.getTotalPages();
+        this.pageNumber = this.page.getNumber();
+        this.page = er.findAll(this.page.nextOrLastPageable());
+        return returnValue;
+    }
+
+    @Override
+    public Iterator<Page<ProductEntity>> iterator() {
+        return this;
     }
 }

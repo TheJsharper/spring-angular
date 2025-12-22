@@ -7,16 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.*;
+import org.springframework.data.util.Pair;
+import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -108,7 +107,7 @@ public class ProductPageableAndSortableRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.DESC, "name");
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
@@ -116,24 +115,29 @@ public class ProductPageableAndSortableRepositoryTest {
 
         this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
 
-        var manuallySorted = IntStream.range(0, this.inputProducts.size())
+        Supplier<Stream<ProductEntity>>  manuallySorted = ()-> IntStream.range(0, this.inputProducts.size())
                 .boxed().collect(Collectors.groupingBy(i -> i / 4,
                         Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList()
-                        )));
+                        ))).values().stream().flatMap(Collection::stream);
 
-        manuallySorted.forEach((key, values) -> {
+        /*manuallySorted.forEach((key, values) -> {
 
                     System.out.println("Key==>" + key);
                     values.forEach(System.out::println);
                 }
 
-        );
+        );*/
         var it = new ProductIterable(result, this.er);
 
         var step = StreamSupport.stream(it.spliterator(), false);
 
         return step.flatMap((product -> {
-            var stepOne = product.map((pp) -> DynamicTest.dynamicTest(
+
+            Supplier<Stream<ProductEntity>> s = product::stream;
+
+
+
+            var stepOne = s.get().map((pp) -> DynamicTest.dynamicTest(
                     String.format("Type of Id:%s Type of Name:%s Type of Price:%s Type of desc:%s",
                             pp.getId().getClass().getName(), pp.getName().getClass().getName(), pp.getPrice().getClass().getName(), pp.getDesc().getClass().getName()),
                     () -> {
@@ -142,9 +146,24 @@ public class ProductPageableAndSortableRepositoryTest {
                         Assertions.assertInstanceOf(String.class, pp.getDesc());
                         Assertions.assertInstanceOf(Double.class, pp.getPrice());
                     }
-            )).stream().toList().stream();
+            ));
 
-            //   var stepTwo =
+            var stepTwo = StreamUtils.zip(s.get(), manuallySorted.get(), Pair::of).map(pv-> DynamicTest.dynamicTest(
+                    String.format("ProductIdentity sorted id= %d == id=%d and name %s == name %s and  desc %s == desc %s and price %f == price %f ",
+                            pv.getFirst().getId(), pv.getSecond().getId(),
+                            pv.getFirst().getName(), pv.getSecond().getName(),
+                            pv.getFirst().getDesc(), pv.getSecond().getDesc(),
+                            pv.getFirst().getPrice(), pv.getSecond().getPrice()
+                    ),
+                    ()->{
+                       // Assertions.assertEquals(pv.getFirst().getId(), pv.getSecond().getId());
+                        Assertions.assertEquals(pv.getFirst().getName(), pv.getSecond().getName());
+                      //  Assertions.assertEquals(pv.getFirst().getDesc(), pv.getSecond().getDesc());
+                     //   Assertions.assertEquals(pv.getFirst().getPrice(), pv.getSecond().getPrice());
+                    }
+            ));
+
+
 
             var stepThird = Stream.of(DynamicTest.dynamicTest(
                     String.format("\n next Page---------------------\n Total Pages:%d\n PageNumber:%d\n Page Size:%d\n TotalSize:%d\n PageNumber: %d\n pageSize: %d\n"
@@ -158,7 +177,7 @@ public class ProductPageableAndSortableRepositoryTest {
                         Assertions.assertEquals(it.getPageSize(), product.getPageable().getPageSize());
                     }
             ));
-            return Stream.concat(stepOne, stepThird);
+            return Stream.of(stepOne, stepTwo, stepThird).flatMap( (ppp)-> ppp);
         }));
 
     }
@@ -180,7 +199,7 @@ class ProductIterable implements Iterator<Page<ProductEntity>>, Iterable<Page<Pr
     private int pageSize;
     private ProductPageableAndSortableRepository er;
 
-    public ProductIterable(Page page, ProductPageableAndSortableRepository er) {
+    public ProductIterable(Page<ProductEntity> page, ProductPageableAndSortableRepository er) {
         this.page = page;
         this.er = er;
         this.totalPages = page.getTotalPages();
@@ -202,16 +221,16 @@ class ProductIterable implements Iterator<Page<ProductEntity>>, Iterable<Page<Pr
 
     @Override
     public boolean hasNext() {
-        this.totalPages++;
+        //this.totalPages++;
         return page.hasNext();
     }
 
     @Override
-    public Page next() {
+    public Page<ProductEntity> next() {
         var returnValue = this.page;
-        this.pageSize = this.page.getSize();
-        this.totalPages = this.page.getTotalPages();
-        this.pageNumber = this.page.getNumber();
+        this.pageSize = returnValue.getSize();
+        this.totalPages = returnValue.getTotalPages();
+        this.pageNumber = returnValue.getNumber();
         this.page = er.findAll(this.page.nextOrLastPageable());
         return returnValue;
     }

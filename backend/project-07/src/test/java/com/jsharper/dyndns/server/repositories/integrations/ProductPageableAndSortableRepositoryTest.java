@@ -166,10 +166,9 @@ public class ProductPageableAndSortableRepositoryTest {
 
         this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
 
-        var manuallySorted = IntStream.range(0, this.inputProducts.size())
-                .boxed().collect(Collectors.groupingBy(i -> i / 4,
-                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList()
-                        )));
+        var manuallySorted = IntStream.range(0, this.inputProducts.size()).boxed()
+                .collect(Collectors.groupingBy(i -> i / 4,
+                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList())));
 
         var it = new ProductIterable(result, this.er);
 

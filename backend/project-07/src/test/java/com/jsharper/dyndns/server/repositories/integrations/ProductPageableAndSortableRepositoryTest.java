@@ -40,8 +40,6 @@ public class ProductPageableAndSortableRepositoryTest {
     private ResourceLoader resourceLoader;
 
 
-    private Supplier<Stream<ProductEntity>> products;
-
     private List<ProductEntity> inputProducts;
 
     @BeforeAll
@@ -49,7 +47,9 @@ public class ProductPageableAndSortableRepositoryTest {
 
         inputProducts = this.getResource();
 
-        products = () -> StreamSupport.stream(er.saveAll(inputProducts).spliterator(), false);
+        Assertions.assertNotNull(inputProducts);
+
+        Supplier<Stream<ProductEntity>> products = () -> StreamSupport.stream(er.saveAll(inputProducts).spliterator(), false);
 
         Assertions.assertTrue(products.get().findAny().isPresent());
     }
@@ -57,6 +57,7 @@ public class ProductPageableAndSortableRepositoryTest {
     @AfterAll
     public void cleanUp() {
         er.deleteAll();
+        Assertions.assertEquals(0, er.count());
     }
 
 

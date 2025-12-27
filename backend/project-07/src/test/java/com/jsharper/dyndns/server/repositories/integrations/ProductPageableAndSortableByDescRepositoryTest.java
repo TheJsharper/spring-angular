@@ -19,6 +19,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableByNameRepositoryTest {
+public class ProductPageableAndSortableByDescRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -114,16 +115,18 @@ public class ProductPageableAndSortableByNameRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        Sort sort = Sort.by(Sort.Direction.ASC, "desc");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc));
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
+
         int index = 0;
+
         while (result.hasNext()) {
 
             System.out.println(result.getTotalPages() + "\n " + result.getSize() + "\n " + result.getNumber());
@@ -158,13 +161,13 @@ public class ProductPageableAndSortableByNameRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        Sort sort = Sort.by(Sort.Direction.ASC, "desc");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc));
 
         var sortedMapList = getSortedMapList(0, 4);
 

@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.repositories.integrations;
+package com.jsharper.dyndns.server.repositories.integrations.sortings;
 
 import com.jsharper.dyndns.server.entities.ProductEntity;
 import com.jsharper.dyndns.server.repositories.ProductPageableAndSortableRepository;
@@ -33,7 +33,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
+public class ProductPageableAndSortableByPriceRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -114,13 +114,13 @@ public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name", "desc");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getName).thenComparing(ProductEntity::getDesc));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getPrice));
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
 
@@ -160,20 +160,19 @@ public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name", "desc");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getName).thenComparing(ProductEntity::getDesc));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getPrice));
 
         var sortedMapList = getSortedMapList(0, 4);
 
         var it = new ProductIterable(result, this.er);
 
         var step = StreamSupport.stream(it.spliterator(), false);
-
         AtomicInteger index = new AtomicInteger();
         return step.flatMap((product -> {
 

@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.repositories.integrations;
+package com.jsharper.dyndns.server.repositories.integrations.sortings;
 
 import com.jsharper.dyndns.server.entities.ProductEntity;
 import com.jsharper.dyndns.server.repositories.ProductPageableAndSortableRepository;
@@ -33,7 +33,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableByDescAndThenPriceRepositoryTest {
+public class ProductPageableAndSortableByPriceAndThenNameRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -114,16 +114,13 @@ public class ProductPageableAndSortableByDescAndThenPriceRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "price");
+        Sort sort = Sort.by(Sort.Direction.ASC,  "price", "name");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc)
-                        .thenComparing(ProductEntity::getPrice)
-        );
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getPrice).thenComparing(ProductEntity::getName));
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
 
@@ -163,16 +160,13 @@ public class ProductPageableAndSortableByDescAndThenPriceRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "price");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price", "name");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc)
-                        .thenComparing(ProductEntity::getPrice)
-        );
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getPrice).thenComparing(ProductEntity::getName));
 
         var sortedMapList = getSortedMapList(0, 4);
 

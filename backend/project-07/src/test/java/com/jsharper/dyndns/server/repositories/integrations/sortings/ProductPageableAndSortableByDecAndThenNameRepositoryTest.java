@@ -33,7 +33,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
+public class ProductPageableAndSortableByDecAndThenNameRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -114,13 +114,13 @@ public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name", "desc");
+        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getName).thenComparing(ProductEntity::getDesc));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc).thenComparing(ProductEntity::getName));
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
 
@@ -160,13 +160,13 @@ public class ProductPageableAndSortableByNameAndThenDescRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "name", "desc");
+        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getName).thenComparing(ProductEntity::getDesc));
+        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc).thenComparing(ProductEntity::getName));
 
         var sortedMapList = getSortedMapList(0, 4);
 

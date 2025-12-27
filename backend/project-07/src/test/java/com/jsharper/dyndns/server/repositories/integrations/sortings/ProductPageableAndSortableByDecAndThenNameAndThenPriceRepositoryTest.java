@@ -33,7 +33,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableByDecAndThenNameRepositoryTest {
+public class ProductPageableAndSortableByDecAndThenNameAndThenPriceRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -114,13 +114,17 @@ public class ProductPageableAndSortableByDecAndThenNameRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name");
+        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name", "price");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc).thenComparing(ProductEntity::getName));
+        this.inputProducts.sort(
+                Comparator.comparing(ProductEntity::getDesc)
+                        .thenComparing(ProductEntity::getName)
+                        .thenComparing(ProductEntity::getPrice)
+        );
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
 
@@ -160,13 +164,17 @@ public class ProductPageableAndSortableByDecAndThenNameRepositoryTest {
 
         var initialPageSize = 4;
 
-        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name");
+        Sort sort = Sort.by(Sort.Direction.ASC,  "desc", "name", "price");
 
         Pageable p = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = er.findAll(p);
 
-        this.inputProducts.sort(Comparator.comparing(ProductEntity::getDesc).thenComparing(ProductEntity::getName));
+        this.inputProducts.sort(
+                Comparator.comparing(ProductEntity::getDesc)
+                        .thenComparing(ProductEntity::getName)
+                        .thenComparing(ProductEntity::getPrice)
+        );
 
         var sortedMapList = getSortedMapList(0, 4);
 

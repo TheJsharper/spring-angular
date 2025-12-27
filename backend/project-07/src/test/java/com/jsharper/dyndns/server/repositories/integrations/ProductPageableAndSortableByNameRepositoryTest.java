@@ -32,7 +32,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductPageableAndSortableRepositoryTest {
+public class ProductPageableAndSortableByNameRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;

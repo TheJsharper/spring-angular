@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -57,6 +58,7 @@ public class ProductPageableAndSortableRepositoryTest {
     @AfterAll
     public void cleanUp() {
         er.deleteAll();
+
         Assertions.assertEquals(0, er.count());
     }
 
@@ -119,10 +121,7 @@ public class ProductPageableAndSortableRepositoryTest {
 
         this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
 
-        var manuallySorted = IntStream.range(initialPageNumber, this.inputProducts.size())
-                .boxed().collect(Collectors.groupingBy(i -> i / initialPageSize,
-                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList()
-                        )));
+        var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
         int index = 0;
         while (result.hasNext()) {
 
@@ -132,7 +131,7 @@ public class ProductPageableAndSortableRepositoryTest {
 
             Supplier<Stream<ProductEntity>> actualProductEntity = finalResult;
 
-            var pairs = StreamUtils.zip(manuallySorted.get(index).stream(), actualProductEntity.get(), Pair::of);
+            var pairs = StreamUtils.zip(sortedMapList.get(index).stream(), actualProductEntity.get(), Pair::of);
 
             pairs.forEach(pair -> {
                 var first = pair.getFirst();
@@ -166,9 +165,7 @@ public class ProductPageableAndSortableRepositoryTest {
 
         this.inputProducts.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
 
-        var manuallySorted = IntStream.range(0, this.inputProducts.size()).boxed()
-                .collect(Collectors.groupingBy(i -> i / 4,
-                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList())));
+        var sortedMapList = getSortedMapList(0, 4);
 
         var it = new ProductIterable(result, this.er);
 
@@ -190,7 +187,7 @@ public class ProductPageableAndSortableRepositoryTest {
                     }
             ));
 
-            var stepTwo = StreamUtils.zip(s.get(), manuallySorted.get(index.get()).stream(), Pair::of).map(pv -> DynamicTest.dynamicTest(
+            var stepTwo = StreamUtils.zip(s.get(), sortedMapList.get(index.get()).stream(), Pair::of).map(pv -> DynamicTest.dynamicTest(
                     String.format("ProductIdentity sorted id= %d == id=%d and name %s == name %s and  desc %s == desc %s and price %f == price %f ",
                             pv.getFirst().getId(), pv.getSecond().getId(),
                             pv.getFirst().getName(), pv.getSecond().getName(),
@@ -222,6 +219,12 @@ public class ProductPageableAndSortableRepositoryTest {
             return Stream.of(stepOne, stepTwo, stepThird).flatMap((ppp) -> ppp);
         }));
 
+    }
+
+    private Map<Integer, List<ProductEntity>> getSortedMapList(int startInclusive, int initialPageSize) {
+        return IntStream.range(startInclusive, this.inputProducts.size()).boxed()
+                .collect(Collectors.groupingBy(i -> i / initialPageSize,
+                        Collectors.mapping(i -> this.inputProducts.get(i), Collectors.toList())));
     }
 
 

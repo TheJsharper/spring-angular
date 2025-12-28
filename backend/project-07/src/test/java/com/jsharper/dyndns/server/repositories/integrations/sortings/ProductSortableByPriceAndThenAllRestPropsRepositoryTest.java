@@ -25,7 +25,7 @@ import java.util.stream.StreamSupport;
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProductSortableByDescAndThenAllRestPropsRepositoryTest {
+public class ProductSortableByPriceAndThenAllRestPropsRepositoryTest {
 
     @Autowired
     private ProductPageableAndSortableRepository er;
@@ -62,10 +62,10 @@ public class ProductSortableByDescAndThenAllRestPropsRepositoryTest {
     @DisplayName("find all sorted product by name  if provided sorting configuration as parameter return sorted iterable products")
     Stream<DynamicTest> findAllSortingByName_whenProvidedSortingConfiguration_returnSortedIterable() {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "desc", "name");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price", "name");
 
         this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc).thenComparing(ProductEntity::getName)
+                Comparator.comparing(ProductEntity::getPrice).thenComparing(ProductEntity::getName)
         );
 
         var result = er.findAll(sort);
@@ -110,11 +110,11 @@ public class ProductSortableByDescAndThenAllRestPropsRepositoryTest {
     @DisplayName("warning up find all sorting by desc if provided sorting configuration as parameter return  sorted iterable products")
     Stream<DynamicTest> findAllSortingByDesc_whenProvidedAndSortingConfiguration_returnSortedIterable() {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "desc", "price");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price", "desc");
 
         this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc)
-                        .thenComparing(ProductEntity::getPrice)
+                Comparator.comparing(ProductEntity::getPrice)
+                        .thenComparing(ProductEntity::getDesc)
         );
 
         var result = er.findAll(sort);
@@ -160,12 +160,12 @@ public class ProductSortableByDescAndThenAllRestPropsRepositoryTest {
     @DisplayName("find all sorting by price if provided sorting configuration as parameter return and sorted by price iterable products")
     Stream<DynamicTest> findAllSortingByPrice_whenProvidedSortingConfiguration_returnSortedByPriceIterable() {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "desc", "name", "price");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price", "name", "desc");
 
         this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc)
+                Comparator.comparing(ProductEntity::getPrice)
                         .thenComparing(ProductEntity::getName)
-                        .thenComparing(ProductEntity::getPrice)
+                        .thenComparing(ProductEntity::getDesc)
         );
 
         var result = er.findAll(sort);
@@ -210,11 +210,11 @@ public class ProductSortableByDescAndThenAllRestPropsRepositoryTest {
     @DisplayName("find all sorting by price if provided sorting configuration as parameter return and sorted by price iterable products")
     Stream<DynamicTest> findAllSortingByDesc_whenProvidedSortingConfiguration_returnSortedByPriceIterable() {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "desc", "price", "name");
+        Sort sort = Sort.by(Sort.Direction.ASC, "price", "desc", "name");
 
         this.inputProducts.sort(
-                Comparator.comparing(ProductEntity::getDesc)
-                        .thenComparing(ProductEntity::getPrice)
+                Comparator.comparing(ProductEntity::getPrice)
+                        .thenComparing(ProductEntity::getDesc)
                         .thenComparing(ProductEntity::getName)
         );
 

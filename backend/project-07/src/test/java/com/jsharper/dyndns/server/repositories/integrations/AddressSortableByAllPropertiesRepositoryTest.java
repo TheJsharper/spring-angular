@@ -30,8 +30,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 
@@ -75,7 +74,7 @@ public class AddressSortableByAllPropertiesRepositoryTest {
     @DisplayName("create a simple Address Entity")
     void createSimpleAddressEntity_whenProvidedAddressInstance_returnAddressEntity() {
 
-        var address = new Address("Test street", "Test City", "Test State", "23334");
+        var address = new Address("Test street", "Test City", "Test State", 23334);
 
         var storedAddress = ar.save(address);
 
@@ -171,7 +170,7 @@ public class AddressSortableByAllPropertiesRepositoryTest {
                         assertInstanceOf(String.class, aa.getStreet());
                         assertInstanceOf(String.class, aa.getCity());
                         assertInstanceOf(String.class, aa.getState());
-                        assertInstanceOf(String.class, aa.getZipCode());
+                        assertInstanceOf(Integer.class, aa.getZipCode());
                     }
             ));
 
@@ -243,7 +242,7 @@ public class AddressSortableByAllPropertiesRepositoryTest {
                         assertInstanceOf(String.class, aa.getStreet());
                         assertInstanceOf(String.class, aa.getCity());
                         assertInstanceOf(String.class, aa.getState());
-                        assertInstanceOf(String.class, aa.getZipCode());
+                        assertInstanceOf(Integer.class, aa.getZipCode());
                     }
             ));
 
@@ -282,13 +281,15 @@ public class AddressSortableByAllPropertiesRepositoryTest {
 
         var initialPageSize = 4;
 
-        var sort = Sort.by(Sort.Direction.ASC, "zipCode");
+        var sort = Sort.by(Sort.Direction.ASC, "id","zipCode");
 
         Pageable pageable = PageRequest.of(initialPageNumber, initialPageSize, sort);
 
         var result = ar.findAllAddresses(pageable);
 
-        inputAddresses.sort(Comparator.comparing(Address::getZipCode));
+        inputAddresses.sort(Comparator.comparing(Address::getId)
+                .thenComparing(Address::getZipCode)
+        );
 
         var sortedMapList = getSortedMapList(initialPageNumber, initialPageSize);
 
@@ -315,7 +316,7 @@ public class AddressSortableByAllPropertiesRepositoryTest {
                         assertInstanceOf(String.class, aa.getStreet());
                         assertInstanceOf(String.class, aa.getCity());
                         assertInstanceOf(String.class, aa.getState());
-                        assertInstanceOf(String.class, aa.getZipCode());
+                        assertInstanceOf(Integer.class, aa.getZipCode());
                     }
             ));
 
@@ -337,6 +338,10 @@ public class AddressSortableByAllPropertiesRepositoryTest {
                             () -> {
                                 var first = pv.getFirst();
                                 var second = pv.getSecond();
+                                assertNotNull(first.getId());
+                                assertNotNull(second.getId());
+                                assertNotNull(first.getZipCode());
+                                assertNotNull(second.getZipCode());
                                 assertEquals(first.getZipCode(), second.getZipCode());
                             })
 

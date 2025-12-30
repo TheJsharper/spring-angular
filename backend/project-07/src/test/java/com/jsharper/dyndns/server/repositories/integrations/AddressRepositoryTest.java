@@ -73,7 +73,7 @@ public class AddressRepositoryTest {
     @DisplayName("create a simple Address Entity")
     void createSimpleAddressEntity_whenProvidedAddressInstance_returnAddressEntity() {
 
-        var address = new Address("Test street", "Test City", "Test State", "23334");
+        var address = new Address("Test street", "Test City", "Test State", 23334);
 
         var storedAddress = ar.save(address);
 
@@ -163,7 +163,7 @@ public class AddressRepositoryTest {
                         assertInstanceOf(String.class, aa.getStreet());
                         assertInstanceOf(String.class, aa.getCity());
                         assertInstanceOf(String.class, aa.getState());
-                        assertInstanceOf(String.class, aa.getZipCode());
+                        assertInstanceOf(Integer.class, aa.getZipCode());
                     }
             ));
 

@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.repositories.integrations.sortings;
+package com.jsharper.dyndns.server.repositories.integrations.sortings.products;
 
 import com.jsharper.dyndns.server.entities.ProductEntity;
 import com.jsharper.dyndns.server.repositories.ProductPageableAndSortableRepository;

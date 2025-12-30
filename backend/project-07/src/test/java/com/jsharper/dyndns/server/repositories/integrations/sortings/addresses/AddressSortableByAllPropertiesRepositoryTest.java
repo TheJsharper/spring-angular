@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.repositories.integrations;
+package com.jsharper.dyndns.server.repositories.integrations.sortings.addresses;
 
 import com.jsharper.dyndns.server.entities.Address;
 import com.jsharper.dyndns.server.repositories.AddressRepository;

@@ -39,12 +39,12 @@ import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AddressRepositoryTest {
     @Autowired
-    private AddressRepository ar;
+    protected AddressRepository ar;
 
-    private List<Address> inputAddresses;
+    protected List<Address> inputAddresses;
 
     @Autowired
-    private ResourceLoader resourceLoader;
+    protected ResourceLoader resourceLoader;
 
     @BeforeAll
     public void init() throws IOException {
@@ -199,7 +199,7 @@ public class AddressRepositoryTest {
     }
 
 
-    private Map<Integer, List<Address>> getSortedMapList(int startInclusive, int initialPageSize) {
+    protected Map<Integer, List<Address>> getSortedMapList(int startInclusive, int initialPageSize) {
         return IntStream.range(startInclusive, this.inputAddresses.size()).boxed()
                 .collect(Collectors.groupingBy(i -> i / initialPageSize,
                         Collectors.mapping(i -> this.inputAddresses.get(i), Collectors.toList())));

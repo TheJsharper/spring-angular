@@ -93,7 +93,7 @@ public class AddressRepositoryNativeQueriesTest extends AddressRepositoryTest {
 
     @Test
     @DisplayName("using native query sql for extract list of addresses  ")
-    @Order(3)
+    @Order(4)
     void testUsingNativeQuerySQLForExtractListOfAddressesFindContainsStreet_whenProvidedListOfAddresses_returnEntityOfAddresses() {
 
         var street = "ave";

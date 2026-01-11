@@ -19,6 +19,13 @@ public class Phone {
         this.type = type;
     }
 
+    public Phone( Long id, String number, String type, Customer c) {
+        this.id = id;
+        this.number = number;
+        this.type = type;
+        this.customer = c;
+    }
+
     public Phone() {
     }
 

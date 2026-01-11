@@ -10,7 +10,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany(mappedBy = "customer"/**/,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer"/**/,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Phone> phones;
 
 
@@ -52,7 +52,6 @@ public class Customer {
         return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", phones=" + phones +
                 '}';
     }
 }

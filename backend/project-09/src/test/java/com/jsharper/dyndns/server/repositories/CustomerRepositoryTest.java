@@ -5,6 +5,7 @@ import com.jsharper.dyndns.server.entities.Phone;
 import com.jsharper.dyndns.server.repository.CustomerRepository;
 import com.jsharper.dyndns.server.repository.PhoneRepository;
 import jakarta.persistence.Tuple;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -141,4 +142,61 @@ public class CustomerRepositoryTest {
 
 
     }
+
+
+    @TestFactory
+    @DisplayName("create relations customer with phone instance checking database relations with saving parent object")
+    @Order(3)
+    Stream<DynamicTest> createRelationsCustomerWithPhoneInstanceCheckingDatabaseRelationshipWithChildrenParentId_providedCustomerEntitiesWithPhone2_returnAllPhoneDatabaseTable() {
+        var phones = new HashSet<Phone>();
+
+
+        Phone phone1 = new Phone("12225566", "mobile");
+        phones.add(phone1);
+
+        Phone phone2 = new Phone("0585846565", "mobile");
+        phones.add(phone2);
+
+        Phone phone3 = new Phone("101010101", "pickup");
+        phones.add(phone3);
+
+        var customer = new Customer("Test Name", phones);
+
+        phone1.setCustomer(customer);
+        phone2.setCustomer(customer);
+        phone3.setCustomer(customer);
+
+        var storedCustomer = cr.save(customer);
+
+        Assertions.assertEquals(storedCustomer, customer);
+
+        var foundCustomer = cr.findById(storedCustomer.getId()).orElseThrow();
+
+        Assertions.assertEquals( storedCustomer.getId(), foundCustomer.getId());
+
+
+        Supplier<Stream<Phone>> supplier = () -> foundCustomer.getPhones().stream();
+
+        var pairs = StreamUtils.zip(phones.stream(), supplier.get(), Pair::of);
+
+        return pairs.map((p) -> DynamicTest.dynamicTest(
+                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
+                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
+                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
+                        ),
+                        () -> {
+                            var first = p.getFirst();
+                            var second = p.getSecond();
+                            Assertions.assertTrue(second.getId() > 0);
+                            Assertions.assertEquals(first.getNumber(), second.getNumber());
+                            Assertions.assertEquals(first.getType(), second.getType());
+                            Assertions.assertEquals(first.getCustomer().getId(), foundCustomer.getId());
+                        }
+                )
+        );
+
+
+    }
+
+
 }

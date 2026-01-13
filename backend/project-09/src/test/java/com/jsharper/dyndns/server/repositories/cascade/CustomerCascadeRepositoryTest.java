@@ -158,6 +158,20 @@ public class CustomerCascadeRepositoryTest {
     @Test
     @Order(3)
     void createCustomerWithChildrenAndChildrenSavedParentCascadePersistAndRemoveManagedEntity_providedCustomerAndChildrenPhoneCascade_returnThrowsExceptionConstraintViolation() {
+        var customer = getCustomerCascade();
+
+        var storedCustomer = cr.save(customer);
+
+        Assertions.assertEquals(storedCustomer, customer);
+
+        var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> cr.deleteById(storedCustomer.getId()));
+
+        MatcherAssert.assertThat(exception.getMessage(), CoreMatchers.containsString("could not execute statement [Referential integrity constraint violation:"));
+
+
+    }
+
+    private static CustomerCascade getCustomerCascade() {
         var phones = new HashSet<PhoneCascade>();
 
 
@@ -180,15 +194,6 @@ public class CustomerCascadeRepositoryTest {
         phoneCascade1.setCustomerCascade(customer);
 
         phoneCascade2.setCustomerCascade(customer);
-
-        var storedCustomer = cr.save(customer);
-
-        Assertions.assertEquals(storedCustomer, customer);
-
-        var exception = Assertions.assertThrows(DataIntegrityViolationException.class, () -> cr.deleteById(storedCustomer.getId()));
-
-        MatcherAssert.assertThat(exception.getMessage(), CoreMatchers.containsString("could not execute statement [Referential integrity constraint violation:"));
-
-
+        return customer;
     }
 }

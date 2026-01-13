@@ -2,8 +2,6 @@ package com.jsharper.dyndns.server.repositories;
 
 import com.jsharper.dyndns.server.entities.Customer;
 import com.jsharper.dyndns.server.entities.Phone;
-import com.jsharper.dyndns.server.repository.CustomerRepository;
-import com.jsharper.dyndns.server.repository.PhoneRepository;
 import jakarta.persistence.Tuple;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

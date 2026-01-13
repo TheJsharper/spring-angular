@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.repository;
+package com.jsharper.dyndns.server.repositories;
 
 import com.jsharper.dyndns.server.entities.Customer;
 import jakarta.persistence.Tuple;

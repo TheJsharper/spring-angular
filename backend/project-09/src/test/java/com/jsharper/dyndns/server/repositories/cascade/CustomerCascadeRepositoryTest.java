@@ -2,8 +2,6 @@ package com.jsharper.dyndns.server.repositories.cascade;
 
 import com.jsharper.dyndns.server.entities.cascade.CustomerCascade;
 import com.jsharper.dyndns.server.entities.cascade.PhoneCascade;
-import com.jsharper.dyndns.server.repository.cascade.CustomerCascadeRepository;
-import com.jsharper.dyndns.server.repository.cascade.PhoneCascadeRepository;
 import jakarta.persistence.Tuple;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;

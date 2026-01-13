@@ -30,10 +30,10 @@ public class CustomerCascadeRepositoryTest {
 
     @AfterEach
     void cleanUpAfterEach() {
-        //cr.deleteAll();
-       // Assertions.assertEquals(0, cr.count());
-       // pr.deleteAll();
-       // Assertions.assertEquals(0, pr.count());
+        pr.deleteAll();
+        Assertions.assertEquals(0, pr.count());
+        cr.deleteAll();
+        Assertions.assertEquals(0, cr.count());
     }
 
     @TestFactory
@@ -118,9 +118,6 @@ public class CustomerCascadeRepositoryTest {
 
         var storedCustomer = cr.save(customer);
 
-        pr.findAll().forEach(System.out::println);
-
-
         Assertions.assertEquals(storedCustomer, customer);
 
         Supplier<Stream<Tuple>> supplier = () -> cr.getRelationsResult().stream();
@@ -129,8 +126,8 @@ public class CustomerCascadeRepositoryTest {
                 new PhoneCascade(
                         t.get("id", Long.class),
                         t.get("number", String.class),
-                        t.get("type", String.class)//,
-                        //t.get("customer_cascade_id", CustomerCascade.class)
+                        t.get("type", String.class),
+                        t.get("customer_cascade_id", Long.class)
                 )
         );
 
@@ -148,9 +145,7 @@ public class CustomerCascadeRepositoryTest {
                             Assertions.assertEquals(second.getId(), first.getId());
                             Assertions.assertEquals(first.getNumber(), second.getNumber());
                             Assertions.assertEquals(first.getType(), second.getType());
-                          //  Assertions.assertEquals(first.getCustomerCascade(), second.getCustomerCascade());
-                           // Assertions.assertNull(second.getCustomerCascade());
-                           // Assertions.assertNull(first.getCustomerCascade());
+                            Assertions.assertEquals(storedCustomer.getId(), second.getCustomerCascadeId());
                         }
                 )
         );

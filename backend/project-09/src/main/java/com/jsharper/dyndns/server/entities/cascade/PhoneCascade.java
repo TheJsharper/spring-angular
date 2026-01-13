@@ -12,6 +12,15 @@ public class PhoneCascade {
     @ManyToOne
     @JoinColumn(name = "customer_cascade_id")
     private CustomerCascade customerCascade;
+    @Transient
+    private Long customerCascadeId;
+
+    public PhoneCascade(Long id, String number, String type, Long customerCascadeId) {
+        this.id = id;
+        this.number = number;
+        this.type = type;
+        this.customerCascadeId = customerCascadeId;
+    }
 
     public PhoneCascade(Long id, String number, String type, CustomerCascade customerCascade) {
         this.id = id;
@@ -70,6 +79,14 @@ public class PhoneCascade {
 
     public void setCustomerCascade(CustomerCascade customerCascade) {
         this.customerCascade = customerCascade;
+    }
+
+    public Long getCustomerCascadeId() {
+        return customerCascadeId;
+    }
+
+    public void setCustomerCascadeId(Long customerCascadeId) {
+        this.customerCascadeId = customerCascadeId;
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.data.util.StreamUtils;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -28,10 +29,11 @@ public class CustomerRepositoryTest {
 
     @AfterEach
     public void cleanAfterTest() {
-        cr.deleteAll();
-        Assertions.assertEquals(0, cr.count());
         pr.deleteAll();
         Assertions.assertEquals(0, pr.count());
+        cr.deleteAll();
+        Assertions.assertEquals(0, cr.count());
+
     }
 
     @TestFactory
@@ -49,6 +51,7 @@ public class CustomerRepositoryTest {
 
         var customer = new Customer("Test Name", phones);
 
+
         var storedCustomer = cr.save(customer);
 
         Assertions.assertEquals(storedCustomer, customer);
@@ -62,9 +65,10 @@ public class CustomerRepositoryTest {
                         t.get("type", String.class),
                         t.get("customer_id", Customer.class)
                 )
-        );
+        ).sorted(Comparator.comparing(Phone::getId));
 
-        var pairs = StreamUtils.zip(phones.stream(), storedPhones, Pair::of);
+
+        var pairs = StreamUtils.zip(phones.stream().sorted(Comparator.comparing(Phone::getId)), storedPhones, Pair::of);
 
         return pairs.map((p) -> DynamicTest.dynamicTest(
                         String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",

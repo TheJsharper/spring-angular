@@ -7,6 +7,7 @@ import com.jsharper.dyndns.server.repository.cascade.PhoneCascadeRepository;
 import jakarta.persistence.Tuple;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -171,7 +172,7 @@ public class CustomerCascadeRepositoryTest {
 
     }
 
-    private static CustomerCascade getCustomerCascade() {
+    private static @NotNull CustomerCascade getCustomerCascade() {
         var phones = new HashSet<PhoneCascade>();
 
 

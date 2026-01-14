@@ -40,7 +40,7 @@ public class CustomerFetchRepositoryTest {
 
     @TestFactory
     @Order(1)
-    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentCascadePersist_providedCustomerAndChildrenPhoneCascade_returnEntityCustomer() {
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentFetchPersist_providedCustomerAndChildrenPhoneFetch_returnEntityCustomer() {
 
         var phones = getPhones();
 
@@ -87,7 +87,7 @@ public class CustomerFetchRepositoryTest {
 
     @TestFactory
     @Order(2)
-    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentCascadePersist_providedCustomerAndChildrenPhoneCascade_returnEntityCustomerFetchEagerly() {
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentFetchPersist_providedCustomerAndChildrenPhoneFetch_returnEntityCustomerFetchEagerly() {
 
         var phones = getPhones();
 
@@ -126,7 +126,7 @@ public class CustomerFetchRepositoryTest {
 
     @TestFactory
     @Order(3)
-    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentCascadePersistUpdateParent_providedCustomerAndChildrenPhoneCascade_returnEntityCustomerFetchEagerly() {
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentFetchPersistUpdateParent_providedCustomerAndChildrenPhoneFetch_returnEntityCustomerFetchEagerly() {
 
         var updateName = "Update Name";
 
@@ -172,6 +172,55 @@ public class CustomerFetchRepositoryTest {
                             Assertions.assertEquals(second.getId(), first.getId());
                             Assertions.assertEquals(first.getNumber(), second.getNumber());
                             Assertions.assertEquals(first.getType(), second.getType());
+                        }
+                )
+        );
+
+    }
+
+    @TestFactory
+    @Order(4)
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentFetchPersistUpdateParentAndChildren_providedCustomerAndChildrenPhoneFetch_returnEntityCustomerFetchEagerly() {
+
+        var update = "Update";
+
+        var phones = getPhones();
+
+        var customer = new CustomerFetch("Test Name", phones);
+
+        phones = phones.stream().peek(p -> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
+
+        var storedCustomer = cr.save(customer);
+
+        Assertions.assertEquals(storedCustomer, customer);
+
+        var phonesUpdate = phones.stream().map(p -> new PhoneFetch(p.getId(), p.getNumber() + update, p.getType() + update))
+                .collect(Collectors.toCollection(HashSet::new));
+
+        var updateCustomer = cr.save(new CustomerFetch(storedCustomer.getId(), storedCustomer.getName(), phonesUpdate));
+
+        Assertions.assertEquals(updateCustomer.getId(), storedCustomer.getId());
+
+        Assertions.assertEquals(updateCustomer.getName(), storedCustomer.getName());
+
+        Supplier<Stream<PhoneFetch>> supplier = () -> updateCustomer.getPhones().stream().sorted(Comparator.comparing(PhoneFetch::getId));
+
+
+        var pairs = StreamUtils.zip(storedCustomer.getPhones().stream(), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
+
+        return pairs.map((p) -> DynamicTest.dynamicTest(
+                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
+                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
+                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
+                        ),
+                        () -> {
+                            var first = p.getFirst();
+                            var second = p.getSecond();
+
+                            Assertions.assertTrue(second.getId() > 0);
+                            Assertions.assertEquals(second.getId(), first.getId());
+                            Assertions.assertEquals(first.getNumber() + update, second.getNumber());
+                            Assertions.assertEquals(first.getType() + update, second.getType());
                         }
                 )
         );

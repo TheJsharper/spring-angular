@@ -123,6 +123,61 @@ public class CustomerFetchRepositoryTest {
 
     }
 
+
+    @TestFactory
+    @Order(3)
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentCascadePersistUpdateParent_providedCustomerAndChildrenPhoneCascade_returnEntityCustomerFetchEagerly() {
+
+        var updateName = "Update Name";
+
+        var phones = getPhones();
+
+        var customer = new CustomerFetch("Test Name", phones);
+
+        phones = phones.stream().peek(p -> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
+
+        var storedCustomer = cr.save(customer);
+
+        Assertions.assertEquals(storedCustomer, customer);
+
+        storedCustomer.setName(updateName);
+
+        var updatedCustomer = cr.save(storedCustomer);
+
+        Assertions.assertEquals(customer.getId(), updatedCustomer.getId());
+
+        Assertions.assertEquals(customer.getName(), updatedCustomer.getName());
+
+        Assertions.assertEquals(storedCustomer.getId(), updatedCustomer.getId());
+
+        Assertions.assertEquals(storedCustomer.getName(), updatedCustomer.getName());
+
+        Assertions.assertEquals(updateName, updatedCustomer.getName());
+
+        Supplier<Stream<PhoneFetch>> supplier = () -> storedCustomer.getPhones().stream().sorted(Comparator.comparing(PhoneFetch::getId));
+
+
+        var pairs = StreamUtils.zip(phones.stream(), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
+
+        return pairs.map((p) -> DynamicTest.dynamicTest(
+                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
+                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
+                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
+                        ),
+                        () -> {
+                            var first = p.getFirst();
+                            var second = p.getSecond();
+
+                            Assertions.assertTrue(second.getId() > 0);
+                            Assertions.assertEquals(second.getId(), first.getId());
+                            Assertions.assertEquals(first.getNumber(), second.getNumber());
+                            Assertions.assertEquals(first.getType(), second.getType());
+                        }
+                )
+        );
+
+    }
+
     private static @NotNull HashSet<PhoneFetch> getPhones() {
         var phones = new HashSet<PhoneFetch>();
 

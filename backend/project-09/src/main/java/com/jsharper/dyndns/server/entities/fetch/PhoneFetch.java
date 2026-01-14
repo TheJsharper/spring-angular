@@ -1,6 +1,7 @@
 package com.jsharper.dyndns.server.entities.fetch;
 
 import jakarta.persistence.*;
+import org.jetbrains.annotations.Contract;
 
 import java.util.StringJoiner;
 
@@ -19,7 +20,7 @@ public class PhoneFetch {
     @Transient
     private Long customerFetchId;
 
-
+    @Contract(pure = true)
     public PhoneFetch(Long id, String number, String type, CustomerFetch customerFetch) {
         this.id = id;
         this.number = number;
@@ -45,6 +46,7 @@ public class PhoneFetch {
         this.customerFetchId = customerFetchId;
     }
 
+    @Contract(pure = true)
     public PhoneFetch() {
     }
 

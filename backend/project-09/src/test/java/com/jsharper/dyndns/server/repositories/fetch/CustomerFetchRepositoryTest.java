@@ -54,34 +54,20 @@ public class CustomerFetchRepositoryTest {
 
         Supplier<Stream<Tuple>> supplier = () -> cr.getRelationsResult().stream();
 
-        var storedPhones = supplier.get().map(t ->
-                new PhoneFetch(
-                        t.get("id", Long.class),
-                        t.get("number", String.class),
-                        t.get("type", String.class),
-                        t.get("customer_fetch_id", Long.class)
-                )
-        );
+        var storedPhones = supplier.get().map(t -> new PhoneFetch(t.get("id", Long.class), t.get("number", String.class), t.get("type", String.class), t.get("customer_fetch_id", Long.class)));
 
         var pairs = StreamUtils.zip(phones.stream(), storedPhones, Pair::of);
 
-        return pairs.map((p) -> DynamicTest.dynamicTest(
-                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
-                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
-                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
-                        ),
-                        () -> {
-                            var first = p.getFirst();
-                            var second = p.getSecond();
+        return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
+            var first = p.getFirst();
+            var second = p.getSecond();
 
-                            Assertions.assertTrue(second.getId() > 0);
-                            Assertions.assertEquals(second.getId(), first.getId());
-                            Assertions.assertEquals(first.getNumber(), second.getNumber());
-                            Assertions.assertEquals(first.getType(), second.getType());
-                            Assertions.assertEquals(storedCustomer.getId(), second.getCustomerFetchId());
-                        }
-                )
-        );
+            Assertions.assertTrue(second.getId() > 0);
+            Assertions.assertEquals(second.getId(), first.getId());
+            Assertions.assertEquals(first.getNumber(), second.getNumber());
+            Assertions.assertEquals(first.getType(), second.getType());
+            Assertions.assertEquals(storedCustomer.getId(), second.getCustomerFetchId());
+        }));
 
     }
 
@@ -104,22 +90,15 @@ public class CustomerFetchRepositoryTest {
 
         var pairs = StreamUtils.zip(phones.stream(), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
 
-        return pairs.map((p) -> DynamicTest.dynamicTest(
-                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
-                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
-                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
-                        ),
-                        () -> {
-                            var first = p.getFirst();
-                            var second = p.getSecond();
+        return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
+            var first = p.getFirst();
+            var second = p.getSecond();
 
-                            Assertions.assertTrue(second.getId() > 0);
-                            Assertions.assertEquals(second.getId(), first.getId());
-                            Assertions.assertEquals(first.getNumber(), second.getNumber());
-                            Assertions.assertEquals(first.getType(), second.getType());
-                        }
-                )
-        );
+            Assertions.assertTrue(second.getId() > 0);
+            Assertions.assertEquals(second.getId(), first.getId());
+            Assertions.assertEquals(first.getNumber(), second.getNumber());
+            Assertions.assertEquals(first.getType(), second.getType());
+        }));
 
     }
 
@@ -159,22 +138,15 @@ public class CustomerFetchRepositoryTest {
 
         var pairs = StreamUtils.zip(phones.stream(), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
 
-        return pairs.map((p) -> DynamicTest.dynamicTest(
-                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
-                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
-                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
-                        ),
-                        () -> {
-                            var first = p.getFirst();
-                            var second = p.getSecond();
+        return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
+            var first = p.getFirst();
+            var second = p.getSecond();
 
-                            Assertions.assertTrue(second.getId() > 0);
-                            Assertions.assertEquals(second.getId(), first.getId());
-                            Assertions.assertEquals(first.getNumber(), second.getNumber());
-                            Assertions.assertEquals(first.getType(), second.getType());
-                        }
-                )
-        );
+            Assertions.assertTrue(second.getId() > 0);
+            Assertions.assertEquals(second.getId(), first.getId());
+            Assertions.assertEquals(first.getNumber(), second.getNumber());
+            Assertions.assertEquals(first.getType(), second.getType());
+        }));
 
     }
 
@@ -194,8 +166,7 @@ public class CustomerFetchRepositoryTest {
 
         Assertions.assertEquals(storedCustomer, customer);
 
-        var phonesUpdate = phones.stream().map(p -> new PhoneFetch(p.getId(), p.getNumber() + update, p.getType() + update))
-                .collect(Collectors.toCollection(HashSet::new));
+        var phonesUpdate = phones.stream().map(p -> new PhoneFetch(p.getId(), p.getNumber() + update, p.getType() + update)).collect(Collectors.toCollection(HashSet::new));
 
         var updateCustomer = cr.save(new CustomerFetch(storedCustomer.getId(), storedCustomer.getName(), phonesUpdate));
 
@@ -208,22 +179,61 @@ public class CustomerFetchRepositoryTest {
 
         var pairs = StreamUtils.zip(storedCustomer.getPhones().stream(), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
 
-        return pairs.map((p) -> DynamicTest.dynamicTest(
-                        String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)",
-                                p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(),
-                                p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()
-                        ),
-                        () -> {
-                            var first = p.getFirst();
-                            var second = p.getSecond();
+        return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
+            var first = p.getFirst();
+            var second = p.getSecond();
 
-                            Assertions.assertTrue(second.getId() > 0);
-                            Assertions.assertEquals(second.getId(), first.getId());
-                            Assertions.assertEquals(first.getNumber() + update, second.getNumber());
-                            Assertions.assertEquals(first.getType() + update, second.getType());
-                        }
-                )
-        );
+            Assertions.assertTrue(second.getId() > 0);
+            Assertions.assertEquals(second.getId(), first.getId());
+            Assertions.assertEquals(first.getNumber() + update, second.getNumber());
+            Assertions.assertEquals(first.getType() + update, second.getType());
+        }));
+
+    }
+
+
+    @TestFactory
+    @Order(5)
+    Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentFetchPersistRemoveParentAndChildren_providedCustomerAndChildrenPhoneFetch_returnEntityCustomerFetchEagerly() {
+
+        var number = "12225566";
+
+        var phones = getPhones();
+
+        var customer = new CustomerFetch("Test Name", phones);
+
+        phones = phones.stream().peek(p -> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
+
+        var storedCustomer = cr.save(customer);
+
+        Assertions.assertEquals(storedCustomer, customer);
+
+        var toRemove = phones.stream().filter(p -> !p.getNumber().equals(number)).collect(Collectors.toCollection(HashSet::new));
+
+        var updateCustomer = cr.save(new CustomerFetch(storedCustomer.getId(), storedCustomer.getName(), toRemove));
+
+        Assertions.assertEquals(updateCustomer.getId(), storedCustomer.getId());
+
+        Assertions.assertEquals(updateCustomer.getName(), storedCustomer.getName());
+
+        Supplier<Stream<PhoneFetch>> supplier = () -> updateCustomer.getPhones().stream().sorted(Comparator.comparing(PhoneFetch::getId));
+
+        Assertions.assertEquals(2, supplier.get().count());
+
+        var removedToList = storedCustomer.getPhones().stream().filter(p -> !p.getNumber().equals(number)).collect(Collectors.toCollection(HashSet::new));
+
+        var pairs = StreamUtils.zip(removedToList.stream().sorted(Comparator.comparing(PhoneFetch::getId)), supplier.get().sorted(Comparator.comparing(PhoneFetch::getId)), Pair::of);
+
+        return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
+            var first = p.getFirst();
+            var second = p.getSecond();
+            System.out.println(first);
+            System.out.println(second);
+            Assertions.assertTrue(second.getId() > 0);
+            Assertions.assertEquals(second.getId(), first.getId());
+            Assertions.assertEquals(first.getNumber(), second.getNumber());
+            Assertions.assertEquals(first.getType(), second.getType());
+        }));
 
     }
 

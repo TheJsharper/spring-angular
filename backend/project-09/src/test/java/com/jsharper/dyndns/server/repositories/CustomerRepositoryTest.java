@@ -28,11 +28,13 @@ public class CustomerRepositoryTest {
 
 
     @AfterEach
+    @BeforeEach
     public void cleanAfterTest() {
-        pr.deleteAll();
-        Assertions.assertEquals(0, pr.count());
+
         cr.deleteAll();
         Assertions.assertEquals(0, cr.count());
+        pr.deleteAll();
+        Assertions.assertEquals(0, pr.count());
 
     }
 
@@ -176,7 +178,7 @@ public class CustomerRepositoryTest {
         Assertions.assertEquals( storedCustomer.getId(), foundCustomer.getId());
 
 
-        Supplier<Stream<Phone>> supplier = () -> foundCustomer.getPhones().stream();
+        Supplier<Stream<Phone>> supplier = () -> foundCustomer.getPhones().stream().sorted(Comparator.comparing(Phone::getId));
 
         var pairs = StreamUtils.zip(phones.stream(), supplier.get(), Pair::of);
 

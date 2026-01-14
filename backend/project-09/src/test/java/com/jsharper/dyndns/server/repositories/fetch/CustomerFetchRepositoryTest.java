@@ -41,25 +41,12 @@ public class CustomerFetchRepositoryTest {
     @TestFactory
     @Order(1)
     Stream<DynamicTest> createCustomerWithChildrenAndChildrenSavedParentCascadePersist_providedCustomerAndChildrenPhoneCascade_returnEntityCustomer() {
-        var phones = new HashSet<PhoneFetch>();
 
-
-        PhoneFetch phoneFetch = new PhoneFetch("12225566", "mobile");
-        phones.add(phoneFetch);
-
-        PhoneFetch phoneFetch1 = new PhoneFetch("0585846565", "mobile");
-        phones.add(phoneFetch1);
-
-        PhoneFetch phoneFetch2 = new PhoneFetch("101010101", "pickup");
-        phones.add(phoneFetch2);
+        var phones = getPhones();
 
         var customer = new CustomerFetch("Test Name", phones);
 
-        phoneFetch.setCustomerFetch(customer);
-
-        phoneFetch1.setCustomerFetch(customer);
-
-        phoneFetch2.setCustomerFetch(customer);
+        phones = phones.stream().peek(p -> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
 
         var storedCustomer = cr.save(customer);
 
@@ -106,7 +93,7 @@ public class CustomerFetchRepositoryTest {
 
         var customer = new CustomerFetch("Test Name", phones);
 
-        phones = phones.stream().peek(p-> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
+        phones = phones.stream().peek(p -> p.setCustomerFetch(customer)).collect(Collectors.toCollection(HashSet::new));
 
         var storedCustomer = cr.save(customer);
 

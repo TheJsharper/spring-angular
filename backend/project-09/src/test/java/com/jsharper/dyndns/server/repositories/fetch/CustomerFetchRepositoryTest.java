@@ -1,7 +1,5 @@
 package com.jsharper.dyndns.server.repositories.fetch;
 
-import com.jsharper.dyndns.server.entities.cascade.CustomerCascade;
-import com.jsharper.dyndns.server.entities.cascade.PhoneCascade;
 import com.jsharper.dyndns.server.entities.fetch.CustomerFetch;
 import com.jsharper.dyndns.server.entities.fetch.PhoneFetch;
 import jakarta.persistence.Tuple;

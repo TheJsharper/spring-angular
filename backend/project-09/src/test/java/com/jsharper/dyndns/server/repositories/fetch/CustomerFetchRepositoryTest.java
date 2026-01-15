@@ -29,12 +29,13 @@ public class CustomerFetchRepositoryTest {
     @Autowired
     private PhoneFetchRepository pr;
 
+    @BeforeEach
     @AfterEach
     void cleanUpAfterEach() {
-        pr.deleteAll();
-        Assertions.assertEquals(0, pr.count());
         cr.deleteAll();
         Assertions.assertEquals(0, cr.count());
+        pr.deleteAll();
+        Assertions.assertEquals(0, pr.count());
     }
 
 

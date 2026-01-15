@@ -85,9 +85,9 @@ public class PhoneFetchRepositoryTest {
 
         return pairs.map((p) -> DynamicTest.dynamicTest(String.format("first(id:%d, number:%s, type:%s) second(id:%d, number:%s, type:%s)", p.getFirst().getId(), p.getFirst().getNumber(), p.getFirst().getType(), p.getSecond().getId(), p.getSecond().getNumber(), p.getSecond().getType()), () -> {
             var first = p.getFirst();
+
             var second = p.getSecond();
-            System.out.println(first);
-            System.out.println(second);
+
             Assertions.assertTrue(second.getId() > 0);
             Assertions.assertEquals(second.getId(), first.getId());
             Assertions.assertEquals(first.getNumber(), second.getNumber());
@@ -95,4 +95,59 @@ public class PhoneFetchRepositoryTest {
         }));
 
     }
+
+
+    @Test
+    @Order(3)
+    void createPhoneUpdateEntity_ProvidedPhone_returnPhoneEntity() {
+        var updateType = "update";
+        var updateNumber = "11";
+
+        var phone = new PhoneFetch("+5955458585", "mobile");
+
+        var storedPhone = pr.save(phone);
+
+        Assertions.assertEquals(phone, storedPhone);
+        Assertions.assertEquals(phone.getId(), storedPhone.getId());
+        Assertions.assertEquals(phone.getType(), storedPhone.getType());
+        Assertions.assertEquals(phone.getNumber(), storedPhone.getNumber());
+
+
+        phone.setType(phone.getType() + updateType);
+        phone.setNumber(phone.getNumber() + updateNumber);
+
+        var updatePhone = pr.save(storedPhone);
+
+        Assertions.assertEquals(storedPhone.getId(), updatePhone.getId());
+        Assertions.assertEquals(storedPhone.getNumber(), updatePhone.getNumber());
+        Assertions.assertEquals(storedPhone.getType(), updatePhone.getType());
+
+    }
+
+    @Test
+    @Order(3)
+    void createPhoneDeleteEntity_ProvidedPhone_returnPhoneEntity() {
+
+        var phone = new PhoneFetch("+5955458585", "mobile");
+
+        var storedPhone = pr.save(phone);
+
+        var id = storedPhone.getId();
+
+        var message = "Entity isn't exist more";
+
+        Assertions.assertEquals(phone, storedPhone);
+        Assertions.assertEquals(phone.getId(), storedPhone.getId());
+        Assertions.assertEquals(phone.getType(), storedPhone.getType());
+        Assertions.assertEquals(phone.getNumber(), storedPhone.getNumber());
+
+
+        pr.delete(storedPhone);
+
+        var found = pr.findById(id);
+        var exception = Assertions.assertThrows(Exception.class, () -> found.orElseThrow(() -> new IllegalArgumentException(message)));
+
+        Assertions.assertEquals(message, exception.getMessage());
+    }
+
 }

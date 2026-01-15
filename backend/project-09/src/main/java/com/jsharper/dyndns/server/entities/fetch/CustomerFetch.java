@@ -12,7 +12,7 @@ public class CustomerFetch {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "customerFetch", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerFetch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PhoneFetch> phones;
 
     public CustomerFetch(String name, Set<PhoneFetch> phones) {

@@ -12,10 +12,10 @@ public class ProjectRepositoryTest {
     private ProjectRepository pr;
 
     @Test
-    void test(){
+    void test() {
         var project = new Project("Test Name");
 
-        var storeProject =pr.save(project);
+        var storeProject = pr.save(project);
 
         Assertions.assertEquals(project, storeProject);
     }

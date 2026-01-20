@@ -59,7 +59,9 @@ public class ProgrammerFetchRepositoryTest {
         var programmer = new ProgrammerFetch("Test FirstName", "Test LastName", 2500, projects);
 
         var storedProgrammer = pr.save(programmer);
+
         this.id = programmer.getId();
+
         Assertions.assertEquals(programmer, storedProgrammer);
 
         Assertions.assertEquals(1, storedProgrammer.getProjects().size());
@@ -70,14 +72,33 @@ public class ProgrammerFetchRepositoryTest {
     @Test
     @Order(3)
     void findProgrammerById_ProvidedIdFromPreviousTest_returnExceptionLazyInitializationException() {
+        Assertions.assertNotNull(this.id, "You should run previous test Order(2)");
 
-        var find = pr.findById(this.id).orElseThrow();
+        var find = pr.findById(this.id).orElseThrow(() -> new ArithmeticException("No Found Programmer!!!"));
 
-        var failureMessage ="Cannot lazily initialize collection of role";
+        var failureMessage = "Cannot lazily initialize collection of role";
 
         Assertions.assertEquals(find.getId(), this.id);
 
-        System.out.println(find);
+        var exception = Assertions.assertThrows(LazyInitializationException.class, () -> find.getProjects().forEach(System.out::println));
+
+        Matcher<String> matcher = CoreMatchers.containsString(failureMessage);
+
+        MatcherAssert.assertThat(exception.getMessage(), matcher);
+
+
+    }
+
+    @Test
+    @Order(3)
+    void findProgrammerByIdUpdate_ProvidedIdFromPreviousTest_returnExceptionLazyInitializationException() {
+
+        var find = pr.findById(this.id).orElseThrow();
+
+        var failureMessage = "Cannot lazily initialize collection of role";
+
+        Assertions.assertEquals(find.getId(), this.id);
+
         var exception = Assertions.assertThrows(LazyInitializationException.class, () -> find.getProjects().forEach(System.out::println));
 
         Matcher<String> matcher = CoreMatchers.containsString(failureMessage);

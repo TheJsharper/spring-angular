@@ -23,8 +23,6 @@ public class ProgrammerFetchRepositoryTest {
     @Autowired
     private ProgrammerFetchRepository pr;
 
-    @Autowired
-    private ProjectRepository projectRepository;
 
     private Long id;
 
@@ -32,8 +30,6 @@ public class ProgrammerFetchRepositoryTest {
     public void cleanUp() {
         pr.deleteAll();
         Assertions.assertEquals(0, pr.count());
-        projectRepository.deleteAll();
-        Assertions.assertEquals(0, projectRepository.count());
     }
 
 
@@ -74,13 +70,13 @@ public class ProgrammerFetchRepositoryTest {
     void findProgrammerById_ProvidedIdFromPreviousTest_returnExceptionLazyInitializationException() {
         Assertions.assertNotNull(this.id, "You should run previous test Order(2)");
 
-        var find = pr.findById(this.id).orElseThrow(() -> new ArithmeticException("No Found Programmer!!!"));
+        var found = pr.findById(this.id).orElseThrow(() -> new ArithmeticException("No Found Programmer!!!"));
 
         var failureMessage = "Cannot lazily initialize collection of role";
 
-        Assertions.assertEquals(find.getId(), this.id);
+        Assertions.assertEquals(found.getId(), this.id);
 
-        var exception = Assertions.assertThrows(LazyInitializationException.class, () -> find.getProjects().forEach(System.out::println));
+        var exception = Assertions.assertThrows(LazyInitializationException.class, () -> found.getProjects().forEach(System.out::println));
 
         Matcher<String> matcher = CoreMatchers.containsString(failureMessage);
 
@@ -90,21 +86,54 @@ public class ProgrammerFetchRepositoryTest {
     }
 
     @Test
-    @Order(3)
-    void findProgrammerByIdUpdate_ProvidedIdFromPreviousTest_returnExceptionLazyInitializationException() {
+    @Order(4)
+    void findProgrammerByIdAndUpdate_ProvidedIdFromPreviousTest_returnUpdatedEntity() {
 
-        var find = pr.findById(this.id).orElseThrow();
+        Assertions.assertNotNull(this.id, "You should run previous test Order(2)");
 
-        var failureMessage = "Cannot lazily initialize collection of role";
+        var found = pr.findById(this.id).orElseThrow(() -> new ArithmeticException("No Found Programmer!!!"));
 
-        Assertions.assertEquals(find.getId(), this.id);
+        String firstNameUpdated = "FirstName updated";
 
-        var exception = Assertions.assertThrows(LazyInitializationException.class, () -> find.getProjects().forEach(System.out::println));
+        String lastNameUpdated = "LastName updated";
 
-        Matcher<String> matcher = CoreMatchers.containsString(failureMessage);
+        int sal = 5800;
 
-        MatcherAssert.assertThat(exception.getMessage(), matcher);
+        found.setFirstName(firstNameUpdated);
 
+        found.setLastName(lastNameUpdated);
+
+        found.setSal(sal);
+
+        var updateProgrammer = pr.save(found);
+
+        Assertions.assertEquals(found.getId(), updateProgrammer.getId());
+        Assertions.assertEquals(found.getFirstName(), updateProgrammer.getFirstName());
+        Assertions.assertEquals(found.getLastName(), updateProgrammer.getLastName());
+
+        Assertions.assertEquals(firstNameUpdated, updateProgrammer.getFirstName());
+        Assertions.assertEquals(lastNameUpdated, updateProgrammer.getLastName());
+        Assertions.assertEquals(sal, updateProgrammer.getSal());
+
+
+    }
+
+
+    @Test
+    @Order(5)
+    void findProgrammerByIdAndDelete_ProvidedIdFromPreviousTest_returnCheckingFindById() {
+
+        Assertions.assertNotNull(this.id, "You should run previous test Order(2)");
+
+        var found = pr.findById(this.id).orElseThrow(() -> new ArithmeticException("No Found Programmer!!!"));
+
+        var failureExceptionMessage = "No longer exist!!!!";
+
+        pr.delete(found);
+
+        var exception = Assertions.assertThrows(IllegalArgumentException.class, () -> pr.findById(this.id).orElseThrow(() -> new IllegalArgumentException(failureExceptionMessage)));
+
+        Assertions.assertEquals(failureExceptionMessage, exception.getMessage());
 
     }
 }

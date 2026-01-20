@@ -1,10 +1,8 @@
 package com.jsharper.dyndns.server.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
 import java.util.StringJoiner;
 
 @Entity
@@ -13,6 +11,9 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+
+    @ManyToMany(mappedBy = "projects")
+    private Set<Programmer> programmers;
 
     public Project(long id, String name) {
         this.id = id;
@@ -40,6 +41,14 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Programmer> getProgrammers() {
+        return programmers;
+    }
+
+    public void setProgrammers(Set<Programmer> programmers) {
+        this.programmers = programmers;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.jsharper.dyndns.server.repositories;
 
-import com.jsharper.dyndns.server.entities.Project;
+import com.jsharper.dyndns.server.entities.fetch.ProjectFetch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class ProjectRepositoryTest {
 
     @Test
     void test() {
-        var project = new Project("Test Name");
+        var project = new ProjectFetch("Test Name");
 
         var storeProject = pr.save(project);
 

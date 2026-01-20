@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.entities;
+package com.jsharper.dyndns.server.entities.fetch;
 
 import jakarta.persistence.*;
 
@@ -6,25 +6,25 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 @Entity
-public class Project {
+public class ProjectFetch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 
     @ManyToMany(mappedBy = "projects")
-    private Set<Programmer> programmers;
+    private Set<ProgrammerFetch> programmerFetches;
 
-    public Project(long id, String name) {
+    public ProjectFetch(long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Project(String name) {
+    public ProjectFetch(String name) {
         this.name = name;
     }
 
-    public Project() {
+    public ProjectFetch() {
     }
 
     public long getId() {
@@ -43,17 +43,17 @@ public class Project {
         this.name = name;
     }
 
-    public Set<Programmer> getProgrammers() {
-        return programmers;
+    public Set<ProgrammerFetch> getProgrammers() {
+        return programmerFetches;
     }
 
-    public void setProgrammers(Set<Programmer> programmers) {
-        this.programmers = programmers;
+    public void setProgrammers(Set<ProgrammerFetch> programmerFetches) {
+        this.programmerFetches = programmerFetches;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Project.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ProjectFetch.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("name='" + name + "'")
                 .toString();

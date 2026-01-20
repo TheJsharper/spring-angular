@@ -1,8 +1,8 @@
 package com.jsharper.dyndns.server.repositories;
 
-import com.jsharper.dyndns.server.entities.Project;
+import com.jsharper.dyndns.server.entities.fetch.ProjectFetch;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProjectRepository extends CrudRepository<@NotNull Project, @NotNull Long> {
+public interface ProjectRepository extends CrudRepository<@NotNull ProjectFetch, @NotNull Long> {
 }

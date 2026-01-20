@@ -1,4 +1,4 @@
-package com.jsharper.dyndns.server.entities;
+package com.jsharper.dyndns.server.entities.fetch;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 @Entity
-public class Programmer {
+public class ProgrammerFetch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,27 +17,27 @@ public class Programmer {
     @Column(name = "salary")
     private int sal;
 
-    public Programmer(String firstName, String lastName, int sal) {
+    public ProgrammerFetch(String firstName, String lastName, int sal) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.sal = sal;
     }
 
-    public Programmer(Long id, String firstName, String lastName, int sal) {
+    public ProgrammerFetch(Long id, String firstName, String lastName, int sal) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sal = sal;
     }
 
-    public Programmer(String firstName, String lastName, int sal, Set<Project> projects) {
+    public ProgrammerFetch(String firstName, String lastName, int sal, Set<ProjectFetch> projects) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.sal = sal;
         this.projects = projects;
     }
 
-    public Programmer() {
+    public ProgrammerFetch() {
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -49,7 +49,7 @@ public class Programmer {
     )
 
 
-    private Set<Project> projects;
+    private Set<ProjectFetch> projects;
 
     public Long getId() {
         return id;
@@ -83,17 +83,17 @@ public class Programmer {
         this.sal = sal;
     }
 
-    public Set<Project> getProjects() {
+    public Set<ProjectFetch> getProjects() {
         return projects;
     }
 
-    public void setProjects(Set<Project> projects) {
+    public void setProjects(Set<ProjectFetch> projects) {
         this.projects = projects;
     }
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Programmer.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ProgrammerFetch.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("firstName='" + firstName + "'")
                 .add("lastName='" + lastName + "'")

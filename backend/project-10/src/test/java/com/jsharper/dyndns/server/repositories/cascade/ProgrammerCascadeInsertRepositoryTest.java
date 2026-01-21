@@ -2,6 +2,7 @@ package com.jsharper.dyndns.server.repositories.cascade;
 
 import com.jsharper.dyndns.server.entities.cascade.ProgrammerCascadeInsert;
 import com.jsharper.dyndns.server.entities.cascade.ProjectCascadeInsert;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -24,44 +25,67 @@ public class ProgrammerCascadeInsertRepositoryTest {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
-    private Long id;
+
+    private EntityManager entityManager;
+
+    @BeforeAll
+    public void setUp() {
+        entityManager = emf.createEntityManager();
+    }
 
     @AfterAll
+    public void shutdown() {
+        System.out.println("AfterTestClass");
+        entityManager.close();
+    }
+
+    @AfterEach
     public void cleanUp() {
         repository.deleteAll();
         Assertions.assertEquals(0, repository.count());
     }
 
     @Test
-    void test() {
+    @Order(1)
+    void createAndSavePropagatedFromParentToChildren_providedParentObjectAndListOfChildren_returnStoredEntity() {
 
         var projects = new HashSet<ProjectCascadeInsert>();
+
         projects.add(new ProjectCascadeInsert("SpringFramework Project"));
+
         var programmer = new ProgrammerCascadeInsert("firstName", "lastName", projects);
 
         var storedProgrammer = repository.save(programmer);
-        this.id = storedProgrammer.getId();
+
         Assertions.assertEquals(storedProgrammer, programmer);
         Assertions.assertEquals(1, storedProgrammer.getProjectCascadeInserts().size());
     }
 
     @Test
-    void test2() {
-        //entityManager.getTransaction().begin();
-        var entityManager = emf.createEntityManager();
+    @Order(2)
+    void createAndPersistWithEntityManagerPropagatedFromParentToChildren_providedParentObjectAndListOfChildren_returnStoredEntity() {
+
         SessionImplementor session = (SessionImplementor) entityManager.getDelegate();
-        var transaction = entityManager.getTransaction();
+
+        var transaction = session.getTransaction();
+
         transaction.begin();
+
         var projects = new HashSet<ProjectCascadeInsert>();
+
         projects.add(new ProjectCascadeInsert("SpringFramework Project"));
+
         var programmer = new ProgrammerCascadeInsert("firstName", "lastName", projects);
 
-        entityManager.persist(programmer);
+        session.persist(programmer);
 
 
         var storedProgrammer = entityManager.find(ProgrammerCascadeInsert.class, programmer.getId());
+
+        session.flush();
+        session.clear();
         transaction.commit();
-        this.id = storedProgrammer.getId();
+
         Assertions.assertEquals(storedProgrammer, programmer);
         Assertions.assertEquals(1, storedProgrammer.getProjectCascadeInserts().size());
 

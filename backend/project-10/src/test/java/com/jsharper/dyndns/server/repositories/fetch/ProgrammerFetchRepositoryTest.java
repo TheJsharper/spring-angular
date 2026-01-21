@@ -1,8 +1,7 @@
-package com.jsharper.dyndns.server.repositories;
+package com.jsharper.dyndns.server.repositories.fetch;
 
 import com.jsharper.dyndns.server.entities.fetch.ProgrammerFetch;
 import com.jsharper.dyndns.server.entities.fetch.ProjectFetch;
-import com.jsharper.dyndns.server.repositories.fetch.ProgrammerFetchRepository;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;

@@ -17,6 +17,17 @@ public class ProgrammerFetch {
     @Column(name = "salary")
     private int sal;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+
+    @JoinTable(name = "programmers_projects",
+            joinColumns = {@JoinColumn(name = "programmer_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")}
+
+    )
+
+
+    private Set<ProjectFetch> projects;
+
     public ProgrammerFetch(String firstName, String lastName, int sal) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,16 +51,7 @@ public class ProgrammerFetch {
     public ProgrammerFetch() {
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
 
-    @JoinTable(name = "programmers_projects",
-            joinColumns = {@JoinColumn(name = "programmer_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "id")}
-
-    )
-
-
-    private Set<ProjectFetch> projects;
 
     public Long getId() {
         return id;

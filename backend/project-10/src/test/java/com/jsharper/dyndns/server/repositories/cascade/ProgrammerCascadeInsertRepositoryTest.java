@@ -2,9 +2,7 @@ package com.jsharper.dyndns.server.repositories.cascade;
 
 import com.jsharper.dyndns.server.entities.cascade.ProgrammerCascadeInsert;
 import com.jsharper.dyndns.server.entities.cascade.ProjectCascadeInsert;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceUnit;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.junit.jupiter.api.*;

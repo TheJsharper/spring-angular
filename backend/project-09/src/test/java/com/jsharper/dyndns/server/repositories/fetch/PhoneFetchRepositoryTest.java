@@ -125,7 +125,7 @@ public class PhoneFetchRepositoryTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void createPhoneDeleteEntity_ProvidedPhone_returnPhoneEntity() {
 
         var phone = new PhoneFetch("+5955458585", "mobile");

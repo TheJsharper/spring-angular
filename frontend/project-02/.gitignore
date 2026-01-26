@@ -1,0 +1,8 @@
+.nx/installation
+.nx/cache
+.nx/workspace-data
+.angular
+
+__screenshots__/
+
+vitest.config.*.timestamp*

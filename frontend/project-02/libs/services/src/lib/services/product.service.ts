@@ -4,8 +4,8 @@ import { map, Observable, of } from "rxjs";
 export interface PeriodicElement {
     id: string
     name: string;
-    position: number;
-    weight: number;
+    position: number |null;
+    weight: number |null;
     symbol: string;
 }
 @Injectable()

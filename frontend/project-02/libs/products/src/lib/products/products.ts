@@ -1,16 +1,17 @@
-import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogClose } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { PeriodicElement, ProductsService } from '@services';
 import { mergeMap, Observable } from 'rxjs';
 import { DialogProductComponent } from './dialog/dialog-product.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 @Component({
   selector: 'lib-products',
-  imports: [MatTableModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
@@ -24,30 +25,35 @@ export class Products {
 
   periodictElement: Observable<Array<PeriodicElement>> = this.productService.getAllPeriodictElement();
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
 
 
- 
   openDialog(row: PeriodicElement): void {
     const dialogRef = this.dialog.open(DialogProductComponent, {
       data: row,
       width: '40%',
-      height: '60%',
-      hasBackdrop: false,
-      
+      height: '60%'
+
     });
 
 
     this.periodictElement = dialogRef.afterClosed().pipe(
-      mergeMap((result: PeriodicElement) =>{
-        if (result) {
+      mergeMap((result: PeriodicElement) => {
+        if (result && row.id !== '') {
           return this.productService.patchPeriodictElement(row.id, result)
+        } else if (result && row.id === '') {
+          return this.productService.createPeriodictElement(result)
+        } else {
+          return this.productService.getAllPeriodictElement();
         }
-        return this.productService.getAllPeriodictElement();
       })
     );
 
+  }
+
+  onDelete(id: string): void {
+    this.periodictElement = this.productService.deletePeriodictElement(id);
   }
 
 

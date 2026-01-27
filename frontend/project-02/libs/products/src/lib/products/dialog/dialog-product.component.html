@@ -1,0 +1,26 @@
+<form>
+
+    <h1 mat-dialog-title>Product Details</h1>
+    <div mat-dialog-content style="display: flex; flex-direction: column; gap: 12px;">
+        <mat-form-field appearance="fill">
+            <mat-label>name</mat-label>
+            <input matInput [formControl]="form.controls.name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>position</mat-label>
+            <input matInput [formControl]="form.controls.position" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>weight</mat-label>
+            <input matInput [formControl]="form.controls.weight" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>symbol</mat-label>
+            <input matInput [formControl]="form.controls.symbol" />
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button matButton (click)="onNoClick()">No Thanks</button>
+        <button matButton cdkFocusInitial [mat-dialog-close]="form.value">Ok</button>
+    </div>
+</form>

@@ -4,8 +4,8 @@ import { map, Observable, of } from "rxjs";
 export interface PeriodicElement {
     id: string
     name: string;
-    position: number |null;
-    weight: number |null;
+    position: number | null;
+    weight: number | null;
     symbol: string;
 }
 @Injectable()
@@ -58,7 +58,7 @@ export class ProductsService {
         );
     }
 
-    patchPeriodictElement(id: string, updatedFields: Partial<Omit<PeriodicElement, 'id'>>): Observable<Array<PeriodicElement> > {
+    patchPeriodictElement(id: string, updatedFields: Partial<Omit<PeriodicElement, 'id'>>): Observable<Array<PeriodicElement>> {
         return this.periodictElement.pipe(
             map((elements) => {
                 const elementIndex = elements.findIndex((el) => el.id === id);

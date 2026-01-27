@@ -19,8 +19,8 @@
             <input matInput [formControl]="form.controls.symbol" />
         </mat-form-field>
     </div>
-    <div mat-dialog-actions>
-        <button matButton (click)="onNoClick()">No Thanks</button>
-        <button matButton cdkFocusInitial [mat-dialog-close]="form.value">Ok</button>
+    <div mat-dialog-actions  [align]="'end'">
+        <button matButton (click)="onCancel()">Cancel</button>
+        <button matButton cdkFocusInitial [mat-dialog-close]="form.value">Save</button>
     </div>
 </form>

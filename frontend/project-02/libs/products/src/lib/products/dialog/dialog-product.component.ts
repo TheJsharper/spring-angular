@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from "@angular/core";
-import { Form, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { Component, inject } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -18,14 +18,14 @@ import { PeriodicElement } from "@services";
         MatDialogClose],
     templateUrl: './dialog-product.component.html'
 })
-export class DialogProductComponent implements OnInit {
+export class DialogProductComponent {
+    
     readonly dialogRef = inject(MatDialogRef<DialogProductComponent>);
 
     readonly data: PeriodicElement = inject(MAT_DIALOG_DATA);
 
     form = new FormGroup({
-        id: new FormControl(this.data.id),
-        
+        id: new FormControl(this.data.id),        
         position: new FormControl(this.data.position),
         name: new FormControl(this.data.name),
         weight: new FormControl(this.data.weight),
@@ -33,11 +33,9 @@ export class DialogProductComponent implements OnInit {
     });
 
 
-    ngOnInit(): void {
-        console.log('Dialog data received:', this.data);
-    }
+   
 
-    onNoClick(): void {
+    onCancel(): void {
         this.dialogRef.close();
     }
 }  

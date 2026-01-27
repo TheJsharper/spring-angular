@@ -10,7 +10,7 @@ import { DialogProductComponent } from './dialog/dialog-product.component';
 
 @Component({
   selector: 'lib-products',
-  imports: [MatTableModule,  MatDialogClose],
+  imports: [MatTableModule],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
@@ -34,14 +34,18 @@ export class Products {
       data: row,
       width: '40%',
       height: '60%',
+      hasBackdrop: false,
       
     });
 
 
     this.periodictElement = dialogRef.afterClosed().pipe(
-      mergeMap((result: PeriodicElement) =>
-        this.productService.patchPeriodictElement(row.id, result)
-      )
+      mergeMap((result: PeriodicElement) =>{
+        if (result) {
+          return this.productService.patchPeriodictElement(row.id, result)
+        }
+        return this.productService.getAllPeriodictElement();
+      })
     );
 
   }

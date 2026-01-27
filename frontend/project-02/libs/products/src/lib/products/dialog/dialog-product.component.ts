@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog";
@@ -16,10 +16,11 @@ import { PeriodicElement } from "@services";
         ReactiveFormsModule,
         MatFormFieldModule,
         MatDialogClose],
-    templateUrl: './dialog-product.component.html'
+    templateUrl: './dialog-product.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogProductComponent {
-    
+
     readonly dialogRef = inject(MatDialogRef<DialogProductComponent>);
 
     readonly data: PeriodicElement = inject(MAT_DIALOG_DATA);

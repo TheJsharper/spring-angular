@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "products": ["libs/products/src/index.ts"],
-      "@services": ["libs/services/src/index.ts"]
+      "@services": ["libs/services/src/index.ts"],
+      "main-shell": ["libs/main-shell/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

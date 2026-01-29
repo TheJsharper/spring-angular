@@ -5,10 +5,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'lib-main-shell',
-  imports: [MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, MatToolbarModule],
+  imports: [
+    RouterOutlet,RouterLink,
+    MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, MatToolbarModule
+  ],
   templateUrl: './main-shell.html',
   styleUrl: './main-shell.scss',
 })
@@ -43,7 +47,5 @@ export class MainShell implements OnDestroy {
     this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
-  protected readonly shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(
-    window.location.host,
-  );
+ 
 }

@@ -1,12 +1,18 @@
 import { Route } from '@angular/router';
-import {ProductsService} from '@services';
+import { ProductsService } from '@services';
 
 export const appRoutes: Route[] = [
     {
+        path: 'main-shell',
+        // loadComponent: () => import('products').then(c => c.Products),
+        loadChildren: () => import('main-shell').then(c => c.mainShellRoutes),
+
+        providers: [ProductsService],
+
+    },
+    {
         path: '',
-       // loadComponent: () => import('products').then(c => c.Products),
-        loadComponent: () => import('main-shell').then(c => c.MainShell),
-    
-        providers:[ProductsService]
+        pathMatch: 'full',
+        redirectTo: '/main-shell',
     }
 ];

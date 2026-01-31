@@ -1,18 +1,24 @@
 <mat-sidenav-container>
-  <mat-sidenav #snav>
+  <mat-sidenav #snav class="app-sidenav">
     <mat-nav-list>
-      <mat-list-item [routerLink]="[ 'products']" routerLinkActive="active">Products</mat-list-item>
+      <mat-list-item [routerLink]="[ 'products']" routerLinkActive="active">
+        <button matIconButton>
+
+          <mat-icon>inventory</mat-icon>
+          <span matLine>Products</span>
+        </button>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar color="primary" class="mat-elevation-z4">
+    <mat-toolbar color="primary" class="mat-elevation-z3">
       <button matIconButton (click)="snav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       <h1 class="example-app-name">Responsive App</h1>
     </mat-toolbar>
-    <div style="height: 100%; width: 100%;">
+    <div class="app-content">
 
       <router-outlet></router-outlet>
     </div>

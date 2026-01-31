@@ -1,6 +1,5 @@
-import { provideRouter, Route } from '@angular/router';
+import { Route } from '@angular/router';
 import { ProductsService } from '@services';
-import { MainShell, mainShellRoutes } from 'main-shell';
 
 export const appRoutes: Route[] = [
    /* {

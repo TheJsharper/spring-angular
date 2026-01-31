@@ -1,28 +1,3 @@
 /* You can add global styles to this file, and also import other style files */
 //@import 'angular/material/prebuilt-themes/indigo-pink.css';
 
-.active-list-item {
-  color: #3F51B5 !important;
-}
-
-.app-sidenav {
-  min-width: 200px;
-  max-width: 100%;
-}
-
-.app-content {
-  padding: 5%;
-}
-
-.pricing-options {
-  display: flex;
-  flex-flow: row wrap;
-}
-.pricing-options-card {
-  text-align: center;
-  vertical-align: middle;
-  margin: 16px;
-}
-.pricing-options-card p {
-  font-size: 16px;
-}

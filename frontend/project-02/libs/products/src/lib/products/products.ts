@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 import { PeriodicElement, ProductsService } from '@services';
 import { mergeMap, Observable } from 'rxjs';
 import { DialogProductComponent } from './dialog/dialog-product.component';
-import { MatButtonModule } from '@angular/material/button';
 
 
 
 @Component({
   selector: 'lib-products',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })

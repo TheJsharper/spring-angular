@@ -1,11 +1,12 @@
 import { Route } from '@angular/router';
 import { MainShell } from './main-shell/main-shell';
+import { Products } from 'products';
 
 export const mainShellRoutes: Route[] = [
     {
         path: '',
         component: MainShell,
-        pathMatch: 'full',
+       // pathMatch: 'full',
 
         /*children: [
             {
@@ -22,7 +23,9 @@ export const mainShellRoutes: Route[] = [
     },
     {
         path: 'products',
-        loadComponent: () => import('products').then(m => m.Products),
+        //loadComponent: () => import('products').then(m => m.Products),
+         loadChildren: () => import('products').then(m => m.productsRoutes),
+       // component: Products
 
     },
 ];

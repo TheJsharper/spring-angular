@@ -5,14 +5,16 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'lib-main-shell',
   imports: [
-    RouterOutlet,RouterLink,
+    RouterOutlet,RouterLink, RouterModule,
     MatListModule, MatSidenavModule, MatIconModule, MatButtonModule, MatToolbarModule
   ],
+  providers: [MediaMatcher, ],
+
   templateUrl: './main-shell.html',
   styleUrl: './main-shell.scss',
 })

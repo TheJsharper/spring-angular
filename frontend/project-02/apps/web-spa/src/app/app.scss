@@ -1,25 +1,37 @@
-.active-list-item {
-  color: #3F51B5 !important;
-}
-
-.app-sidenav {
-  min-width: 200px;
-  max-width: 100%;
-}
-
-.app-content {
-  padding: 5%;
-}
-
-.pricing-options {
+:host {
   display: flex;
-  flex-flow: row wrap;
-}
-.pricing-options-card {
-  text-align: center;
-  vertical-align: middle;
-  margin: 16px;
-}
-.pricing-options-card p {
-  font-size: 16px;
+  height: 100%;
+
+  .active-list-item {
+    color: #3F51B5 !important;
+  }
+
+  .app-sidenav {
+    min-width: 200px;
+    max-width: 100%;
+  }
+
+  .app-content {
+    padding: 5%;
+  }
+
+  .pricing-options {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .pricing-options-card {
+    text-align: center;
+    vertical-align: middle;
+    margin: 16px;
+  }
+
+  .pricing-options-card p {
+    font-size: 16px;
+  }
+  .menu-icon-buttons-sidenav{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
 }

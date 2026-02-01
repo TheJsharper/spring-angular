@@ -8,7 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  imports: [ RouterModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, MatIconModule, MatButtonModule, MatLineModule ],
+  imports: [
+    RouterModule, MatSidenavModule, MatToolbarModule,
+    MatIconModule, MatListModule, MatIconModule,
+    MatButtonModule, MatLineModule,
+
+  ],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',

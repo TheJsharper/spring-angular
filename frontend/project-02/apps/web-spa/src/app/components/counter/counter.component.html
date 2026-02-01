@@ -1,7 +1,8 @@
-
-<div>
+<div >
     <h1>Counter: {{ count | async }}</h1>
-    <button (click)="increment()">Increment</button>
-    <button (click)="decrement()">Decrement</button>    
-    <button (click)="reset()">Reset</button>
+    <div class="counter-actions-btns">
+        <button color="primary" mat-flat-button (click)="increment()">Increment</button>
+        <button color="accent" mat-flat-button (click)="decrement()">Decrement</button>
+        <button color="warn" mat-flat-button (click)="reset()">Reset</button>
+    </div>
 </div>

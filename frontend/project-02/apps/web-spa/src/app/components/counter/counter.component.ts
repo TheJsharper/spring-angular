@@ -4,11 +4,12 @@ import { Store } from "@ngrx/store";
 import { CounterState } from "./store/counter.reducers";
 import { map, Observable } from "rxjs";
 import { countFeature } from "./store/counter.selectors";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
     selector: "app-counter",
     templateUrl: "./counter.component.html",
-    imports: [AsyncPipe],
+    imports: [AsyncPipe, MatButtonModule],
     styleUrls: ["./counter.component.scss"],
 })
 export class CounterComponent {
@@ -19,7 +20,6 @@ export class CounterComponent {
         );
     }
     increment() {
-        console.log("Increment clicked", this.store);
         this.store.dispatch({ type: '[Counter] Increment' });
     }
     decrement() {

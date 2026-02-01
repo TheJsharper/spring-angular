@@ -1,7 +1,17 @@
 
 :host
 {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .counter-actions-btns
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
 
 
 }

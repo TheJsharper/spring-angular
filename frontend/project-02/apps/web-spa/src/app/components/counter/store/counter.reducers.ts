@@ -12,5 +12,5 @@ export const initialState: CounterState = {
 export const counterReducer = createReducer(initialState,
     on(increment, state => ({ count: state.count + 1 })),
     on(decrement, state => ({ count: state.count - 1 })),
-    on(reset, state => ({ count: 0 }))
+    on(reset, _state => ({ count: 0 }))
 )

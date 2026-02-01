@@ -1,12 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { PeriodicElement, ProductsService } from '@services';
-import { mergeMap, Observable } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { DialogProductComponent } from './dialog/dialog-product.component';
+import { createProduct, deleteProduct, loadProducts, updateProduct } from './store/products.actions';
+import { ProductsState } from './store/products.reducer';
+import { selectAllProducts } from './store/products.selectors';
 
 
 
@@ -16,18 +20,29 @@ import { DialogProductComponent } from './dialog/dialog-product.component';
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
-export class Products {
+export class Products implements OnInit, OnDestroy {
+
 
 
   private productService: ProductsService = inject(ProductsService);
 
   readonly dialog = inject(MatDialog);
 
+  private store: Store<ProductsState> = inject(Store<ProductsState>);
 
-  periodictElement: Observable<Array<PeriodicElement>> = this.productService.getAllPeriodictElement();
+  periodictElement: Observable<Array<PeriodicElement>> = this.store.select(selectAllProducts) // this.productService.getAllPeriodictElement();
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
+  private subscriptions = new Subscription
+
+  constructor() {
+    this.store.dispatch(loadProducts());
+  }
+
+  ngOnInit(): void {
+    this.periodictElement = this.store.select(selectAllProducts)
+  }
 
 
   openDialog(row: PeriodicElement): void {
@@ -39,22 +54,30 @@ export class Products {
     });
 
 
-    this.periodictElement = dialogRef.afterClosed().pipe(
-      mergeMap((result: PeriodicElement) => {
+    this.subscriptions.add(dialogRef.afterClosed().pipe(
+      tap((result: PeriodicElement) => {
         if (result && row.id !== '') {
-          return this.productService.patchPeriodictElement(row.id, result)
+          this.store.dispatch(updateProduct({ productId: row.id, changes: result }))
+          //this.productService.patchPeriodictElement(row.id, result)
         } else if (result && row.id === '') {
-          return this.productService.createPeriodictElement(result)
+          this.store.dispatch(createProduct({ product: result })); //this.productService.createPeriodictElement(result)
         } else {
-          return this.productService.getAllPeriodictElement();
+          this.store.select(selectAllProducts);
+          //return this.productService.getAllPeriodictElement();
         }
       })
-    );
+    ).subscribe());
 
   }
 
   onDelete(id: string): void {
-    this.periodictElement = this.productService.deletePeriodictElement(id);
+    this.store.dispatch(deleteProduct({ productId: id }));
+    //this.periodictElement = this.productService.deletePeriodictElement(id);
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup if necessary
+    this.subscriptions.unsubscribe();
   }
 
 

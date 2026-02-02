@@ -137,4 +137,49 @@ public class ProgrammerCascadeInsertRepositoryTest {
         Assertions.assertEquals(1, storedProgrammer.getProjectCascadeInserts().size());
 
     }
+
+    @Test
+    @Order(4)
+    void createAndTryPersistWithEntityManagerPropagatedFromParentToChildren_providedParentObjectAndListOfChildren_returnException2() {
+
+        SessionImplementor session = (SessionImplementor) entityManager.getDelegate();
+
+        var transaction = session.getTransaction();
+
+        transaction.begin();
+
+        var failureMessage = "Detached entity passed to persist:";
+
+        var projects = new HashSet<ProjectCascadeInsert>();
+
+        projects.add(new ProjectCascadeInsert("SpringFramework Project"));
+
+        var programmer = new ProgrammerCascadeInsert("firstName", "lastName", projects);
+
+        session.flush();
+        session.clear();
+        transaction.commit();
+        session.persist(programmer);
+
+
+        var storedProgrammer = session.find(ProgrammerCascadeInsert.class, programmer.getId());
+
+        //entityManager.detach(projects.toArray()[0]);
+
+        /*var exception = Assertions.assertThrows(EntityExistsException.class, () -> {
+            session.persist(programmer);
+            session.flush();
+            session.clear();
+          //  transaction.rollback();
+        });*/
+
+        Matcher<String> matcher = CoreMatchers.containsString(failureMessage);
+
+      //  MatcherAssert.assertThat(exception.getMessage(), matcher);
+
+        Assertions.assertEquals(storedProgrammer, programmer);
+
+        Assertions.assertEquals(1, storedProgrammer.getProjectCascadeInserts().size());
+
+    }
 }

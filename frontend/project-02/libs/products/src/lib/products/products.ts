@@ -3,10 +3,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { PeriodicElement, ProductsService } from '@services';
-import { Observable, Subscription, tap } from 'rxjs';
+import { PeriodicElement } from '@services';
+import { map, Observable, Subscription, tap } from 'rxjs';
 import { DialogProductComponent } from './dialog/dialog-product.component';
 import { createProduct, deleteProduct, loadProducts, updateProduct } from './store/products.actions';
 import { ProductsState } from './store/products.reducer';
@@ -20,28 +20,23 @@ import { selectAllProducts } from './store/products.selectors';
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
-export class Products implements OnInit, OnDestroy {
+export class Products implements OnDestroy {
 
 
 
 
-  readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog);
 
   private store: Store<ProductsState> = inject(Store<ProductsState>);
 
-  periodictElement: Observable<Array<PeriodicElement>> = this.store.select(selectAllProducts);
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
+  private subscriptions = new Subscription();
 
-  private subscriptions = new Subscription
+  protected periodictElement: Observable<Array<PeriodicElement>> = this.route.data.pipe(map((data) => data['products']));
 
-  constructor() {
-    this.store.dispatch(loadProducts());
-  }
+  protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
-  ngOnInit(): void {
-    this.periodictElement = this.store.select(selectAllProducts)
-  }
 
 
   openDialog(row: PeriodicElement): void {
@@ -70,7 +65,6 @@ export class Products implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cleanup if necessary
     this.subscriptions.unsubscribe();
   }
 

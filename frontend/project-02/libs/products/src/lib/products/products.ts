@@ -24,7 +24,6 @@ export class Products implements OnInit, OnDestroy {
 
 
 
-  private productService: ProductsService = inject(ProductsService);
 
   readonly dialog = inject(MatDialog);
 

@@ -44,11 +44,13 @@ export const productsReducer = createReducer(
         loading: false,
         error: null,
     })),
-    on(createProductSuccess, (state, action) => ({
-        ...state, ...action.product,
+    on(createProductSuccess, (state, action) =>
+    ({
+        ...state, products: [...state.products, action.product],
         loading: true,
         error: null,
-    })),
+    })
+    ),
     on(clearProducts, (state) => ({
         ...state,
         products: [],

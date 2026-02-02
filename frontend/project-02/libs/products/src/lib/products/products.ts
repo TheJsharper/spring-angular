@@ -30,7 +30,7 @@ export class Products implements OnInit, OnDestroy {
 
   private store: Store<ProductsState> = inject(Store<ProductsState>);
 
-  periodictElement: Observable<Array<PeriodicElement>> = this.store.select(selectAllProducts) // this.productService.getAllPeriodictElement();
+  periodictElement: Observable<Array<PeriodicElement>> = this.store.select(selectAllProducts);
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
@@ -57,13 +57,9 @@ export class Products implements OnInit, OnDestroy {
     this.subscriptions.add(dialogRef.afterClosed().pipe(
       tap((result: PeriodicElement) => {
         if (result && row.id !== '') {
-          this.store.dispatch(updateProduct({ productId: row.id, changes: result }))
-          //this.productService.patchPeriodictElement(row.id, result)
+          this.store.dispatch(updateProduct({ productId: row.id, changes: result }));
         } else if (result && row.id === '') {
-          this.store.dispatch(createProduct({ product: result })); //this.productService.createPeriodictElement(result)
-        } else {
-          this.store.select(selectAllProducts);
-          //return this.productService.getAllPeriodictElement();
+          this.store.dispatch(createProduct({ product: result }));
         }
       })
     ).subscribe());
@@ -72,7 +68,6 @@ export class Products implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this.store.dispatch(deleteProduct({ productId: id }));
-    //this.periodictElement = this.productService.deletePeriodictElement(id);
   }
 
   ngOnDestroy(): void {

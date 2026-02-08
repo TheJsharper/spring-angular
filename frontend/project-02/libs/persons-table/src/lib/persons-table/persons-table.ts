@@ -1,25 +1,42 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Person, PersonsService } from '@services';
+import { map, Observable, tap } from 'rxjs';
 @Component({
   selector: 'lib-persons-table',
-  imports: [MatFormFieldModule, MatInputModule, MatTableModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, AsyncPipe],
   templateUrl: './persons-table.html',
   styleUrls: ['./persons-table.scss'],
 })
 export class PersonsTable {
-  
+
   displayedColumns: string[] = ['firstName', 'lastName', 'age', 'phone', 'street', 'houseNumber', 'state', 'city', 'country'];
 
-  persons: Array<Person> = inject(PersonsService).getPersons();
+  persons: Observable<Array<Person>> = inject(PersonsService).getPersons();
 
-  dataSource = new MatTableDataSource(this.persons);
+  dataSource: Observable<MatTableDataSource<Person>>;
 
-    applyFilter(event: Event) {
+
+  private dataSourceInstance?: MatTableDataSource<Person>;
+
+  constructor() {
+    this.dataSource = this.persons.pipe(
+      map((data) => new MatTableDataSource(data)),
+      tap((dataSource) =>
+        this.dataSourceInstance = dataSource
+      )
+    )
+  }
+
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSourceInstance) {
+      this.dataSourceInstance.filter = filterValue.trim().toLowerCase();
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 import { Person } from "../lib/types/persons.types";
 
 export const personDbs: Array<Person> = [
+  
   {
     "firstName": "Brandon",
     "lastName": "Morris",
@@ -1101,4 +1102,4 @@ export const personDbs: Array<Person> = [
     "city": "New York",
     "country": "USA"
   }
-]
+].map((person) => ({ id: crypto.randomUUID(), ...person }));

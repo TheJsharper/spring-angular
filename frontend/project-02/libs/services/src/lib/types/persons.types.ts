@@ -11,3 +11,17 @@ export interface Person {
     country: string;
 }
 
+export const keyOfPerson: Array<keyof Omit<Person, 'id'>> = [
+    'firstName',
+    'lastName',
+    'age',
+    'phone',    
+    'street',
+    'houseNumber',
+    'state',
+    'city',
+    'country'
+];
+export const getKeyOfPerson = (person: Person): Array<keyof Person> => {
+    return Object.keys(person) as Array<keyof Person>;
+}

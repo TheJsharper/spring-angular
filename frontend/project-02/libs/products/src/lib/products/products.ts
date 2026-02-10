@@ -20,7 +20,7 @@ import { selectAllProducts } from './store/products.selectors';
   templateUrl: './products.html',
   styleUrl: './products.scss',
 })
-export class Products implements OnDestroy {
+export class Products implements OnDestroy, OnInit {
 
 
 
@@ -37,7 +37,9 @@ export class Products implements OnDestroy {
 
   protected displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
 
-
+  ngOnInit(): void {
+    this.periodictElement = this.store.select(selectAllProducts);
+  }
 
   openDialog(row: PeriodicElement): void {
     const dialogRef = this.dialog.open(DialogProductComponent, {

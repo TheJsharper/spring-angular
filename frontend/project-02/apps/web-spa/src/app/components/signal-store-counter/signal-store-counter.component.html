@@ -1,0 +1,7 @@
+<div class="container">
+    
+    <div ><mat-label>Counter: {{ store.count() }}</mat-label></div>
+    <button mat-raised-button color="primary" (click)="store.increment()">Increment</button>
+    <button mat-raised-button color="accent" (click)="store.decrement()">Decrement</button>
+    <button mat-raised-button color="warn" (click)="store.reset()">Reset</button>
+</div>

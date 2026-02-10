@@ -1,7 +1,9 @@
 import { Route } from '@angular/router';
-import { provideState } from '@ngrx/store';
+import {  } from '@ngrx/signals';
 import { ProductsService } from '@services';
 import { counterReducer } from './components/counter/store/counter.reducers';
+import { CounterStoreSignal } from './components/signal-store-counter/signal-store-counter.component';
+import { provideState } from '@ngrx/store';
 
 export const appRoutes: Route[] = [
 
@@ -19,6 +21,11 @@ export const appRoutes: Route[] = [
         providers: [
             provideState('count', counterReducer)
         ]
+    },
+    {
+        path: 'signal-store-counter',
+        loadComponent: () => import('./components/signal-store-counter/signal-store-counter.component').then(m => m.SignalStoreCounterComponent),
+        providers: [ CounterStoreSignal]
     },
 
     { path: '**', redirectTo: '/home' }

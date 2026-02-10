@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import { PeriodicElement } from '@services';
 import { map, Observable, Subscription, tap } from 'rxjs';
 import { DialogProductComponent } from './dialog/dialog-product.component';
-import { createProduct, deleteProduct, loadProducts, updateProduct } from './store/products.actions';
+import { createProduct, deleteProduct, updateProduct } from './store/products.actions';
 import { ProductsState } from './store/products.reducer';
 import { selectAllProducts } from './store/products.selectors';
 

@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Person Details</h1>
+<div mat-dialog-content style="display: flex; flex-direction: column; gap: 12px;">
+    <mat-form-field appearance="fill">
+        <mat-label>First Name</mat-label>
+        <input matInput [formField]="form.firstName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input matInput [formField]="form.lastName" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" [formField]="form.age" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Phone</mat-label>
+        <input matInput [formField]="form.phone" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Street</mat-label>
+        <input matInput [formField]="form.street" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>House Number</mat-label>
+        <input matInput [formField]="form.houseNumber" />    
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>State</mat-label>
+        <input matInput [formField]="form.state" />  
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>City</mat-label>
+        <input matInput [formField]="form.city" />   
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <input matInput [formField]="form.country" />
+    </mat-form-field>
+
+</div>
+<div mat-dialog-actions  [align]="'end'">
+    <button matButton (click)="onCancel()">Cancel</button>
+    <button matButton cdkFocusInitial [mat-dialog-close]="form()">Save</button>
+</div>

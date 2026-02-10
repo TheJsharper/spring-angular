@@ -1,5 +1,5 @@
-import { Signal, signal } from "@angular/core";
-import { Person } from "@services";
+import { inject, Signal, signal } from "@angular/core";
+import { Person, PersonsSignalsService } from "@services";
 import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
 
 export const PERSON_FEATURE_KEY = 'persons';
@@ -17,14 +17,22 @@ export const initialPersonState: PersonState = {
 /**/
 export const PersonStore = signalStore(
     withState<PersonState>(initialPersonState),
-    withMethods((store) => ({
-        createPerson(person: Person): void {
+
+    withMethods((store, service = inject(PersonsSignalsService)) => ({
+
+        getPersons(): Array<Person> {
+            return service.getPersons();
+        }
+
+        , createPerson(person: Person): void {
+            service.createPerson(person);
             patchState(store, {
                 persons: [...store.persons(), person],
 
             });
         },
         updatePerson(personId: string, changes: Partial<Person>): void {
+            service.updatePerson(personId, changes);
             patchState(store, {
                 persons: store.persons().map((person) =>
                     person.id === personId ? { ...person, ...changes } : person
@@ -32,6 +40,7 @@ export const PersonStore = signalStore(
             });
         },
         deletePerson(personId: string): void {
+            service.deletePerson(personId);
             patchState(store, {
                 persons: store.persons().filter((person) => person.id !== personId),
             });

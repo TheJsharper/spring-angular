@@ -1,17 +1,17 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { Person, PersonsService, keyOfPerson } from '@services';
-import { map, Observable, tap } from 'rxjs';
+import { keyOfPerson, Person, PersonsService } from '@services';
+import { map, Observable, Subscription, tap } from 'rxjs';
 import { DialogPersonComponent } from './dialog/dialog-person.component';
-import { MatButton } from '@angular/material/button';
+import { PersonStore } from './store/persons.store';
 @Component({
   selector: 'lib-persons-table',
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, AsyncPipe, MatButton],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatTableModule, MatButton],
   templateUrl: './persons-table.html',
   styleUrls: ['./persons-table.scss'],
 })
@@ -22,9 +22,16 @@ export class PersonsTable {
 
   displayedColumns: string[] = [...keyOfPerson, 'actions'];
 
-  persons: Observable<Array<Person>> = inject(PersonsService).getPersons();
+   persons: Observable<Array<Person>> = inject(PersonsService).getPersons();
+
+   private store = inject(PersonStore);
+
+   persons$: Array<Person> = this.store.getPersons();
 
   dataSource: Observable<MatTableDataSource<Person>>;
+
+  dataSource$: MatTableDataSource<Person> = new MatTableDataSource<Person>(this.persons$);
+  subscriptions = new Subscription();
 
 
   private dataSourceInstance?: MatTableDataSource<Person>;
@@ -43,9 +50,9 @@ export class PersonsTable {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
 
-    if (this.dataSourceInstance) {
-      this.dataSourceInstance.filter = filterValue.trim().toLowerCase();
-    }
+   // if (this.dataSourceInstance) {
+      this.dataSource$.filter = filterValue.trim().toLowerCase();
+   // }
   }
 
   openDialog(row: Person): void {
@@ -55,15 +62,17 @@ export class PersonsTable {
       height: '60%'
     });
 
-    /*this.subscriptions.add(dialogRef.afterClosed().pipe(
+    this.subscriptions.add(dialogRef.afterClosed().pipe(
       tap((result: Person) => {
         if (result && row.id !== '') {
-          this.store.dispatch(updatePerson({ personId: row.id, changes: result }));
+          this.store.updatePerson(result.id, result);
+          //this.store.dispatch(updatePerson({ personId: row.id, changes: result }));
         } else if (result && row.id === '') {
-          this.store.dispatch(createPerson({ person: result }));
+            this.store.createPerson(result);
+          //this.store.dispatch(createPerson({ person: result }));
         }
       })
-    ).subscribe());*/
+    ).subscribe());
   }
 
   onDelete(id: string): void {

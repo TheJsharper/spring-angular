@@ -5,6 +5,7 @@ import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { Person } from "@services";
+import { PersonStore } from "../store/persons.store";
 
 @Component({
     selector: 'lib-dialog-person',
@@ -24,6 +25,7 @@ import { Person } from "@services";
 })
 export class DialogPersonComponent {
     readonly data: Person = inject(MAT_DIALOG_DATA);
+    //&private store = inject(PersonStore);
 
     readonly dialogRef = inject(MatDialogRef<DialogPersonComponent>);
 
@@ -43,6 +45,11 @@ export class DialogPersonComponent {
 
     constructor() { }
 
+    onSave(): void {
+        const person: Person = this.model();
+     //   this.store.updatePerson(person.id, person);
+        this.dialogRef.close(person);
+    }
 
     onCancel(): void {
         this.dialogRef.close();

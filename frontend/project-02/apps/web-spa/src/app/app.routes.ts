@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import {  } from '@ngrx/signals';
 import { ProductsService } from '@services';
 import { counterReducer } from './components/counter/store/counter.reducers';
-import { CounterStoreSignal } from './components/signal-store-counter/signal-store-counter.component';
+import { CounterStoreSignal } from './components/signal-store-counter/store/store-signal';
 import { provideState } from '@ngrx/store';
 
 export const appRoutes: Route[] = [

@@ -40,5 +40,5 @@
 </div>
 <div mat-dialog-actions  [align]="'end'">
     <button matButton (click)="onCancel()">Cancel</button>
-    <button matButton cdkFocusInitial [mat-dialog-close]="form()">Save</button>
+    <button matButton cdkFocusInitial [mat-dialog-close]="form().value()">Save</button>
 </div>

@@ -1,6 +1,6 @@
-import { inject, Signal, signal } from "@angular/core";
+import { effect, inject, Signal, signal, WritableSignal } from "@angular/core";
 import { Person, PersonsSignalsService } from "@services";
-import { patchState, signalStore, withMethods, withProps, withState } from '@ngrx/signals';
+import { getState, patchState, signalStore, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 
 export const PERSON_FEATURE_KEY = 'persons';
 
@@ -20,11 +20,14 @@ export const PersonStore = signalStore(
 
     withMethods((store, service = inject(PersonsSignalsService)) => ({
 
-        getPersons(): Array<Person> {
-            return service.getPersons();
-        }
+        getPersons(): PersonState {
+            patchState(store, {
+                persons: service.getPersons()(),
+            });
+            return getState(store);
+        },
 
-        , createPerson(person: Person): void {
+        createPerson(person: Person): void {
             service.createPerson(person);
             patchState(store, {
                 persons: [...store.persons(), person],
@@ -34,15 +37,13 @@ export const PersonStore = signalStore(
         updatePerson(personId: string, changes: Partial<Person>): void {
             service.updatePerson(personId, changes);
             patchState(store, {
-                persons: store.persons().map((person) =>
-                    person.id === personId ? { ...person, ...changes } : person
-                ),
+                persons: service.getPersons()(),
             });
         },
         deletePerson(personId: string): void {
             service.deletePerson(personId);
             patchState(store, {
-                persons: store.persons().filter((person) => person.id !== personId),
+                persons: service.getPersons()(),
             });
         },
 
@@ -50,5 +51,12 @@ export const PersonStore = signalStore(
 
 
 
-    }))
+    })),
+    withHooks({
+        onInit(store) {
+            effect(() => {
+                console.log('PersonStore initialized with state:', getState(store));
+            });
+        }
+    })
 );

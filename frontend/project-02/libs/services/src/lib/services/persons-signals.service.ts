@@ -7,11 +7,11 @@ export class PersonsSignalsService {
     private persons: WritableSignal<Array<Person>> = signal(personDbs);
 
     constructor() {
-        console.log("PersonsSignalsService initialized with persons:", this.persons());
+      
     }
 
-    getPersons(): Array<Person> {
-        return this.persons();
+    getPersons(): WritableSignal<Array<Person>> {
+        return this.persons;
     }
 
     getPersonById(id: string): Person | undefined {
@@ -25,6 +25,7 @@ export class PersonsSignalsService {
 
     updatePerson(id: string, updatedPerson: Partial<Person>): void {
         this.persons.update((prev: Person[]) => prev.map((person) => person.id === id ? { ...person, ...updatedPerson } : person));
+          console.log("PersonsSignalsService updated persons:", id, updatedPerson,  this.persons());
     }
 
     deletePerson(id: string): void {

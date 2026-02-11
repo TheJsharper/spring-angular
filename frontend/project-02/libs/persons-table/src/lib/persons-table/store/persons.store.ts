@@ -7,14 +7,11 @@ export const PERSON_FEATURE_KEY = 'persons';
 export interface PersonState {
     // Define the state properties here
     persons: Array<Person>;
-    //isLoading: boolean;
 }
 
 export const initialPersonState: PersonState = {
-    persons: [],
-    //isLoading: false,
+    persons: []
 };
-/**/
 export const PersonStore = signalStore(
     withState<PersonState>(initialPersonState),
 

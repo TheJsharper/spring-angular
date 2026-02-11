@@ -7,10 +7,16 @@
           <span matLine>Products</span>
         </button>
       </mat-list-item>
-       <mat-list-item [routerLink]="[ 'persons']" routerLinkActive="active">
+      <mat-list-item [routerLink]="[ 'persons']" routerLinkActive="active">
         <button matIconButton class="menu-icon-buttons-sidenav">
           <mat-icon>people</mat-icon>
           <span matLine>Persons</span>
+        </button>
+      </mat-list-item>
+      <mat-list-item [routerLink]="[ 'stats']" routerLinkActive="active">
+        <button matIconButton class="menu-icon-buttons-sidenav">
+          <mat-icon>bar_chart</mat-icon>
+          <span matLine>Stats</span>
         </button>
       </mat-list-item>
     </mat-nav-list>

@@ -17,6 +17,12 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('persons-table').then(m => m.personsTableRoutes),
         providers: [PersonsService]
     },
+
+    {
+        path: 'stats',
+        loadChildren: () => import('@stats').then(m => m.statsRoutes)
+    },
+
     {
         path: '',
         redirectTo: 'products',

@@ -62,6 +62,7 @@
     "@ngrx/signals": "^21.0.1",
     "@ngrx/store": "^21.0.1",
     "@ngrx/store-devtools": "^21.0.1",
+    "echarts": "^6.0.0",
     "rxjs": "~7.8.0"
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, OnDestroy, signal, WritableSignal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,27 +18,31 @@ import { PersonStore } from './store/persons.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class PersonsTable {
+export class PersonsTable implements OnDestroy {
 
-
-  private readonly dialog = inject(MatDialog);
 
   displayedColumns: string[] = [...keyOfPerson, 'actions'];
 
+  dataSource = new MatTableDataSource<Person>([]);
+
+  defaultPerson = this.getDefaultPerson();
+
+  private readonly dialog = inject(MatDialog);
+
+
   private store = inject(PersonStore);
 
-  private persons$$: WritableSignal<Array<Person>>;
+  private persons: WritableSignal<Array<Person>>;
 
-  dataSource = new MatTableDataSource<Person>(getState(this.store).persons);
-
-  subscriptions = new Subscription();
+  private subscriptions = new Subscription();
 
   constructor() {
-    this.persons$$ = signal(getState(this.store).persons);
+
+    this.persons = signal(getState(this.store).persons);
 
     effect(() => {
-      this.persons$$.set([...getState(this.store).persons]);
-      
+      this.persons.set([...getState(this.store).persons]);
+
       this.dataSource.data = [...getState(this.store).persons];
     });
   }
@@ -68,8 +72,28 @@ export class PersonsTable {
     ).subscribe());
   }
 
+  private getDefaultPerson(): Person {
+    return {
+      id: '',
+      firstName: '',
+      lastName: '',
+      age: 0,
+      phone: '',
+      street: '',
+      city: '',
+      state: '',
+      country: '',
+      houseNumber: '',
+
+    };
+  }
+
   onDelete(id: string): void {
     this.store.deletePerson(id);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
 }

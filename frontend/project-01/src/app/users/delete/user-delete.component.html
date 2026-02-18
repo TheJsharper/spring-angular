@@ -1,0 +1,14 @@
+<h1>DELETE</h1>
+<div >
+    @if(user |async; as u){
+
+        <label for="firstName"> First Name</label>
+        <input id="firstName" [value]="u.firstName">
+        
+        <label for="firstName"> Last Name</label>
+        <input id="firstName" [value]="u.lastName">
+    
+        <button (click)="deleteHandler()"> Remove</button>
+        <button (click)="cancelHandler()"> cancel</button>
+    }
+</div>

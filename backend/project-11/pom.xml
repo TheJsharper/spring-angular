@@ -13,4 +13,18 @@
     </properties>
 
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <mainClass>com.jsharper.dyndns.server.Application</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>

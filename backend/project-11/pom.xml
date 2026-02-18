@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jsharper.dyndns.server.project-11</groupId>
+    <artifactId>project-11</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>25</java.version>
+    </properties>
+
+
+</project>

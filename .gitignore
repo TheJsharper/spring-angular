@@ -5,6 +5,7 @@
 /bazel-out
 /target/*
 **/target
+**/data/*
 
 # Node
 /node_modules

@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class Stats implements OnInit, OnDestroy {
   chart!: echarts.EChartsType;
   seriesRefreshInterval: any;
+  dayCount = 7;
 
   ngOnInit(): void {
     this.chart = echarts.init(document.getElementById('main') as HTMLDivElement);
@@ -20,7 +21,7 @@ export class Stats implements OnInit, OnDestroy {
       baseOption: {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7']
         },
         yAxis: {
           type: 'value'
@@ -33,6 +34,7 @@ export class Stats implements OnInit, OnDestroy {
     });
 
     this.seriesRefreshInterval = setInterval(() => {
+      const scope = this;
 
       const option = this.chart.getOption() as echarts.EChartsOption;
 
@@ -50,10 +52,15 @@ export class Stats implements OnInit, OnDestroy {
           ? [option.series]
           : [];
 
+          const data = series[0].data as Array<number>;
       if (series.length > 0) {
-        const data = series[0].data as Array<number>;
+        
         data.push(Math.floor(Math.random() * 2000));
-        xAxisData.push(`Day ${xAxisData.length + 1}`);
+        scope.dayCount++;
+        xAxisData.push(`Day ${scope.dayCount }`);
+       
+        xAxisData.shift();
+        data.shift();
       }
       console.log('Updating chart with new data:', series[0]);
       this.chart.setOption(option);

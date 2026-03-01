@@ -2,10 +2,10 @@
     .draw {
         stroke-dasharray: 2338.5;
         stroke-dashoffset: 2338.5;
-        animation: dash2 3s linear infinite;
+        animation: dash 3s linear infinite;
     }
 
-    @keyframes dash2 {
+    @keyframes dash {
         to {
             stroke-dashoffset: 0;
         }

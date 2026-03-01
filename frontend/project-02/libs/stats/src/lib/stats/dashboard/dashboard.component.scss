@@ -1,0 +1,13 @@
+:host {
+    .draw {
+        stroke-dasharray: 2338.5;
+        stroke-dashoffset: 2338.5;
+        animation: dash2 3s linear infinite;
+    }
+
+    @keyframes dash2 {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+}

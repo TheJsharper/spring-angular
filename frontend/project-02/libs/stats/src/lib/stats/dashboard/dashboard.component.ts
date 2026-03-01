@@ -13,7 +13,7 @@ export class DashboardComponent {
     router: Router = inject(Router);
     route: ActivatedRoute = inject(ActivatedRoute);
 
-    nav(): void {
-        this.router.navigate(['/stats/line-chart'], { relativeTo: this.route });
+    nav(goTo: string): void {
+        this.router.navigate([`/stats/${goTo}`], { relativeTo: this.route });
     }
 }

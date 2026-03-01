@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+import { RouterOutlet } from '@angular/router';
 import * as echarts from 'echarts';
-import { } from 'echarts';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'lib-stats',
-  imports: [ MatButtonModule ],
+  imports: [  RouterOutlet ],
   templateUrl: './stats.html',
   styleUrls: ['./stats.scss'],
 })
@@ -15,8 +14,9 @@ export class Stats implements OnInit, OnDestroy {
   seriesRefreshInterval: any;
   dayCount = 7;
 
+
   ngOnInit(): void {
-    this.chart = echarts.init(document.getElementById('main') as HTMLDivElement);
+    /*this.chart = echarts.init(document.getElementById('main') as HTMLDivElement);
     this.chart.setOption({
       baseOption: {
         xAxis: {
@@ -64,8 +64,10 @@ export class Stats implements OnInit, OnDestroy {
       }
       console.log('Updating chart with new data:', series[0]);
       this.chart.setOption(option);
-    }, 5000);
+    }, 5000);*/
   }
+
+    
 
   stopSeries(): void {
     if (this.seriesRefreshInterval) {

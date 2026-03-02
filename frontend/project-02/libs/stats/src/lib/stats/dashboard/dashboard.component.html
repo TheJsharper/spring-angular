@@ -11,7 +11,7 @@
                 as value:</mat-card-subtitle>
         </mat-card-header>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
-            <path class="draw" stroke-linejoin="round" stroke="#27BEF5" fill="none" stroke-width="10" 
+            <path class="draw" stroke-linejoin="round" stroke="#27BEF5" fill="none" stroke-width="10"
                 d="m140-200-60-60 300-300 160 160 67-76-224-207-243 243-60-60 300-300 284 261 160-181 56 56-158 178 158 146-60 60-154-142-126 142-160-160-240 240Z" />
         </svg>
         <mat-card-content>
@@ -31,15 +31,18 @@
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Basic Pie Chart</mat-card-title>
-            <mat-card-subtitle>Pie charts are mainly used to show the proportion of several categories compared with the total. The radians represent the proportion of each category.</mat-card-subtitle>
+            <mat-card-subtitle>Pie charts are mainly used to show the proportion of several categories compared with the
+                total. The radians represent the proportion of each category.</mat-card-subtitle>
         </mat-card-header>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
-            <path class="draw" stroke-linejoin="round" stroke="#D66378" fill="none" stroke-width="10" 
+            <path class="draw" stroke-linejoin="round" stroke="#D66378" fill="none" stroke-width="10"
                 d="M520-520h278q-15-110-91.5-186.5T520-798v278Zm-80 358v-636q-121 15-200.5 105.5T160-480q0 122 79.5 212.5T440-162Zm80 0q110-14 187-91t91-187H520v278Zm-40-318Zm0 400q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 155.5 31.5t127 86q54.5 54.5 86 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Z" />
         </svg>
         <mat-card-content>
             <p>
-              The config of the pie chart is not completely the same as the line chart and bar chart. There is no need to configure the axis. The name and value of data need to be defined in the series. Let's begin with a basic pie chart:
+                The config of the pie chart is not completely the same as the line chart and bar chart. There is no need
+                to configure the axis. The name and value of data need to be defined in the series. Let's begin with a
+                basic pie chart:
             </p>
         </mat-card-content>
         <mat-card-actions>
@@ -52,21 +55,51 @@
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>Basic Bar Chart</mat-card-title>
-            <mat-card-subtitle>Bar charts are used to compare the values of different categories. The length of the bar represents the value of each category.</mat-card-subtitle>
+            <mat-card-subtitle>Bar charts are used to compare the values of different categories. The length of the bar
+                represents the value of each category.</mat-card-subtitle>
         </mat-card-header>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
-            <path class="draw" stroke-linejoin="round" stroke="#D66378" fill="none" stroke-width="10" 
+            <path class="draw" stroke-linejoin="round" stroke="#C29C86" fill="none" stroke-width="10" 
                 d="M160-200v-60h640v60H160Zm0-120v-60h640v60H160Zm0-120v-60h640v60H160Z" />
         </svg>
         <mat-card-content>
             <p>
-              The config of the bar chart is similar to the line chart. We just need to change the type in series to bar. In this way, we can get a simple bar chart.
+                The config of the bar chart is similar to the line chart. We just need to change the type in series to
+                bar. In this way, we can get a simple bar chart.
             </p>
         </mat-card-content>
         <mat-card-actions>
             <button matButton (click)="nav('bar-chart')">go to bar chart</button>
         </mat-card-actions>
 
+    </mat-card>
+
+    <mat-card class="example-card" appearance="outlined" style="width: 300px; cursor: pointer;"
+        (click)="nav('scatter-chart')">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Basic Scatter Chart</mat-card-title>
+            <mat-card-subtitle>Scatter charts are used to show the relationship between two variables. Each point
+                represents a pair of values.</mat-card-subtitle>
+        </mat-card-header>
+        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
+            <path class="draw" stroke-linejoin="round" stroke="#D66378" fill="none" stroke-width="10" 
+                d="M160-200v-60h640v60H160Zm0-120v-60h640v60H160Zm0-120v-60h640v60H160Z" />
+        </svg>-->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
+            <path stroke="#27F579" fill="none" stroke-width="10" class="draw" stroke-linejoin="round"
+                d="M567-167q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm169.5-56.5Q760-247 760-280t-23.5-56.5Q713-360 680-360t-56.5 23.5Q600-313 600-280t23.5 56.5Q647-200 680-200t56.5-23.5ZM167-287q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm169.5-56.5Q360-367 360-400t-23.5-56.5Q313-480 280-480t-56.5 23.5Q200-433 200-400t23.5 56.5Q247-320 280-320t56.5-23.5ZM327-607q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47Zm169.5-56.5Q520-687 520-720t-23.5-56.5Q473-800 440-800t-56.5 23.5Q360-753 360-720t23.5 56.5Q407-640 440-640t56.5-23.5ZM680-280ZM280-400Zm160-320Z" />
+        </svg>
+
+        <mat-card-content>
+            <p>
+                The config of the scatter chart is similar to the line chart and bar chart. We just need to change the
+                type in series to scatter. In this way, we can get a simple scatter chart.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button matButton (click)="nav('scatter-chart')">go to scatter chart</button>
+        </mat-card-actions>
     </mat-card>
 
 

@@ -21,7 +21,8 @@
       "@stats": ["libs/stats/src/index.ts"],
       "@chart-line": ["libs/charts/line-chart/src/index.ts"],
       "@pie-chart": ["libs/charts/pie-chart/src/index.ts"],
-      "@bar-chart": ["libs/charts/bar-chart/src/index.ts"]
+      "@bar-chart": ["libs/charts/bar-chart/src/index.ts"],
+      "@scatter-chart": ["libs/charts/scatter-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -24,11 +24,11 @@ export class BarChart implements OnInit {
     series: [
       {
         type: 'bar',
-        data: [23, 24, 18, 25, 27, 28, 25]
+        data: [233, 724, 818, 125, 427, 728, 925]
       },
       {
         type: 'bar',
-        data: [26, 24, 18, 22, 23, 20, 27]
+        data: [726, 324, 918, 322, 823, 720, 527]
       }
     ]
   };
@@ -57,10 +57,20 @@ export class BarChart implements OnInit {
           : [];
 
       const data = series[0].data as Array<number>;
+      const data2 = series[1].data as Array<number>;
       if (series.length > 0) {
-
+        xAxisData.push(`Day ${scope.dayCount + 1}`);
         data.push(Math.floor(Math.random() * 2000));
+        data2.push(Math.floor(Math.random() * 2000));
         scope.dayCount++;
+        data.shift();
+        data2.shift();
+        xAxisData.shift();
+        this.chart.setOption({
+          xAxis: { data: xAxisData },
+          series: [{ data }, { data: data2 }]
+        });
+        
       }
     }, 2000);
   }

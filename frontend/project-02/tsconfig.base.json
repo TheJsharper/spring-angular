@@ -23,7 +23,8 @@
       "@pie-chart": ["libs/charts/pie-chart/src/index.ts"],
       "@bar-chart": ["libs/charts/bar-chart/src/index.ts"],
       "@scatter-chart": ["libs/charts/scatter-chart/src/index.ts"],
-      "@candlestick-chart": ["libs/charts/candlestick-chart/src/index.ts"]
+      "@candlestick-chart": ["libs/charts/candlestick-chart/src/index.ts"],
+      "@radar-chart": ["libs/charts/radar-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

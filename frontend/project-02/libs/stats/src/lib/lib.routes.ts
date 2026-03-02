@@ -27,6 +27,10 @@ export const statsRoutes: Route[] = [
                 loadComponent: () => import('@candlestick-chart').then(m => m.CandlestickChart)
             },
             {
+                path: 'radar-chart',
+                loadComponent: () => import('@radar-chart').then(m => m.RadarChart)
+            },
+            {
                 path: 'dashboard',
                 loadComponent: () => import('./stats/dashboard/dashboard.component').then(m => m.DashboardComponent)
             },

@@ -1,4 +1,4 @@
-<div style="display: flex;  flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 20px;">
+<div style="display: flex;  flex-wrap: wrap; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
 
 
 
@@ -124,6 +124,32 @@
             <button matButton (click)="nav('candlestick-chart')">go to candlestick chart</button>
         </mat-card-actions>
 
+    </mat-card>
+
+    <mat-card class="example-card" appearance="outlined" style="width: 300px; cursor: pointer;"
+        (click)="nav('radar-chart')">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Basic Radar Chart</mat-card-title>
+            <mat-card-subtitle>Radar charts are used to show the performance of multiple variables in a single chart.
+                Each axis represents a variable, and the distance from the center represents the value of each
+                variable.</mat-card-subtitle>
+        </mat-card-header>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
+            <path class="draw" stroke-linejoin="round" stroke="#00008B" fill="none" stroke-width="10"
+                d="M480-160 240-320l240-160 240 160-240 160Zm0-120 120-80-120-80-120 80 120 80Zm0-120 60-40-60-40-60 40 60 40Zm0-120 30-20-30-20-30 20 30 20Z" />
+        </svg>
+
+        <mat-card-content>
+            <p>
+                The config of the radar chart is not completely the same as the line chart and bar chart. There is no
+                need to configure the axis, but we need to set the shape in series to radar to define the type of the
+                chart.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button matButton (click)="nav('radar-chart')">go to radar chart</button>
+        </mat-card-actions>
     </mat-card>
 
 

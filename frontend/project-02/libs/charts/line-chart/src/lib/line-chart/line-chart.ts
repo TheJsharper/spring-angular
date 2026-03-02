@@ -65,7 +65,7 @@ export class LineChart implements OnInit, OnDestroy {
       }
       console.log('Updating chart with new data:', series[0]);
       this.chart.setOption(option);
-    }, 5000);/**/
+    }, 5000);
   }
 
   nav(): void {

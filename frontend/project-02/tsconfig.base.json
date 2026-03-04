@@ -25,7 +25,8 @@
       "@scatter-chart": ["libs/charts/scatter-chart/src/index.ts"],
       "@candlestick-chart": ["libs/charts/candlestick-chart/src/index.ts"],
       "@radar-chart": ["libs/charts/radar-chart/src/index.ts"],
-      "@boxplot-chart": ["libs/charts/boxplot-chart/src/index.ts"]
+      "@boxplot-chart": ["libs/charts/boxplot-chart/src/index.ts"],
+      "@heatmap-chart": ["libs/charts/heatmap-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

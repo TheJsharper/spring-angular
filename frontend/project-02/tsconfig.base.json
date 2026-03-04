@@ -24,7 +24,8 @@
       "@bar-chart": ["libs/charts/bar-chart/src/index.ts"],
       "@scatter-chart": ["libs/charts/scatter-chart/src/index.ts"],
       "@candlestick-chart": ["libs/charts/candlestick-chart/src/index.ts"],
-      "@radar-chart": ["libs/charts/radar-chart/src/index.ts"]
+      "@radar-chart": ["libs/charts/radar-chart/src/index.ts"],
+      "@boxplot-chart": ["libs/charts/boxplot-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

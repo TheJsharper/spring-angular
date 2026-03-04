@@ -7,9 +7,11 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideBrowserGlobalErrorListeners(), provideRouter(appRoutes), provideStore({}),
+  providers: [provideHttpClient(),
+  provideBrowserGlobalErrorListeners(), provideRouter(appRoutes), provideStore({}),
   provideStoreDevtools({
     maxAge: 25, // Retains last 25 states
     logOnly: !isDevMode(), // Restrict extension to log-only mode

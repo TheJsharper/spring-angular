@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
+import { GraphChartService } from '@graph-chart';
 
 export const statsRoutes: Route[] = [
     {
@@ -41,6 +42,11 @@ export const statsRoutes: Route[] = [
                 path: 'heatmap-chart',
                 loadComponent: () => import('@heatmap-chart').then(m => m.HeatmapChart),
                 providers: [HeatmapChartService]
+            },
+            {
+                path:'graph-chart',
+                loadComponent: () => import('@graph-chart').then(m => m.GraphChart),
+                providers: [GraphChartService]
             },
             {
                 path: 'dashboard',

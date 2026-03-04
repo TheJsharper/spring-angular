@@ -27,7 +27,8 @@
       "@radar-chart": ["libs/charts/radar-chart/src/index.ts"],
       "@boxplot-chart": ["libs/charts/boxplot-chart/src/index.ts"],
       "@heatmap-chart": ["libs/charts/heatmap-chart/src/index.ts"],
-      "@graph-chart": ["libs/charts/graph-chart/src/index.ts"]
+      "@graph-chart": ["libs/charts/graph-chart/src/index.ts"],
+      "@graph-geo-chart": ["libs/charts/graph-geo-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

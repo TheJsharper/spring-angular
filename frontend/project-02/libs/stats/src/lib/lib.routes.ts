@@ -3,6 +3,7 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
+import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
 
 export const statsRoutes: Route[] = [
     {
@@ -44,9 +45,14 @@ export const statsRoutes: Route[] = [
                 providers: [HeatmapChartService]
             },
             {
-                path:'graph-chart',
+                path: 'graph-chart',
                 loadComponent: () => import('@graph-chart').then(m => m.GraphChart),
                 providers: [GraphChartService]
+            },
+            {
+                path: 'graph-geo-chart',
+                loadComponent: () => import('@graph-geo-chart').then(m => m.GraphGeoChart),
+                providers: [GraphGeoChartService]
             },
             {
                 path: 'dashboard',

@@ -29,6 +29,7 @@ export class BoxplotChart implements OnInit, OnDestroy {
     if (chartDom) {
       this.chartInstance = echarts.init(chartDom);
       const option = this.boxplotChartService.getChartOption();
+      //const option = this.boxplotChartService.getOptions();
       this.chartInstance.setOption(option);
     }
   }

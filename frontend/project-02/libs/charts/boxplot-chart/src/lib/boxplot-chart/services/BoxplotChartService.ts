@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ECBasicOption } from 'echarts/types/dist/shared';
 
 @Injectable()
 export class BoxplotChartService {
@@ -6,7 +7,7 @@ export class BoxplotChartService {
 
 
 
-    public getChartOption() {
+    public getChartOption(): ECBasicOption {
         const categoryData = ['category0', 'category1', 'category2', 'category3', 'category4'];
         const barData = [30, 50, 70, 60, 80];
         const errorData = [
@@ -20,7 +21,7 @@ export class BoxplotChartService {
         /**
          ** Option
          */
-        const option = {
+        const option: ECBasicOption = {
             tooltip: {
                 trigger: 'axis',
                 axisPointer: {
@@ -133,7 +134,101 @@ export class BoxplotChartService {
         return option;
     }
 
+    public getOptions() {
+        const options:ECBasicOption = {
+            series: [
+                {
+                    data: [
+                        {
+                            x: 'Category A',
+                            y: [54, 66, 69, 75, 88],
+                            goals: [
+                                {
+                                    value: 90,
+                                    strokeWidth: 10,
+                                    strokeHeight: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: '#F283B6',
+                                },
+                                {
+                                    value: 93,
+                                    strokeWidth: 10,
+                                    strokeHeight: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: '#F283B6',
+                                },
+                            ],
+                        },
+                        {
+                            x: 'Category B',
+                            y: [43, 65, 69, 76, 81],
+                        },
+                        {
+                            x: 'Category C',
+                            y: [31, 39, 45, 51, 59],
+                        },
+                        {
+                            x: 'Category D',
+                            y: [39, 46, 55, 65, 71],
+                            goals: [
+                                {
+                                    value: 30,
+                                    strokeWidth: 10,
+                                    strokeHeight: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: '#F283B6',
+                                },
+                                {
+                                    value: 32,
+                                    strokeWidth: 10,
+                                    strokeHeight: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: '#F283B6',
+                                },
+                                {
+                                    value: 76,
+                                    strokeWidth: 10,
+                                    strokeHeight: 0,
+                                    strokeLineCap: 'round',
+                                    strokeColor: '#F283B6',
+                                },
+                            ],
+                        },
+                        {
+                            x: 'Category E',
+                            y: [41, 49, 58, 61, 67],
+                        },
+
+                    ],
+                },
+            ],
+            chart: {
+                type: 'boxPlot',
+                height: 350
+            },
+            title: {
+                text: 'Horizontal BoxPlot with Outliers',
+                align: 'left'
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    barHeight: '40%'
+                },
+                boxPlot: {
+                    colors: {
+                        upper: '#B6C454',
+                        lower: '#EDBFB7'
+                    }
+                }
+            },
+            stroke: {
+                colors: ['#333']
+            }
+        };
 
 
+        return options;
+    }
 
 }

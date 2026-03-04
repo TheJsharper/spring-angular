@@ -1,4 +1,4 @@
-export const geoChData = {
+export const geoChData:{type: string, features: any[]} = {
     "type": "FeatureCollection",
     "features": [
         {

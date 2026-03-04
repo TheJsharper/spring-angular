@@ -63,7 +63,6 @@ export class LineChart implements OnInit, OnDestroy {
         xAxisData.shift();
         data.shift();
       }
-      console.log('Updating chart with new data:', series[0]);
       this.chart.setOption(option);
     }, 5000);
   }

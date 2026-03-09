@@ -1,0 +1,8 @@
+{
+  "/api/": {
+    "target": "https://echarts.apache.org/examples",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

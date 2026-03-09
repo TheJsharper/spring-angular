@@ -18,6 +18,11 @@
           {
             "glob": "**/*",
             "input": "apps/web-app/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/services/src/assets",
+            "output": "assets/services"
           }
         ],
         "styles": [
@@ -51,14 +56,15 @@
     },
     "serve": {
       "continuous": true,
-      "executor": "@angular/build:dev-server",
+      "executor": "@angular/build:dev-server",    
       "configurations": {
         "production": {
           "buildTarget": "web-app:build:production"
         },
         "development": {
           "buildTarget": "web-app:build:development",
-          "port": 4201
+          "port": 4201,
+          "proxyConfig": "apps/web-app/proxy.config.json"
         }
       },
       "defaultConfiguration": "development"

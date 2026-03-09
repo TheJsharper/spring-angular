@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import * as echarts from 'echarts';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GraphGeoChartService } from '../services/GraphGeoChartService';
-import {geoChData} from '@services'
+import { geoChData } from '@services'
 @Component({
   selector: 'lib-graph-geo-chart',
   imports: [MatButtonModule],
@@ -11,7 +11,7 @@ import {geoChData} from '@services'
   styleUrls: ['./graph-geo-chart.scss'],
 })
 export class GraphGeoChart implements OnInit, OnDestroy {
-   private router = inject(Router);
+  private router = inject(Router);
 
   private route = inject(ActivatedRoute);
 

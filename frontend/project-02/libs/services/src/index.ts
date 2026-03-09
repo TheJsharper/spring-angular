@@ -4,4 +4,5 @@ export * from './lib/services/persons-signals.service';
 export * from './lib/types/persons.types';
 export * from './dbs/les-miserable';
 export * from './dbs/geo-ch';
+export * from './dbs/geo-usa';
 export * from './lib/services/GraphLinesChartService';

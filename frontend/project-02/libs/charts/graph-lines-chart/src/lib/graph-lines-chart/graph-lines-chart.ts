@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GraphLinesChartService, GraphLinesGeoChartService, geoUSAData } from '@services';
 import * as echarts from 'echarts';
-import { Router, ActivatedRoute } from '@angular/router';
-import { GraphLinesChartService } from '@services';
-import { from, of } from 'rxjs';
-import { geoUSAData } from '@services'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-graph-lines-chart',
@@ -22,45 +21,51 @@ export class GraphLinesChart implements OnInit, OnDestroy {
 
   private graphLinesChartService = inject(GraphLinesChartService);
 
-  constructor() {
-    this.graphLinesChartService.fetchData();
-    from(of(1, 2, 3)).subscribe({
-      next: (data) => {
-        console.log('Data fetched in component:', data);
-      },
-      error: (error) => {
-        console.error('Error fetching data in component:', error);
-      }
-    });
-  }
+  private graphLinesGeoChartService = inject(GraphLinesGeoChartService);
+
+  private subscription: Subscription = new Subscription();
+
+
   ngOnInit(): void {
     this.initChart();
   }
 
   private initChart(): void {
     const chartDom = document.getElementById('main');
+    this.chartInstance = echarts.init(chartDom);
+
     if (chartDom) {
-      this.chartInstance = echarts.init(chartDom);
       echarts.registerMap('world', geoUSAData as any);
-
-      this.graphLinesChartService.fetchData().subscribe({
-        next: (data) => {
-          if (this.chartInstance) {
-            
-            this.chartInstance.appendData({
-              seriesIndex: 0,
-              data
-            });
+      this.subscription.add(
+        this.graphLinesGeoChartService.getGeoData().subscribe({
+          next: (geoData) => {
+            echarts.registerMap('world', geoData as any);
+          },
+          error: (error) => {
+            console.error('Error fetching geo data:', error);
           }
-        },
-        error: (error) => {
-          console.error('Error fetching data for chart:', error);
-        }
-      });
+        }));
 
-      const option = this.graphLinesChartService.getOption();
-      this.chartInstance.setOption(option);
+      this.subscription.add(
+        this.graphLinesChartService.fetchData().subscribe({
+          next: (data) => {
+            if (this.chartInstance) {
+
+              this.chartInstance.appendData({
+                seriesIndex: 0,
+                data
+              });
+            }
+          },
+          error: (error) => {
+            console.error('Error fetching data for chart:', error);
+          }
+        }));
     }
+
+    const option = this.graphLinesChartService.getOption();
+
+    this.chartInstance.setOption(option);
   }
 
   stopSeries(): void {
@@ -79,5 +84,6 @@ export class GraphLinesChart implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.disposeChart();
+    this.subscription.unsubscribe();
   }
 }

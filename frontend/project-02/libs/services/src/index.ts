@@ -6,3 +6,4 @@ export * from './dbs/les-miserable';
 export * from './dbs/geo-ch';
 export * from './dbs/geo-usa';
 export * from './lib/services/GraphLinesChartService';
+export * from './lib/services/charts/GraphLinesGeoChartService';

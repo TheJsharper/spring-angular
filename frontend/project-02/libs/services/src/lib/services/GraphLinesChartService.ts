@@ -1,134 +1,70 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, from, map, merge, mergeMap, throwError } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { catchError, from, map, mergeMap, Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class GraphLinesChartService {
 
   private httpClient = inject(HttpClient);
-  constructor() { }
 
-  fetchData() {
 
-    /*const baseUrl = 'https://echarts.apache.org/examples';
-    const hearders = {
-      "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
-      "sec-ch-ua-mobile": "?1",
-      "sec-ch-ua-platform": "\"Android\""
-    };
-    this.httpClient.get(`${baseUrl}/data/asset/data/links-ny/links_ny_0.bin`,{responseType:'arraybuffer', headers: hearders}).subscribe({
-      next: (data) => {
-        console.log('Data fetched:', data);
-      },
-      error: (error) => {
-        this.handleError(error);
+  public fetchData(): Observable<Float64Array> {
+    const chunkItems = Array.from({ length: 32 }).map((_, i) => i);
+    return from(chunkItems).pipe
+      (
+        mergeMap((chunk) => this.httpClient.get(`assets/services/chanks/links_ny_${chunk}.bin`, { responseType: 'arraybuffer' }).pipe(
+          map((rawData) => this.matpToFloatint32Array(rawData)),
+          catchError(this.handleError)
+        ))
+      )
+
+
+
+
+  }
+  private matpToFloatint32Array(rawData: ArrayBuffer): Float64Array {
+
+    const rawDataArray = new Float32Array(rawData);
+
+    const data = new Float64Array(rawDataArray.length - 2);
+
+    const offsetX = rawDataArray[0];
+
+    const offsetY = rawDataArray[1];
+
+    let off = 0;
+
+    let addedDataCount = 0;
+
+    for (let i = 2; i < rawDataArray.length;) {
+      let count = rawDataArray[i++];
+      data[off++] = count;
+      for (let k = 0; k < count; k++) {
+        let x = rawDataArray[i++] + offsetX;
+        let y = rawDataArray[i++] + offsetY;
+        data[off++] = x;
+        data[off++] = y;
+
+        addedDataCount++;
       }
-    });*/
-     const chunkLen = Array.from({ length: 32 }).map((_, i) => i);
-     return from(chunkLen).pipe
-       (
-         mergeMap((chunk) => this.httpClient.get(`assets/services/chanks/links_ny_${chunk}.bin`, { responseType: 'arraybuffer' }).pipe(
-            map((rawData) => {
-              const rawDataArray = new Float32Array(rawData);
-              const data = new Float64Array(rawDataArray.length - 2);
-
-              const offsetX = rawDataArray[0];
-              const offsetY = rawDataArray[1];
-              let off = 0;
-              let addedDataCount = 0;
-              for (let i = 2; i < rawDataArray.length;) {
-                let count = rawDataArray[i++];
-                data[off++] = count;
-                for (let k = 0; k < count; k++) {
-                  let x = rawDataArray[i++] + offsetX;
-                  let y = rawDataArray[i++] + offsetY;
-                  data[off++] = x;
-                  data[off++] = y;
-
-                  addedDataCount++;
-                }
-              }
-
-              console.log(`Chunk ${chunk} fetched:`, data);
-              return data;
-            }),
-           catchError(this.handleError) // Uncomment if you want to handle errors here
-         ))
-       )
-
-   /* return this.httpClient.get(`assets/services/chanks/links_ny_0.bin`, { responseType: 'arraybuffer' })
-      .pipe(
-        map((rawData) => {
-          const rawDataArray = new Float32Array(rawData);
-          const data = new Float64Array(rawDataArray.length - 2);
-
-          const offsetX = rawDataArray[0];
-          const offsetY = rawDataArray[1];
-          let off = 0;
-          let addedDataCount = 0;
-          for (let i = 2; i < rawDataArray.length;) {
-            let count = rawDataArray[i++];
-            data[off++] = count;
-            for (let k = 0; k < count; k++) {
-              let x = rawDataArray[i++] + offsetX;
-              let y = rawDataArray[i++] + offsetY;
-              data[off++] = x;
-              data[off++] = y;
-
-              addedDataCount++;
-            }
-          }
-
-          console.log('Data fetched:', data);
-          return data;
-        }),
-        catchError(this.handleError) // Uncomment if you want to handle errors here
-      ).subscribe({
-        next: (data) => {
-          console.log('Data fetched:', data);
-        },
-        error: (error) => {
-          this.handleError(error);
-        }
-      });*/
-
-
+    }
+    return data;
 
   }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
     } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
     }
     // Return an observable with a user-facing error message.
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(() => 'Something bad happened; please try again later.');
   }
 
-  /*
-fetch("https://echarts.apache.org/examples/data/asset/data/links-ny/links_ny_0.bin", {
-  "headers": {
-    "sec-ch-ua": "\"Not:A-Brand\";v=\"99\", \"Google Chrome\";v=\"145\", \"Chromium\";v=\"145\"",
-    "sec-ch-ua-mobile": "?1",
-    "sec-ch-ua-platform": "\"Android\""
-  },
-  "referrer": "https://echarts.apache.org/examples/en/editor.html?c=lines-ny",
-  "body": null,
-  "method": "GET",
-  "mode": "cors",
-  "credentials": "omit"
-});
-
-  */
-
-  getOption() {
+  public getOption() {
     const option = {
       progressive: 20000,
       backgroundColor: '#111',

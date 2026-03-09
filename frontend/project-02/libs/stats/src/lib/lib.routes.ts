@@ -3,7 +3,7 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
-import { GraphLinesChartService } from '@services';
+import { GraphLinesChartService, GraphLinesGeoChartService } from '@services';
 import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
 
 export const statsRoutes: Route[] = [
@@ -53,7 +53,7 @@ export const statsRoutes: Route[] = [
             {
                 path: 'graph-lines-chart',
                 loadComponent: () => import('@graph-lines-chart').then(m => m.GraphLinesChart),
-                providers: [GraphLinesChartService]
+                providers: [GraphLinesChartService, GraphLinesGeoChartService]
             },
             {
                 path: 'graph-geo-chart',

@@ -375,4 +375,37 @@
             <button matButton (click)="nav('tree-chart')">go to tree chart</button>
         </mat-card-actions>
     </mat-card>
+
+    <mat-card class="example-card" appearance="outlined" style="width: 300px; cursor: pointer;"
+        (click)="nav('treemap-chart')">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Treemap Chart</mat-card-title>
+            <mat-card-subtitle>Treemap charts are used to show hierarchical data using nested rectangles. Each branch of the hierarchy is represented by a rectangle, and each sub-branch is represented by a smaller rectangle inside the parent rectangle. The size of each rectangle is proportional to the value of the data.</mat-card-subtitle>
+        </mat-card-header>
+
+        <svg style="margin: 50px;" viewBox="0 0 171 146" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>treemap</title>
+            <desc>Created with Sketch.</desc>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="treemap" fill="#5067A2" fill-rule="nonzero">
+                    <path
+                        d="M85.5,0 C132.701486,0 171,38.2985138 171,85.5 C171,132.701486 132.701486,171 85.5,171 C38.2985138,171 0,132.701486 0,85.5 C0,38.2985138 38.2985138,0 85.5,0 Z M85.5,16 C45.6590069,16 16,45.6590069 16,85.5 C16,125.340993 45.6590069,155 85.5,155 C125.340993,155 155,125.340993 155,85.5 C155,45.6590069 125.340993,16 85.5,16 Z M85.5,32 C65.6590069,32 46,51.6590069 46,71.5 C46,91.3409931 65.6590069,111 85.5,111 C105.340993,111 125,91.3409931 125,71.5 C125,51.6590069 105.340993,32 85.5,32 Z M85.5,48 C75.6590069,48 66,57.6590069 66,67.5 C66,77.3409931 75.6590069,87 85.5,87 C95.3409931,87 105,77.3409931 105,67.5 C105,57.6590069 95.3409931,48 85.5,48 Z M85.5,64 C85.2238576,64 85,64.2238576 85,64.5 C85,64.7761424 85.2238576,65 85.5,65 C85.7761424,65 86,64.7761424 86,64.5 C86,64.2238576 85.7761424,64 85.5,64 Z">
+                    </path>
+                </g>
+            </g>
+        </svg>
+        <mat-card-content>
+            <p>
+                Treemap charts are used to show hierarchical data using nested rectangles. Each branch of the hierarchy is represented by a rectangle, and each sub-branch is represented by a smaller rectangle inside the parent rectangle. The size of each rectangle is proportional to the value of the data.
+                (IQR) of the data, which is the range between the first quartile (Q1) and the third quartile (Q3).
+                The line inside the box represents the median of the data, and the whiskers represent the minimum
+                and maximum values of the data.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button matButton (click)="nav('treemap-chart')">go to treemap chart</button>
+        </mat-card-actions>
+    </mat-card>
 </div>

@@ -66,6 +66,10 @@ export const statsRoutes: Route[] = [
                 providers: [TreeChartService]
             },
             {
+                path: 'treemap-chart',
+                loadComponent: () => import('@treemap-chart').then(m => m.TreemapChart)
+            },
+            {
                 path: 'dashboard',
                 loadComponent: () => import('./stats/dashboard/dashboard.component').then(m => m.DashboardComponent)
             },

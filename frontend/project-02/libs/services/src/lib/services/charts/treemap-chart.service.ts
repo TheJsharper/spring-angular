@@ -8,7 +8,7 @@ export class TreemapChartService {
     constructor(private http: HttpClient) { }
 
     getData(): Observable<EChartsPackageSize> {
-        return this.http.get<EChartsPackageSize>('/assets/package-size/echarts-package-size.json');
+        return this.http.get<EChartsPackageSize>('assets/services/package-size/echarts-package-size.json');
     }
 
     getOptionTreemap(data: EChartsPackageSize) {

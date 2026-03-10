@@ -3,7 +3,7 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
-import { GraphLinesChartService, GraphLinesGeoChartService, TreeChartService } from '@services';
+import { GraphLinesChartService, GraphLinesGeoChartService, TreeChartService, TreemapChartService } from '@services';
 import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
 
 export const statsRoutes: Route[] = [
@@ -67,7 +67,8 @@ export const statsRoutes: Route[] = [
             },
             {
                 path: 'treemap-chart',
-                loadComponent: () => import('@treemap-chart').then(m => m.TreemapChart)
+                loadComponent: () => import('@treemap-chart').then(m => m.TreemapChart),
+                providers: [TreemapChartService]
             },
             {
                 path: 'dashboard',

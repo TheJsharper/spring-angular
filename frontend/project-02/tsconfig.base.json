@@ -29,7 +29,10 @@
       "@heatmap-chart": ["libs/charts/heatmap-chart/src/index.ts"],
       "@graph-chart": ["libs/charts/graph-chart/src/index.ts"],
       "@graph-geo-chart": ["libs/charts/graph-geo-chart/src/index.ts"],
-      "@graph-lines-chart": ["libs/charts/graph-lines-chart/src/index.ts"]
+      "@graph-lines-chart": ["libs/charts/graph-lines-chart/src/index.ts"],
+      "@tree-chart": [
+        "libs/charts/tree-chart/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

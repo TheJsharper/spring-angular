@@ -1,9 +1,15 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { SunburstData } from "../../types/coffe.types";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class SunburstChartService {
-    constructor() { }
+    private http: HttpClient = inject(HttpClient);
 
+    getDataFromAsset(): Observable<SunburstData[]> {
+        return this.http.get<SunburstData[]>('assets/services/coffee/coffee.json');
+    }
     getOptions(data: any) {
         const options = {
             title: {

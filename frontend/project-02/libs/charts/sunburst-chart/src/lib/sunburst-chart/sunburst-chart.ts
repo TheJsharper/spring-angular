@@ -17,9 +17,9 @@ export class SunburstChart implements OnInit, OnDestroy {
 
   private route = inject(ActivatedRoute);
 
-  private chartInstance: echarts.ECharts | undefined; 
+  private chartInstance: echarts.ECharts | undefined;
 
-  private subscription: Subscription= new Subscription();
+  private subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     // Initialize chart
@@ -48,6 +48,6 @@ export class SunburstChart implements OnInit, OnDestroy {
   }
 
   nav(): void {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['../dashboard'], { relativeTo: this.route });
   }
 }

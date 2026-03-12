@@ -16,3 +16,4 @@ export * from './lib/types/nutrient.type';
 export * from './lib/types/emergy.types';
 export * from './lib/services/charts/sankey-chart.service';
 export * from './lib/services/charts/funnel-chart.service';
+export * from './lib/services/charts/gauge-chart.service';

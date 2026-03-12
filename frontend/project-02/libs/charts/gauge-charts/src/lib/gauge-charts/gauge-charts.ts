@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SimpleGaugeComponent } from './simple-gauge/simple-gauge.component';
 
 @Component({
   selector: 'lib-gauge-charts',
-  imports: [],
+  imports: [SimpleGaugeComponent],
   templateUrl: './gauge-charts.html',
-  styleUrl: './gauge-charts.scss',
+  styleUrls: ['./gauge-charts.scss'],
 })
 export class GaugeCharts {}

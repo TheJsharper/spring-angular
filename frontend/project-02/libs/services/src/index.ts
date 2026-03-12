@@ -10,3 +10,6 @@ export * from './lib/services/charts/GraphLinesGeoChartService';
 export * from './lib/services/charts/tree-chart.service';
 export * from './lib/services/charts/treemap-chart.service';
 export * from './lib/services/charts/sunburst-chart.service';
+export * from './lib/services/charts/parallel-chart.service';
+export * from './lib/types/coffe.types';
+export * from './lib/types/nutrient.type';

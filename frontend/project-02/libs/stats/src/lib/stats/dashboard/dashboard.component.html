@@ -613,5 +613,41 @@
 
     </mat-card>
 
+    <mat-card class="example-card" appearance="outlined" style="width: 300px; cursor: pointer;"
+        (click)="nav('gauge-chart')">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Gauge Chart</mat-card-title>
+            <mat-card-subtitle>In the gauge chart, we will show you how to create a unique and personalized chart
+                using ECharts. We will use the basic configuration of ECharts to create a chart that is different from
+                the existing charts.</mat-card-subtitle>
+        </mat-card-header>
+
+        <svg style="margin:50px" viewBox="0 0 175 148" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <title>gauge</title>
+            <desc>Created with Sketch.</desc>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="gauge" fill="#5067A2" fill-rule="nonzero">
+                    <path
+                        d="M88.5,57.695167 C83.6398942,57.695167 79.7,61.6350611 79.7,66.495167 C79.7,71.3552728 83.6398942,75.295167 88.5,75.295167 C93.3601058,75.295167 97.3,71.3552728 97.3,66.495167 C97.3,61.6350611 93.3601058,57.695167 88.5,57.695167 Z M88.5,44.495167 C100.650264,44.495167 110.5,54.3449025 110.5,66.495167 C110.5,78.6454315 100.650264,88.495167 88.5,88.495167 C76.3497355,88.495167 66.5,78.6454315 66.5,66.495167 C66.5,54.344902 5 76.3497355,44.495167 88.5,44.495167 Z">
+                    </path>
+                </g>
+            </g>
+        </svg>
+
+        <mat-card-content>
+            <p>
+                In the gauge chart, we will show you how to create a unique and personalized chart using ECharts. We
+                will use the basic configuration of ECharts to create a chart that is different from the existing
+                charts. A gauge chart is a type of radial visualization that displays data in a circular layout. It is
+                used to visualize the structure and relationships of data in a way that is easy to understand and
+                interpret.
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button matButton (click)="nav('gauge-chart')">go to gauge chart</button>
+        </mat-card-actions>
+    </mat-card>
 
 </div>

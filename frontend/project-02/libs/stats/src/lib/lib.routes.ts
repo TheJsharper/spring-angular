@@ -91,6 +91,11 @@ export const statsRoutes: Route[] = [
                 providers: [FunnelChartService]
             },
             {
+                path:'gauge-chart',
+                loadComponent: () => import('@gauge-charts').then(m => m.GaugeCharts)
+
+            },
+            {
                 path: 'dashboard',
                 loadComponent: () => import('./stats/dashboard/dashboard.component').then(m => m.DashboardComponent)
             },

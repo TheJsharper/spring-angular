@@ -34,7 +34,8 @@
       "@treemap-chart": ["libs/charts/treemap-chart/src/index.ts"],
       "@sunburst-chart": ["libs/charts/sunburst-chart/src/index.ts"],
       "@parallel-chart": ["libs/charts/parallel-chart/src/index.ts"],
-      "@sankey-chart": ["libs/charts/sankey-chart/src/index.ts"]
+      "@sankey-chart": ["libs/charts/sankey-chart/src/index.ts"],
+      "@funnel-chart": ["libs/charts/funnel-chart/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

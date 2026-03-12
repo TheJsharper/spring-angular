@@ -3,7 +3,7 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
-import { GraphLinesChartService, GraphLinesGeoChartService, ParallelChartService, SankeyChartService, SunburstChartService, TreeChartService, TreemapChartService } from '@services';
+import { FunnelChartService, GraphLinesChartService, GraphLinesGeoChartService, ParallelChartService, SankeyChartService, SunburstChartService, TreeChartService, TreemapChartService } from '@services';
 import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
 
 export const statsRoutes: Route[] = [
@@ -61,7 +61,7 @@ export const statsRoutes: Route[] = [
                 providers: [GraphGeoChartService]
             },
             {
-                path:'tree-chart',
+                path: 'tree-chart',
                 loadComponent: () => import('@tree-chart').then(m => m.TreeChart),
                 providers: [TreeChartService]
             },
@@ -71,19 +71,24 @@ export const statsRoutes: Route[] = [
                 providers: [TreemapChartService]
             },
             {
-                path:'sunburst-chart',
+                path: 'sunburst-chart',
                 loadComponent: () => import('@sunburst-chart').then(m => m.SunburstChart),
                 providers: [SunburstChartService]
             },
             {
-                path:'parallel-chart',
+                path: 'parallel-chart',
                 loadComponent: () => import('@parallel-chart').then(m => m.ParallelChart),
                 providers: [ParallelChartService]
             },
             {
-                path:'sankey-chart',
+                path: 'sankey-chart',
                 loadComponent: () => import('@sankey-chart').then(m => m.SankeyChart),
                 providers: [SankeyChartService]
+            },
+            {
+                path: 'funnel-chart',
+                loadComponent: () => import('@funnel-chart').then(m => m.FunnelChart),
+                providers: [FunnelChartService]
             },
             {
                 path: 'dashboard',

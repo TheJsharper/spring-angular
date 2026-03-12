@@ -2,17 +2,17 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import * as echarts from 'echarts';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ParallelChartService } from '@services';
+import { SankeyChartService } from '@services';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'lib-parallel-chart',
+  selector: 'lib-sankey-chart',
   imports: [MatButtonModule],
-  templateUrl: './parallel-chart.html',
-  styleUrls: ['./parallel-chart.scss'],
+  templateUrl: './sankey-chart.html',
+  styleUrls: ['./sankey-chart.scss'],
 })
-export class ParallelChart implements OnInit, OnDestroy {
-  private parallelChartService = inject(ParallelChartService);
+export class SankeyChart implements OnInit, OnDestroy {
+  private sankeyChartService = inject(SankeyChartService);
 
   private router = inject(Router);
 
@@ -24,9 +24,8 @@ export class ParallelChart implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.parallelChartService.getData().subscribe(data => {
-        const normalizedData = this.parallelChartService.normalizeData(data);
-        const options = this.parallelChartService.getOptions(normalizedData);
+      this.sankeyChartService.getData().subscribe(data => {
+        const options = this.sankeyChartService.getOptions(data);
         this.chartInstance = echarts.init(document.getElementById('main') as HTMLElement);
         this.chartInstance.setOption(options);
       })

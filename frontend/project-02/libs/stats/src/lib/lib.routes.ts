@@ -3,7 +3,7 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
-import { GraphLinesChartService, GraphLinesGeoChartService, ParallelChartService, SunburstChartService, TreeChartService, TreemapChartService } from '@services';
+import { GraphLinesChartService, GraphLinesGeoChartService, ParallelChartService, SankeyChartService, SunburstChartService, TreeChartService, TreemapChartService } from '@services';
 import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
 
 export const statsRoutes: Route[] = [
@@ -79,6 +79,11 @@ export const statsRoutes: Route[] = [
                 path:'parallel-chart',
                 loadComponent: () => import('@parallel-chart').then(m => m.ParallelChart),
                 providers: [ParallelChartService]
+            },
+            {
+                path:'sankey-chart',
+                loadComponent: () => import('@sankey-chart').then(m => m.SankeyChart),
+                providers: [SankeyChartService]
             },
             {
                 path: 'dashboard',

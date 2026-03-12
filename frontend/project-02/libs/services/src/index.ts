@@ -13,3 +13,5 @@ export * from './lib/services/charts/sunburst-chart.service';
 export * from './lib/services/charts/parallel-chart.service';
 export * from './lib/types/coffe.types';
 export * from './lib/types/nutrient.type';
+export * from './lib/types/emergy.types';
+export * from './lib/services/charts/sankey-chart.service';

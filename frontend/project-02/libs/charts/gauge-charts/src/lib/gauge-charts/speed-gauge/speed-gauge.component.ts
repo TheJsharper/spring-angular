@@ -24,11 +24,9 @@ export class SpeedGaugeComponent implements OnInit, OnDestroy {
         const options = this.speedGaugeChartService.getOption();
 
         this.chartInstance = echarts.init(document.getElementById('speed-gauge') as HTMLElement);
-        this.chartInstance.resize({ height: 500, width: 700 });
-
-                this.subscription.add(this.breakpointObserver.observe('(max-width: 600px)').subscribe(()     => 
-                    this.breakpointChanged()
-                ));
+        this.subscription.add(this.breakpointObserver.observe('(max-width: 600px)').subscribe(() =>
+            this.breakpointChanged()
+        ));
 
         this.chartInstance.setOption(options);
     }
@@ -37,11 +35,14 @@ export class SpeedGaugeComponent implements OnInit, OnDestroy {
             this.chartInstance?.resize({ height: 300, width: 300 });
         } else {
             this.chartInstance?.resize({ height: 700, width: 600 });
-        }   
+        }
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+        if (this.chartInstance) {
+            this.chartInstance.dispose();
+        }
     }
 
 }

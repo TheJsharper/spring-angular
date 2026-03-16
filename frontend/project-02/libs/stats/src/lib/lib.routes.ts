@@ -3,8 +3,11 @@ import { BoxplotChartService } from '@boxplot-chart';
 import { Stats } from './stats/stats';
 import { HeatmapChartService } from '@heatmap-chart';
 import { GraphChartService } from '@graph-chart';
-import { FunnelChartService, GaugeChartService, GraphLinesChartService, GraphLinesGeoChartService, ParallelChartService, SankeyChartService, SunburstChartService, TreeChartService, TreemapChartService } from '@services';
-import { GraphGeoChartService } from 'libs/charts/graph-geo-chart/src/lib/services/GraphGeoChartService';
+import { FunnelChartService, GaugeChartService, GraphLinesChartService, GraphLinesGeoChartService,
+     ParallelChartService, SankeyChartService, SpeedGaugeChartService, SunburstChartService, TreeChartService, TreemapChartService, 
+
+    } from '@services';
+import { GraphGeoChartService} from '@graph-geo-chart';
 
 export const statsRoutes: Route[] = [
     {
@@ -93,7 +96,7 @@ export const statsRoutes: Route[] = [
             {
                 path:'gauge-chart',
                 loadComponent: () => import('@gauge-charts').then(m => m.GaugeCharts),
-                providers: [GaugeChartService]
+                providers: [GaugeChartService, SpeedGaugeChartService]
 
             },
             {

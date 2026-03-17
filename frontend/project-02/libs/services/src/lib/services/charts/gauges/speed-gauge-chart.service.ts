@@ -98,4 +98,28 @@ export class SpeedGaugeChartService {
         };
         return option;
     }
+
+    getOptionMobile(): EChartsOption {
+        const option: EChartsOption = this.getOption();
+
+        const firstSeries = Array.isArray(option.series) ? option.series[0] : option.series;
+        const gaugeSeries = firstSeries as {
+            detail?: {
+                rich?: {
+                    value?: { fontSize?: number };
+                    unit?: { fontSize?: number };
+                };
+            };
+        };
+
+        if (gaugeSeries.detail?.rich?.value) {
+            gaugeSeries.detail.rich.value.fontSize = 30;
+        }
+
+        if (gaugeSeries.detail?.rich?.unit) {
+            gaugeSeries.detail.rich.unit.fontSize = 12;
+        }
+
+        return option;
+    }
 }

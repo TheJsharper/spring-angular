@@ -1,7 +1,7 @@
+import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { SpeedGaugeChartService } from "@services";
 import * as echarts from 'echarts';
-import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -32,9 +32,19 @@ export class SpeedGaugeComponent implements OnInit, OnDestroy {
     }
     private breakpointChanged(): void {
         if (this.breakpointObserver.isMatched('(max-width: 600px)')) {
-            this.chartInstance?.resize({ height: 300, width: 300 });
+            this.chartInstance?.resize({ height: 300, width: 300, silent: true });
+            this.chartInstance?.setOption(this.speedGaugeChartService.getOptionMobile());
+            echarts.registerUpdateLifecycle('afterupdate', () => {
+                this.chartInstance?.resize({ height: 300, width: 300, silent: true });
+            });
+            console.log('mobile');
         } else {
-            this.chartInstance?.resize({ height: 700, width: 600 });
+            console.log('desktop');
+            this.chartInstance?.resize({ height: 700, width: 600, silent: true });
+            this.chartInstance?.setOption(this.speedGaugeChartService.getOption());
+            echarts.registerUpdateLifecycle('afterupdate', () => {
+                this.chartInstance?.resize({ height: 700, width: 600, silent: true });
+            });
         }
     }
 

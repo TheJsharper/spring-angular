@@ -1,0 +1,14 @@
+{
+    "title": "Basic Line Chart",
+    "subtitle": "We can use the following code to build a line chart which has x-axis as category, y-axis as value:",
+    "content": [
+        {
+            "description": "In this case, we set the type of axis to category and value under xAxis and yAxis. We also clarified the content on the x-axis through data. In series, we set the type to line, and specify the values of three points through data. In this way, we got a simple line chart."
+        }
+    ],
+    "actions": [
+        {
+            "nav": "go to line chart"
+        }
+    ]
+}

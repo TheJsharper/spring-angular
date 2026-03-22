@@ -2,12 +2,15 @@ import { Component, inject } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { ActivatedRoute, Router } from "@angular/router";
+import { CardStatsComponent } from "../card-stats/card-stats.component";
+import { CardStatsDirective } from "../card-stats/card-stats.directive";
+import { ActionStatsDirective } from "../card-stats/directives/action-stats.directive";
 
 @Component({
     selector: 'lib-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    imports: [MatButtonModule, MatCardModule,]
+    imports: [MatButtonModule, MatCardModule, CardStatsComponent, CardStatsDirective, ActionStatsDirective]
 })
 export class DashboardComponent {
     router: Router = inject(Router);

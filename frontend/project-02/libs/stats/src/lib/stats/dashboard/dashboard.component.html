@@ -1,6 +1,19 @@
 <div style="display: flex;  flex-wrap: wrap; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
 
 
+    <lib-card-stats>
+
+        <ng-template libCardStats>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
+                <path class="draw" stroke-linejoin="round" stroke="#C29C86" fill="none" stroke-width="10"
+                    d="M160-200v-60h640v60H160Zm0-120v-60h640v60H160Zm0-120v-60h640v60H160Z" />
+            </svg>
+        </ng-template>
+
+        <ng-template libActionStats>
+            <button matButton (click)="nav('bar-chart')">go to bar chart!!</button>
+        </ng-template>
+    </lib-card-stats>
 
     <mat-card class="example-card" style="width: 300px; cursor: pointer;" appearance="outlined"
         (click)="nav('line-chart')">

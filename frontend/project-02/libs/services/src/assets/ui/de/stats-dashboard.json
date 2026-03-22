@@ -1,0 +1,287 @@
+[
+    {
+        "name": "bar-chart",
+        "title": "Einfaches Balkendiagramm",
+        "subtitle": "Balkendiagramme werden verwendet, um die Werte verschiedener Kategorien zu vergleichen. Die Länge des Balkens stellt den Wert jeder Kategorie dar.!!!",
+        "content": [
+            {
+                "description": "Die Konfiguration des Balkendiagramms ist ähnlich wie die des Liniendiagramms. Wir müssen in series nur den Typ auf bar ändern. Auf diese Weise erhalten wir ein einfaches Balkendiagramm."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Balkendiagramm!!"
+            }
+        ]
+    },
+    {
+        "name": "line-chart",
+        "title": "Einfaches Liniendiagramm",
+        "subtitle": "Wir können den folgenden Code verwenden, um ein Liniendiagramm zu erstellen, dessen x-Achse eine Kategorie und dessen y-Achse ein Wert ist:",
+        "content": [
+            {
+                "description": "In diesem Fall haben wir den Achsentyp unter xAxis und yAxis auf category und value gesetzt. Außerdem haben wir den Inhalt der x-Achse über data festgelegt. In series haben wir den Typ auf line gesetzt und die Werte von drei Punkten über data angegeben. Auf diese Weise haben wir ein einfaches Liniendiagramm erhalten."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Liniendiagramm"
+            }
+        ]
+    },
+    {
+        "name": "pie-chart",
+        "title": "Einfaches Kreisdiagramm",
+        "subtitle": "Kreisdiagramme werden hauptsächlich verwendet, um den Anteil mehrerer Kategorien am Gesamtwert darzustellen. Die Kreissegmente repräsentieren den Anteil jeder Kategorie.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Kreisdiagramms ist nicht vollständig identisch mit der des Linien- und Balkendiagramms. Die Achsen müssen nicht konfiguriert werden. Name und Wert der Daten müssen in series definiert werden. Beginnen wir mit einem einfachen Kreisdiagramm:"
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Kreisdiagramm"
+            }
+        ]
+    },
+    {
+        "name": "bar-chart",
+        "title": "Einfaches Balkendiagramm",
+        "subtitle": "Balkendiagramme werden verwendet, um die Werte verschiedener Kategorien zu vergleichen. Die Länge des Balkens stellt den Wert jeder Kategorie dar.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Balkendiagramms ist ähnlich wie die des Liniendiagramms. Wir müssen in series nur den Typ auf bar ändern. Auf diese Weise erhalten wir ein einfaches Balkendiagramm."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Balkendiagramm"
+            }
+        ]
+    },
+    {
+        "name": "scatter-chart",
+        "title": "Einfaches Streudiagramm",
+        "subtitle": "Streudiagramme werden verwendet, um die Beziehung zwischen zwei Variablen darzustellen. Jeder Punkt repräsentiert ein Wertepaar.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Streudiagramms ist ähnlich wie die des Linien- und Balkendiagramms. Wir müssen in series nur den Typ auf scatter ändern. Auf diese Weise erhalten wir ein einfaches Streudiagramm."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Streudiagramm"
+            }
+        ]
+    },
+    {
+        "name": "candlestick-chart",
+        "title": "Einfaches Candlestick-Diagramm",
+        "subtitle": "Candlestick-Diagramme werden verwendet, um die Preisbewegung eines Finanzinstruments im Zeitverlauf darzustellen. Jeder Candlestick repräsentiert die Eröffnungs-, Höchst-, Tiefst- und Schlusskurse für einen bestimmten Zeitraum.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Candlestick-Diagramms ist nicht vollständig identisch mit der des Linien- und Balkendiagramms. Die Achsen müssen nicht konfiguriert werden, aber wir müssen in series die Minimal- und Maximalwerte festlegen, um den Bereich des Candlestick-Diagramms zu definieren."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Candlestick-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "radar-chart",
+        "title": "Einfaches Radardiagramm",
+        "subtitle": "Radardiagramme werden verwendet, um die Leistung mehrerer Variablen in einem einzigen Diagramm darzustellen. Jede Achse repräsentiert eine Variable, und der Abstand vom Zentrum repräsentiert den Wert jeder Variable.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Radardiagramms ist nicht vollständig identisch mit der des Linien- und Balkendiagramms. Die Achsen müssen nicht konfiguriert werden, aber wir müssen in series die Form auf radar setzen, um den Diagrammtyp festzulegen."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Radardiagramm"
+            }
+        ]
+    },
+    {
+        "name": "boxplot-chart",
+        "title": "Einfaches Boxplot-Diagramm",
+        "subtitle": "Boxplot-Diagramme werden verwendet, um die Verteilung eines Datensatzes darzustellen. Die Box repräsentiert den Interquartilsabstand, die Linie in der Box repräsentiert den Median und die Whisker repräsentieren die Minimal- und Maximalwerte.",
+        "content": [
+            {
+                "description": "Die Konfiguration des Boxplot-Diagramms ist nicht vollständig identisch mit der des Linien- und Balkendiagramms. Die Achsen müssen nicht konfiguriert werden, aber wir müssen in series die Form auf boxplot setzen, um den Diagrammtyp festzulegen."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Boxplot-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "heatmap-chart",
+        "title": "Einfache Heatmap",
+        "subtitle": "Heatmaps werden verwendet, um die Beziehung zwischen zwei Variablen in einem Matrixformat darzustellen. Die Farbe jeder Zelle repräsentiert den Wert der Beziehung zwischen den beiden Variablen.",
+        "content": [
+            {
+                "description": "Die Konfiguration der Heatmap ist nicht vollständig identisch mit der des Linien- und Balkendiagramms. Die Achsen müssen nicht konfiguriert werden, aber wir müssen in series die Form auf heatmap setzen, um den Diagrammtyp festzulegen."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zur Heatmap"
+            }
+        ]
+    },
+    {
+        "name": "graph-chart",
+        "title": "Graph-Diagramm",
+        "subtitle": "Im Graph-Diagramm zeigen wir, wie mehrere Diagramme zusammen verwendet werden können, um eine umfassende Datenvisualisierung zu erstellen. Wir verwenden Linien-, Balken-, Kreis-, Streu-, Candlestick-, Radar-, Boxplot- und Heatmap-Diagramme in unserem Graph-Diagramm.",
+        "content": [
+            {
+                "description": "Im Graph-Diagramm zeigen wir, wie mehrere Diagramme zusammen verwendet werden können, um eine umfassende Datenvisualisierung zu erstellen. Wir verwenden Linien-, Balken-, Kreis-, Streu-, Candlestick-, Radar-, Boxplot- und Heatmap-Diagramme in unserem Graph-Diagramm."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Graph-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "graph-geo-chart",
+        "title": "Graph-Geo-Diagramm",
+        "subtitle": "Im Graph-Geo-Diagramm zeigen wir, wie eine geografische Datenvisualisierung mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein einzigartiges und personalisiertes Diagramm zu erstellen.",
+        "content": [
+            {
+                "description": "Im Graph-Geo-Diagramm zeigen wir, wie eine geografische Datenvisualisierung mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein einzigartiges und personalisiertes Diagramm zu erstellen."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Graph-Geo-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "graph-lines-chart",
+        "title": "Graph-Linien-Diagramm",
+        "subtitle": "Im Graph-Linien-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Graph-Linien-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Graph-Linien-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "tree-chart",
+        "title": "Baumdiagramm",
+        "subtitle": "Im Baumdiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Baumdiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Baumdiagramm"
+            }
+        ]
+    },
+    {
+        "name": "treemap-chart",
+        "title": "Treemap-Diagramm",
+        "subtitle": "Treemap-Diagramme werden verwendet, um hierarchische Daten mit verschachtelten Rechtecken darzustellen. Jeder Zweig der Hierarchie wird durch ein Rechteck dargestellt, und jeder Unterzweig wird durch ein kleineres Rechteck innerhalb des übergeordneten Rechtecks dargestellt. Die Größe jedes Rechtecks ist proportional zum Wert der Daten.",
+        "content": [
+            {
+                "description": "Treemap-Diagramme werden verwendet, um hierarchische Daten mit verschachtelten Rechtecken darzustellen. Jeder Zweig der Hierarchie wird durch ein Rechteck dargestellt, und jeder Unterzweig wird durch ein kleineres Rechteck innerhalb des übergeordneten Rechtecks dargestellt. Die Größe jedes Rechtecks ist proportional zum Wert der Daten. (IQR) der Daten, also der Bereich zwischen dem ersten Quartil (Q1) und dem dritten Quartil (Q3). Die Linie innerhalb der Box stellt den Median der Daten dar, und die Whisker stellen die Minimal- und Maximalwerte der Daten dar."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Treemap-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "sunburst-chart",
+        "title": "Sunburst-Diagramm",
+        "subtitle": "Im Sunburst-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Sunburst-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Sunburst-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "parallel-chart",
+        "title": "Paralleldiagramm",
+        "subtitle": "Im Paralleldiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Paralleldiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet. Ein Paralleldiagramm ist eine standardisierte Möglichkeit, die Verteilung von Daten auf der Grundlage einer Fünf-Zahlen-Zusammenfassung darzustellen: Minimum, erstes Quartil (Q1), Median, drittes Quartil (Q3) und Maximum. Die Box stellt den Interquartilsabstand (IQR) der Daten dar, also den Bereich zwischen dem ersten Quartil (Q1) und dem dritten Quartil (Q3). Die Linie innerhalb der Box stellt den Median der Daten dar, und die Whisker stellen die Minimal- und Maximalwerte der Daten dar."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Paralleldiagramm"
+            }
+        ]
+    },
+    {
+        "name": "sankey-chart",
+        "title": "Sankey-Diagramm",
+        "subtitle": "Im Sankey-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Sankey-Diagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet. Ein Sankey-Diagramm ist eine Art Flussdiagramm, bei dem die Breite der Pfeile proportional zur Flussrate ist. Es wird verwendet, um die Verteilung und Bewegung von Ressourcen oder Daten zwischen verschiedenen Knoten in einem System zu visualisieren. Ein Paralleldiagramm ist eine standardisierte Möglichkeit, die Verteilung von Daten auf der Grundlage einer Fünf-Zahlen-Zusammenfassung darzustellen: Minimum, erstes Quartil (Q1), Median, drittes Quartil (Q3) und Maximum. Die Box stellt den Interquartilsabstand (IQR) der Daten dar, also den Bereich zwischen dem ersten Quartil (Q1) und dem dritten Quartil (Q3). Die Linie stellt die Minimal- und Maximalwerte der Daten dar."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Sankey-Diagramm"
+            }
+        ]
+    },
+    {
+        "name": "funnel-chart",
+        "title": "Trichterdiagramm",
+        "subtitle": "Im Trichterdiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Trichterdiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet. Ein Trichterdiagramm ist eine standardisierte Möglichkeit, die Verteilung von Daten auf der Grundlage einer Fünf-Zahlen-Zusammenfassung darzustellen: Minimum, erstes Quartil (Q1), Median, drittes Quartil (Q3) und Maximum. Die Box stellt den Interquartilsabstand (IQR) der Daten dar, also den Bereich zwischen dem ersten Quartil (Q1) und dem dritten Quartil (Q3). Die Linie innerhalb der Box stellt den Median der Daten dar, und die Whisker stellen die Minimal- und Maximalwerte der Daten dar."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Trichterdiagramm"
+            }
+        ]
+    },
+    {
+        "name": "gauge-chart",
+        "title": "Tachodiagramm",
+        "subtitle": "Im Tachodiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet.",
+        "content": [
+            {
+                "description": "Im Tachodiagramm zeigen wir, wie ein einzigartiges und personalisiertes Diagramm mit ECharts erstellt wird. Wir verwenden die Grundkonfiguration von ECharts, um ein Diagramm zu erstellen, das sich von den bestehenden Diagrammen unterscheidet. Ein Tachodiagramm ist eine Art radialer Visualisierung, die Daten in einem kreisförmigen Layout anzeigt. Es wird verwendet, um die Struktur und Beziehungen von Daten auf eine leicht verständliche Weise zu visualisieren."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "zum Tachodiagramm"
+            }
+        ]
+    }
+]

@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'lib-stats',
   imports: [RouterOutlet],
-  templateUrl: './stats.html',
+  template: '<router-outlet/>',
   styleUrls: ['./stats.scss'],
 })
 export class Stats { }

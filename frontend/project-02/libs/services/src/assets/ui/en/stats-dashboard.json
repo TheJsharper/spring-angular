@@ -1,14 +1,287 @@
-{
-    "title": "Basic Line Chart",
-    "subtitle": "We can use the following code to build a line chart which has x-axis as category, y-axis as value:",
-    "content": [
-        {
-            "description": "In this case, we set the type of axis to category and value under xAxis and yAxis. We also clarified the content on the x-axis through data. In series, we set the type to line, and specify the values of three points through data. In this way, we got a simple line chart."
-        }
-    ],
-    "actions": [
-        {
-            "nav": "go to line chart"
-        }
-    ]
-}
+[
+    {
+        "name":"bar-chart",
+        "title": "Basic Bar Chart",
+        "subtitle": "Bar charts are used to compare the values of different categories. The length of the bar represents the value of each category.!!!",
+        "content": [
+            {
+                "description": "The config of the bar chart is similar to the line chart. We just need to change the type in series to bar. In this way, we can get a simple bar chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to bar chart!!"
+            }
+        ]
+    },
+    {
+        "name":"line-chart",
+        "title": "Basic Line Chart",
+        "subtitle": "We can use the following code to build a line chart which has x-axis as category, y-axis as value:",
+        "content": [
+            {
+                "description": "In this case, we set the type of axis to category and value under xAxis and yAxis. We also clarified the content on the x-axis through data. In series, we set the type to line, and specify the values of three points through data. In this way, we got a simple line chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to line chart"
+            }
+        ]
+    },
+    {
+        "name":"pie-chart",
+        "title": "Basic Pie Chart",
+        "subtitle": "Pie charts are mainly used to show the proportion of several categories compared with the total. The radians represent the proportion of each category.",
+        "content": [
+            {
+                "description": "The config of the pie chart is not completely the same as the line chart and bar chart. There is no need to configure the axis. The name and value of data need to be defined in the series. Let's begin with a basic pie chart:"
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to pie chart"
+            }
+        ]
+    },
+    {
+        "name":"bar-chart",
+        "title": "Basic Bar Chart",
+        "subtitle": "Bar charts are used to compare the values of different categories. The length of the bar represents the value of each category.",
+        "content": [
+            {
+                "description": "The config of the bar chart is similar to the line chart. We just need to change the type in series to bar. In this way, we can get a simple bar chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to bar chart"
+            }
+        ]
+    },
+    {
+        "name":"scatter-chart",
+        "title": "Basic Scatter Chart",
+        "subtitle": "Scatter charts are used to show the relationship between two variables. Each point represents a pair of values.",
+        "content": [
+            {
+                "description": "The config of the scatter chart is similar to the line chart and bar chart. We just need to change the type in series to scatter. In this way, we can get a simple scatter chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to scatter chart"
+            }
+        ]
+    },
+    {
+        "name":"candlestick-chart",
+        "title": "Basic Candlestick Chart",
+        "subtitle": "Candlestick charts are used to show the price movement of a financial instrument over time. Each candlestick represents the open, high, low, and close prices for a specific period.",
+        "content": [
+            {
+                "description": "The config of the candlestick chart is not completely the same as the line chart and bar chart. There is no need to configure the axis, but we need to set the min and max values in series to define the range of the candlestick chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to candlestick chart"
+            }
+        ]
+    },
+    {
+        "name":"radar-chart",
+        "title": "Basic Radar Chart",
+        "subtitle": "Radar charts are used to show the performance of multiple variables in a single chart. Each axis represents a variable, and the distance from the center represents the value of each variable.",
+        "content": [
+            {
+                "description": "The config of the radar chart is not completely the same as the line chart and bar chart. There is no need to configure the axis, but we need to set the shape in series to radar to define the type of the chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to radar chart"
+            }
+        ]
+    },
+    {
+        "name":"boxplot-chart",
+        "title": "Basic Boxplot Chart",
+        "subtitle": "Boxplot charts are used to show the distribution of a dataset. The box represents the interquartile range, the line inside the box represents the median, and the whiskers represent the minimum and maximum values.",
+        "content": [
+            {
+                "description": "The config of the boxplot chart is not completely the same as the line chart and bar chart. There is no need to configure the axis, but we need to set the shape in series to boxplot to define the type of the chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to boxplot chart"
+            }
+        ]
+    },
+    {
+        "name":"heatmap-chart",
+        "title": "Basic Heatmap Chart",
+        "subtitle": "Heatmap charts are used to show the relationship between two variables in a matrix format. The color of each cell represents the value of the relationship between the two variables.",
+        "content": [
+            {
+                "description": "The config of the heatmap chart is not completely the same as the line chart and bar chart. There is no need to configure the axis, but we need to set the shape in series to heatmap to define the type of the chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to heatmap chart"
+            }
+        ]
+    },
+    {
+        "name":"graph-chart",
+        "title": "Graph Chart",
+        "subtitle": "In the graph chart, we will show you how to use multiple charts together to create a comprehensive data visualization. We will use line chart, bar chart, pie chart, scatter chart, candlestick chart, radar chart, boxplot chart and heatmap chart in our graph chart.",
+        "content": [
+            {
+                "description": "In the graph chart, we will show you how to use multiple charts together to create a comprehensive data visualization. We will use line chart, bar chart, pie chart, scatter chart, candlestick chart, radar chart, boxplot chart and heatmap chart in our graph chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to graph chart"
+            }
+        ]
+    },
+    {
+        "name":"graph-geo-chart",
+        "title": "Graph Geo Chart",
+        "subtitle": "In the graph geo chart, we will show you how to create a geographical data visualization using ECharts. We will use the basic configuration of ECharts to create a unique and personalized chart.",
+        "content": [
+            {
+                "description": "In the graph geo chart, we will show you how to create a geographical data visualization using ECharts. We will use the basic configuration of ECharts to create a unique and personalized chart."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to graph geo chart"
+            }
+        ]
+    },
+    {
+        "name":"graph-lines-chart",
+        "title": "Graph Lines Chart",
+        "subtitle": "In the graph lines chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the graph lines chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to graph lines chart"
+            }
+        ]
+    },
+    {
+        "name":"tree-chart",
+        "title": "Tree Chart",
+        "subtitle": "In the tree chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the tree chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to tree chart"
+            }
+        ]
+    },
+    {
+        "name":"treemap-chart",
+        "title": "Treemap Chart",
+        "subtitle": "Treemap charts are used to show hierarchical data using nested rectangles. Each branch of the hierarchy is represented by a rectangle, and each sub-branch is represented by a smaller rectangle inside the parent rectangle. The size of each rectangle is proportional to the value of the data.",
+        "content": [
+            {
+                "description": "Treemap charts are used to show hierarchical data using nested rectangles. Each branch of the hierarchy is represented by a rectangle, and each sub-branch is represented by a smaller rectangle inside the parent rectangle. The size of each rectangle is proportional to the value of the data. (IQR) of the data, which is the range between the first quartile (Q1) and the third quartile (Q3). The line inside the box represents the median of the data, and the whiskers represent the minimum and maximum values of the data."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to treemap chart"
+            }
+        ]
+    },
+    {
+        "name":"sunburst-chart",
+        "title": "Sunburst Chart",
+        "subtitle": "In the sunburst chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the sunburst chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to sunburst chart"
+            }
+        ]
+    },
+    {
+        "name":"parallel-chart",
+        "title": "Parallel Chart",
+        "subtitle": "In the parallel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the parallel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts. A parallel chart is a standardized way of displaying the distribution of data based on a five number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. The box represents the interquartile range (IQR) of the data, which is the range between the first quartile (Q1) and the third quartile (Q3). The line inside the box represents the median of the data, and the whiskers represent the minimum and maximum values of the data."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to parallel chart"
+            }
+        ]
+    },
+    {
+        "name":"sankey-chart",
+        "title": "Sankey Chart",
+        "subtitle": "In the sankey chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the sankey chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts. A sankey chart is a type of flow diagram in which the width of the arrows is proportional to the flow rate. It is used to visualize the distribution and movement of resources or data between different nodes in a system. A parallel chart is a standardized way of displaying the distribution of data based on a five number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. The box represents the interquartile range (IQR) of the data, which is the range between the first quartile (Q1) and the third quartile (Q3). The line represent the minimum and maximum values of the data."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to sankey chart"
+            }
+        ]
+    },
+    {
+        "name":"funnel-chart",
+        "title": "Funnel Chart",
+        "subtitle": "In the funnel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the funnel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts. A funnel chart is a standardized way of displaying the distribution of data based on a five number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. The box represents the interquartile range (IQR) of the data, which is the range between the first quartile (Q1) and the third quartile (Q3). The line inside the box represents the median of the data, and the whiskers represent the minimum and maximum values of the data."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to funnel chart"
+            }
+        ]
+    },
+    {
+        "name":"gauge-chart",
+        "title": "Gauge Chart",
+        "subtitle": "In the gauge chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
+        "content": [
+            {
+                "description": "In the gauge chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts. A gauge chart is a type of radial visualization that displays data in a circular layout. It is used to visualize the structure and relationships of data in a way that is easy to understand and interpret."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "go to gauge chart"
+            }
+        ]
+    }
+]

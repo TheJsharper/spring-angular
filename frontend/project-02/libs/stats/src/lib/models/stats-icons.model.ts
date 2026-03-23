@@ -1,5 +1,5 @@
 export interface StatsIconItem {
-    name: string;
+    key: string;
     svg: string;
 }
 

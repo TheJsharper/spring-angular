@@ -21,12 +21,13 @@ export class StatsService {
                     map((iconsData: StatsIcons) =>
 
                         dashboard.reduce((acc, icon) => {
-                            const item = iconsData.find(item => item.name.toLowerCase().includes(icon.name.toLowerCase()));
+                            const item = iconsData.find(item => item.key.toLowerCase().includes(icon.name.toLowerCase()));
+                            console.log('Matching item for icon:', icon, 'is', item);
                             if (item) {
-                                acc.push({ ...item, ...icon, key: item.name });
-                            } else acc.push({ ...icon, key:  icon.name });
+                                acc.push({ ...item, ...icon});
+                            } else acc.push({ ...icon});
                             return acc;
-                        }, [] as (StatsDashboard[number] & Partial<StatsIcons[number] & { key: string }>)[])
+                        }, [] as (StatsDashboard[number] & Partial<StatsIcons[number] >)[])
                     )
 
                 )

@@ -12,7 +12,9 @@ export class StatsService {
     constructor() { }
 
     getData(): Observable<(StatsDashboard[number] & Partial<StatsIcons[number]>)[]> {
+
         const icons = this.httpClient.get<StatsIcons>('assets/stats/pics/list-icons.json');
+        
         const values = this.httpClient.get<StatsDashboard>('assets/stats/ui/en/stats-dashboard.json').pipe(
             mergeMap((dashboard: StatsDashboard) =>
                 icons.pipe(

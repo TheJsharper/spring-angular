@@ -1,7 +1,24 @@
 <div style="display: flex;  flex-wrap: wrap; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
 
 
-    <lib-card-stats>
+@for ((item of data); track item.name; let i = $index) {
+    <lib-card-stats [dashboardItem]="item" >
+
+        <ng-template libCardStats>
+            <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
+                <path class="draw" stroke-linejoin="round" stroke="#C29C86" fill="none" stroke-width="10"
+                    d="M160-200v-60h640v60H160Zm0-120v-60h640v60H160Zm0-120v-60h640v60H160Z" />
+            </svg>-->
+            <img [src]="'assets/stats/pics/chart-' + i + '.svg'" alt="{{ item.title }} icon" >
+        </ng-template>
+
+        <ng-template libActionStats>
+            <button matButton (click)="nav('bar-chart')">go to bar chart!!</button>
+        </ng-template>
+    </lib-card-stats>
+}
+
+    <!--<lib-card-stats [dashboardItem]="dashboardItem" *ngFor="let dashboardItem of (statsService.getData() | async); let i = index; trackBy: trackBy">
 
         <ng-template libCardStats>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
@@ -13,7 +30,7 @@
         <ng-template libActionStats>
             <button matButton (click)="nav('bar-chart')">go to bar chart!!</button>
         </ng-template>
-    </lib-card-stats>
+    </lib-card-stats>-->
 
     <mat-card class="example-card" style="width: 300px; cursor: pointer;" appearance="outlined"
         (click)="nav('line-chart')">

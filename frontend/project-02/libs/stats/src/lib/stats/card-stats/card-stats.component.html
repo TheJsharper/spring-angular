@@ -2,9 +2,8 @@
 <!--(click)="nav('bar-chart')">-->
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Basic Bar Chart</mat-card-title>
-        <mat-card-subtitle>Bar charts are used to compare the values of different categories. The length of the bar
-            represents the value of each category.!!!</mat-card-subtitle>
+        <mat-card-title> {{ dashboardItem?.title }} </mat-card-title>
+                    <mat-card-subtitle> {{ dashboardItem    ?.subtitle }} </mat-card-subtitle>
     </mat-card-header>
     <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
         <path class="draw" stroke-linejoin="round" stroke="#C29C86" fill="none" stroke-width="10"
@@ -12,14 +11,17 @@
     </svg>-->
     <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
     <mat-card-content>
-        <p>
-            The config of the bar chart is similar to the line chart. We just need to change the type in series to
-            bar. In this way, we can get a simple bar chart.
-        </p>
+       @for (item of dashboardItem?.content; track $index) {
+
+           <p >
+                {{ item }}   
+           </p>
+       }
     </mat-card-content>
     <mat-card-actions>
         <!--<button matButton (click)="nav('bar-chart')">go to bar chart</button>-->
         <ng-container *ngTemplateOutlet="actionTemplate"></ng-container>
+       <h1>Helllo</h1>
         
     </mat-card-actions>
 

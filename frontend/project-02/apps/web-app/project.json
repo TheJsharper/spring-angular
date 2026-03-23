@@ -23,6 +23,11 @@
             "glob": "**/*",
             "input": "libs/services/src/assets",
             "output": "assets/services"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/stats/src/assets",
+            "output": "assets/stats"
           }
         ],
         "styles": [

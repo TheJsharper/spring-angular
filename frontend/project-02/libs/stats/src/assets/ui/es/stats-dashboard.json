@@ -1,0 +1,287 @@
+[
+    {
+        "name": "bar-chart",
+        "title": "Grafico de Barras Basico",
+        "subtitle": "Los graficos de barras se usan para comparar los valores de distintas categorias. La longitud de la barra representa el valor de cada categoria.!!!",
+        "content": [
+            {
+                "description": "La configuracion del grafico de barras es similar a la del grafico de lineas. Solo necesitamos cambiar el tipo en series a bar. De esta manera, podemos obtener un grafico de barras simple."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de barras!!"
+            }
+        ]
+    },
+    {
+        "name": "line-chart",
+        "title": "Grafico de Lineas Basico",
+        "subtitle": "Podemos usar el siguiente codigo para construir un grafico de lineas que tiene el eje x como categoria y el eje y como valor:",
+        "content": [
+            {
+                "description": "En este caso, establecimos el tipo de eje como category y value en xAxis y yAxis. Tambien aclaramos el contenido del eje x mediante data. En series, establecimos el tipo en line y especificamos los valores de tres puntos mediante data. De esta manera, obtuvimos un grafico de lineas simple."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de lineas"
+            }
+        ]
+    },
+    {
+        "name": "pie-chart",
+        "title": "Grafico Circular Basico",
+        "subtitle": "Los graficos circulares se usan principalmente para mostrar la proporcion de varias categorias respecto del total. Los radios representan la proporcion de cada categoria.",
+        "content": [
+            {
+                "description": "La configuracion del grafico circular no es exactamente la misma que la del grafico de lineas y el grafico de barras. No es necesario configurar los ejes. El nombre y el valor de los datos deben definirse en series. Comencemos con un grafico circular basico:"
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico circular"
+            }
+        ]
+    },
+    {
+        "name": "bar-chart",
+        "title": "Grafico de Barras Basico",
+        "subtitle": "Los graficos de barras se usan para comparar los valores de distintas categorias. La longitud de la barra representa el valor de cada categoria.",
+        "content": [
+            {
+                "description": "La configuracion del grafico de barras es similar a la del grafico de lineas. Solo necesitamos cambiar el tipo en series a bar. De esta manera, podemos obtener un grafico de barras simple."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de barras"
+            }
+        ]
+    },
+    {
+        "name": "scatter-chart",
+        "title": "Grafico de Dispersion Basico",
+        "subtitle": "Los graficos de dispersion se usan para mostrar la relacion entre dos variables. Cada punto representa un par de valores.",
+        "content": [
+            {
+                "description": "La configuracion del grafico de dispersion es similar a la del grafico de lineas y el grafico de barras. Solo necesitamos cambiar el tipo en series a scatter. De esta manera, podemos obtener un grafico de dispersion simple."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de dispersion"
+            }
+        ]
+    },
+    {
+        "name": "candlestick-chart",
+        "title": "Grafico de Velas Basico",
+        "subtitle": "Los graficos de velas se usan para mostrar el movimiento del precio de un instrumento financiero a lo largo del tiempo. Cada vela representa los precios de apertura, maximo, minimo y cierre de un periodo especifico.",
+        "content": [
+            {
+                "description": "La configuracion del grafico de velas no es exactamente la misma que la del grafico de lineas y el grafico de barras. No es necesario configurar los ejes, pero necesitamos establecer los valores minimos y maximos en series para definir el rango del grafico de velas."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de velas"
+            }
+        ]
+    },
+    {
+        "name": "radar-chart",
+        "title": "Grafico de Radar Basico",
+        "subtitle": "Los graficos de radar se usan para mostrar el rendimiento de multiples variables en un solo grafico. Cada eje representa una variable y la distancia desde el centro representa el valor de cada variable.",
+        "content": [
+            {
+                "description": "La configuracion del grafico de radar no es exactamente la misma que la del grafico de lineas y el grafico de barras. No es necesario configurar los ejes, pero necesitamos establecer la forma en series como radar para definir el tipo de grafico."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de radar"
+            }
+        ]
+    },
+    {
+        "name": "boxplot-chart",
+        "title": "Grafico de Caja Basico",
+        "subtitle": "Los graficos de caja se usan para mostrar la distribucion de un conjunto de datos. La caja representa el rango intercuartilico, la linea dentro de la caja representa la mediana y los bigotes representan los valores minimo y maximo.",
+        "content": [
+            {
+                "description": "La configuracion del grafico de caja no es exactamente la misma que la del grafico de lineas y el grafico de barras. No es necesario configurar los ejes, pero necesitamos establecer la forma en series como boxplot para definir el tipo de grafico."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de caja"
+            }
+        ]
+    },
+    {
+        "name": "heatmap-chart",
+        "title": "Mapa de Calor Basico",
+        "subtitle": "Los mapas de calor se usan para mostrar la relacion entre dos variables en formato de matriz. El color de cada celda representa el valor de la relacion entre las dos variables.",
+        "content": [
+            {
+                "description": "La configuracion del mapa de calor no es exactamente la misma que la del grafico de lineas y el grafico de barras. No es necesario configurar los ejes, pero necesitamos establecer la forma en series como heatmap para definir el tipo de grafico."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al mapa de calor"
+            }
+        ]
+    },
+    {
+        "name": "graph-chart",
+        "title": "Grafico de Grafo",
+        "subtitle": "En el grafico de grafo, te mostraremos como usar varios graficos juntos para crear una visualizacion de datos integral. Usaremos grafico de lineas, grafico de barras, grafico circular, grafico de dispersion, grafico de velas, grafico de radar, grafico de caja y mapa de calor en nuestro grafico de grafo.",
+        "content": [
+            {
+                "description": "En el grafico de grafo, te mostraremos como usar varios graficos juntos para crear una visualizacion de datos integral. Usaremos grafico de lineas, grafico de barras, grafico circular, grafico de dispersion, grafico de velas, grafico de radar, grafico de caja y mapa de calor en nuestro grafico de grafo."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de grafo"
+            }
+        ]
+    },
+    {
+        "name": "graph-geo-chart",
+        "title": "Grafico Geo de Grafo",
+        "subtitle": "En el grafico geo de grafo, te mostraremos como crear una visualizacion de datos geografica usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico unico y personalizado.",
+        "content": [
+            {
+                "description": "En el grafico geo de grafo, te mostraremos como crear una visualizacion de datos geografica usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico unico y personalizado."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico geo de grafo"
+            }
+        ]
+    },
+    {
+        "name": "graph-lines-chart",
+        "title": "Grafico de Lineas de Grafo",
+        "subtitle": "En el grafico de lineas de grafo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico de lineas de grafo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de lineas de grafo"
+            }
+        ]
+    },
+    {
+        "name": "tree-chart",
+        "title": "Grafico de Arbol",
+        "subtitle": "En el grafico de arbol, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico de arbol, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de arbol"
+            }
+        ]
+    },
+    {
+        "name": "treemap-chart",
+        "title": "Grafico de Mapa de Arbol",
+        "subtitle": "Los graficos de mapa de arbol se usan para mostrar datos jerarquicos mediante rectangulos anidados. Cada rama de la jerarquia esta representada por un rectangulo, y cada subrama esta representada por un rectangulo mas pequeno dentro del rectangulo padre. El tamano de cada rectangulo es proporcional al valor de los datos.",
+        "content": [
+            {
+                "description": "Los graficos de mapa de arbol se usan para mostrar datos jerarquicos mediante rectangulos anidados. Cada rama de la jerarquia esta representada por un rectangulo, y cada subrama esta representada por un rectangulo mas pequeno dentro del rectangulo padre. El tamano de cada rectangulo es proporcional al valor de los datos. (IQR) de los datos, que es el rango entre el primer cuartil (Q1) y el tercer cuartil (Q3). La linea dentro de la caja representa la mediana de los datos y los bigotes representan los valores minimo y maximo de los datos."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de mapa de arbol"
+            }
+        ]
+    },
+    {
+        "name": "sunburst-chart",
+        "title": "Grafico Sunburst",
+        "subtitle": "En el grafico sunburst, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico sunburst, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico sunburst"
+            }
+        ]
+    },
+    {
+        "name": "parallel-chart",
+        "title": "Grafico Paralelo",
+        "subtitle": "En el grafico paralelo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico paralelo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes. Un grafico paralelo es una forma estandarizada de mostrar la distribucion de datos basada en un resumen de cinco numeros: minimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y maximo. La caja representa el rango intercuartilico (IQR) de los datos, que es el rango entre el primer cuartil (Q1) y el tercer cuartil (Q3). La linea dentro de la caja representa la mediana de los datos y los bigotes representan los valores minimo y maximo de los datos."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico paralelo"
+            }
+        ]
+    },
+    {
+        "name": "sankey-chart",
+        "title": "Grafico Sankey",
+        "subtitle": "En el grafico sankey, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico sankey, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes. Un grafico sankey es un tipo de diagrama de flujo en el que el ancho de las flechas es proporcional a la tasa de flujo. Se usa para visualizar la distribucion y el movimiento de recursos o datos entre distintos nodos de un sistema. Un grafico paralelo es una forma estandarizada de mostrar la distribucion de datos basada en un resumen de cinco numeros: minimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y maximo. La caja representa el rango intercuartilico (IQR) de los datos, que es el rango entre el primer cuartil (Q1) y el tercer cuartil (Q3). La linea representa los valores minimo y maximo de los datos."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico sankey"
+            }
+        ]
+    },
+    {
+        "name": "funnel-chart",
+        "title": "Grafico de Embudo",
+        "subtitle": "En el grafico de embudo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico de embudo, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes. Un grafico de embudo es una forma estandarizada de mostrar la distribucion de datos basada en un resumen de cinco numeros: minimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y maximo. La caja representa el rango intercuartilico (IQR) de los datos, que es el rango entre el primer cuartil (Q1) y el tercer cuartil (Q3). La linea dentro de la caja representa la mediana de los datos y los bigotes representan los valores minimo y maximo de los datos."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de embudo"
+            }
+        ]
+    },
+    {
+        "name": "gauge-chart",
+        "title": "Grafico de Medidor",
+        "subtitle": "En el grafico de medidor, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes.",
+        "content": [
+            {
+                "description": "En el grafico de medidor, te mostraremos como crear un grafico unico y personalizado usando ECharts. Usaremos la configuracion basica de ECharts para crear un grafico diferente de los graficos existentes. Un grafico de medidor es un tipo de visualizacion radial que muestra datos en una disposicion circular. Se usa para visualizar la estructura y las relaciones de los datos de una forma facil de entender e interpretar."
+            }
+        ],
+        "actions": [
+            {
+                "nav": "ir al grafico de medidor"
+            }
+        ]
+    }
+]

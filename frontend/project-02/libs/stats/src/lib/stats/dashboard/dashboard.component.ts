@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     
     statsService: StatsService = inject(StatsService);
-    data: (StatsDashboardItem & Partial<StatsIconItem>)[] = [];
+    data: (StatsDashboardItem & Partial<StatsIconItem & { key: string }>)[] = [];
 
     ngOnInit(): void {
         this.statsService.getData().subscribe((data) => {

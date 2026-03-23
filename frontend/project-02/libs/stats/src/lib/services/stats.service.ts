@@ -23,10 +23,10 @@ export class StatsService {
                         dashboard.reduce((acc, icon) => {
                             const item = iconsData.find(item => item.name.toLowerCase().includes(icon.name.toLowerCase()));
                             if (item) {
-                                acc.push({ ...item, ...icon });
-                            } else acc.push(icon);
+                                acc.push({ ...item, ...icon, key: item.name });
+                            } else acc.push({ ...icon, key:  icon.name });
                             return acc;
-                        }, [] as (StatsDashboard[number] & Partial<StatsIcons[number]>)[])
+                        }, [] as (StatsDashboard[number] & Partial<StatsIcons[number] & { key: string }>)[])
                     )
 
                 )

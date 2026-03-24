@@ -12,6 +12,7 @@ export interface StatsDashboardItem {
     subtitle: string;
     content: StatsDashboardContentItem[];
     actions: StatsDashboardAction[];
+    key: string;
 }
 
 export type StatsDashboard = StatsDashboardItem[];

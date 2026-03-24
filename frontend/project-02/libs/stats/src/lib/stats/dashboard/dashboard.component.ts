@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     
     statsService: StatsService = inject(StatsService);
-    data: (StatsDashboardItem & Partial<StatsIconItem & { key: string }>)[] = [];
+    data: (StatsDashboardItem & StatsIconItem )[] = [];
 
     ngOnInit(): void {
         this.statsService.getData().subscribe((data) => {
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    trackBy(index: number, dashboardItem: any): any {
+    trackBy(index: number, dashboardItem: StatsDashboardItem & StatsIconItem): any {
         return dashboardItem.name; // Assuming 'name' is a unique identifier for each dashboard item
     }
     

@@ -11,7 +11,7 @@ export class StatsService {
     private httpClient: HttpClient = inject(HttpClient);
     constructor() { }
 
-    getData(): Observable<(StatsDashboard[number] & Partial<StatsIcons[number]>)[]> {
+    getData(): Observable<(StatsDashboard[number] & StatsIcons[number])[]> {
 
         const icons = this.httpClient.get<StatsIcons>('assets/stats/pics/list-icons.json');
         
@@ -21,13 +21,13 @@ export class StatsService {
                     map((iconsData: StatsIcons) =>
 
                         dashboard.reduce((acc, icon) => {
-                            const item = iconsData.find(item => item.key.toLowerCase().includes(icon.name.toLowerCase()));
-                            console.log('Matching item for icon:', icon, 'is', item);
+                            const item = iconsData.find(item => item.chart.toLowerCase().includes(icon.key.toLowerCase()));
+                          //  console.log('Matching item for icon:', icon, 'is', item);
                             if (item) {
                                 acc.push({ ...item, ...icon});
-                            } else acc.push({ ...icon});
+                            } // else acc.push({ ...icon});
                             return acc;
-                        }, [] as (StatsDashboard[number] & Partial<StatsIcons[number] >)[])
+                        }, [] as (StatsDashboard[number] & StatsIcons[number] )[])
                     )
 
                 )

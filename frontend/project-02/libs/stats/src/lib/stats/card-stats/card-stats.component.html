@@ -2,8 +2,8 @@
 <!--(click)="nav('bar-chart')">-->
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title> {{ dashboardItem?.title }} </mat-card-title>
-                    <mat-card-subtitle> {{ dashboardItem    ?.subtitle }} </mat-card-subtitle>
+        <mat-card-title> {{ dashboardItem.title }} </mat-card-title>
+                    <mat-card-subtitle> {{ dashboardItem.subtitle }} </mat-card-subtitle>
     </mat-card-header>
     <!--<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#e3e3e3">
         <path class="draw" stroke-linejoin="round" stroke="#C29C86" fill="none" stroke-width="10"
@@ -11,7 +11,7 @@
     </svg>-->
     <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
     <mat-card-content>
-       @for (item of dashboardItem?.content; track $index) {
+       @for (item of dashboardItem.content; track $index) {
 
            <p >
                 {{ item }}   

@@ -1,6 +1,6 @@
 [
     {
-        "name":"bar-chart",
+        "name": "bar-chart",
         "title": "Basic Bar Chart",
         "subtitle": "Bar charts are used to compare the values of different categories. The length of the bar represents the value of each category.!!!",
         "content": [
@@ -12,10 +12,11 @@
             {
                 "nav": "go to bar chart!!"
             }
-        ]
+        ],
+        "key": "Bar"
     },
     {
-        "name":"line-chart",
+        "name": "line-chart",
         "title": "Basic Line Chart",
         "subtitle": "We can use the following code to build a line chart which has x-axis as category, y-axis as value:",
         "content": [
@@ -27,10 +28,11 @@
             {
                 "nav": "go to line chart"
             }
-        ]
+        ],
+        "key": "Line"
     },
     {
-        "name":"pie-chart",
+        "name": "pie-chart",
         "title": "Basic Pie Chart",
         "subtitle": "Pie charts are mainly used to show the proportion of several categories compared with the total. The radians represent the proportion of each category.",
         "content": [
@@ -42,10 +44,11 @@
             {
                 "nav": "go to pie chart"
             }
-        ]
+        ],
+        "key": "Pie"
     },
     {
-        "name":"bar-chart",
+        "name": "bar-chart",
         "title": "Basic Bar Chart",
         "subtitle": "Bar charts are used to compare the values of different categories. The length of the bar represents the value of each category.",
         "content": [
@@ -57,10 +60,11 @@
             {
                 "nav": "go to bar chart"
             }
-        ]
+        ],
+        "key": "Bar"
     },
     {
-        "name":"scatter-chart",
+        "name": "scatter-chart",
         "title": "Basic Scatter Chart",
         "subtitle": "Scatter charts are used to show the relationship between two variables. Each point represents a pair of values.",
         "content": [
@@ -72,10 +76,11 @@
             {
                 "nav": "go to scatter chart"
             }
-        ]
+        ],
+        "key": "Scatter"
     },
     {
-        "name":"candlestick-chart",
+        "name": "candlestick-chart",
         "title": "Basic Candlestick Chart",
         "subtitle": "Candlestick charts are used to show the price movement of a financial instrument over time. Each candlestick represents the open, high, low, and close prices for a specific period.",
         "content": [
@@ -87,10 +92,11 @@
             {
                 "nav": "go to candlestick chart"
             }
-        ]
+        ],
+        "key": "Candlestick"
     },
     {
-        "name":"radar-chart",
+        "name": "radar-chart",
         "title": "Basic Radar Chart",
         "subtitle": "Radar charts are used to show the performance of multiple variables in a single chart. Each axis represents a variable, and the distance from the center represents the value of each variable.",
         "content": [
@@ -102,10 +108,11 @@
             {
                 "nav": "go to radar chart"
             }
-        ]
+        ],
+        "key": "Radar"
     },
     {
-        "name":"boxplot-chart",
+        "name": "boxplot-chart",
         "title": "Basic Boxplot Chart",
         "subtitle": "Boxplot charts are used to show the distribution of a dataset. The box represents the interquartile range, the line inside the box represents the median, and the whiskers represent the minimum and maximum values.",
         "content": [
@@ -117,10 +124,11 @@
             {
                 "nav": "go to boxplot chart"
             }
-        ]
+        ],
+        "key": "Boxplot"
     },
     {
-        "name":"heatmap-chart",
+        "name": "heatmap-chart",
         "title": "Basic Heatmap Chart",
         "subtitle": "Heatmap charts are used to show the relationship between two variables in a matrix format. The color of each cell represents the value of the relationship between the two variables.",
         "content": [
@@ -132,10 +140,11 @@
             {
                 "nav": "go to heatmap chart"
             }
-        ]
+        ],
+        "key": "Heatmap"
     },
     {
-        "name":"graph-chart",
+        "name": "graph-chart",
         "title": "Graph Chart",
         "subtitle": "In the graph chart, we will show you how to use multiple charts together to create a comprehensive data visualization. We will use line chart, bar chart, pie chart, scatter chart, candlestick chart, radar chart, boxplot chart and heatmap chart in our graph chart.",
         "content": [
@@ -147,10 +156,11 @@
             {
                 "nav": "go to graph chart"
             }
-        ]
+        ],
+        "key": "Graph"
     },
     {
-        "name":"graph-geo-chart",
+        "name": "graph-geo-chart",
         "title": "Graph Geo Chart",
         "subtitle": "In the graph geo chart, we will show you how to create a geographical data visualization using ECharts. We will use the basic configuration of ECharts to create a unique and personalized chart.",
         "content": [
@@ -162,10 +172,11 @@
             {
                 "nav": "go to graph geo chart"
             }
-        ]
+        ],
+        "key": "GEO-Map"
     },
     {
-        "name":"graph-lines-chart",
+        "name": "graph-lines-chart",
         "title": "Graph Lines Chart",
         "subtitle": "In the graph lines chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -177,10 +188,11 @@
             {
                 "nav": "go to graph lines chart"
             }
-        ]
+        ],
+        "key": "Lines"
     },
     {
-        "name":"tree-chart",
+        "name": "tree-chart",
         "title": "Tree Chart",
         "subtitle": "In the tree chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -192,10 +204,11 @@
             {
                 "nav": "go to tree chart"
             }
-        ]
+        ],
+        "key": "Tree"
     },
     {
-        "name":"treemap-chart",
+        "name": "treemap-chart",
         "title": "Treemap Chart",
         "subtitle": "Treemap charts are used to show hierarchical data using nested rectangles. Each branch of the hierarchy is represented by a rectangle, and each sub-branch is represented by a smaller rectangle inside the parent rectangle. The size of each rectangle is proportional to the value of the data.",
         "content": [
@@ -207,10 +220,11 @@
             {
                 "nav": "go to treemap chart"
             }
-        ]
+        ],
+        "key": "Treemap"
     },
     {
-        "name":"sunburst-chart",
+        "name": "sunburst-chart",
         "title": "Sunburst Chart",
         "subtitle": "In the sunburst chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -222,10 +236,11 @@
             {
                 "nav": "go to sunburst chart"
             }
-        ]
+        ],
+        "key": "Sunburst"
     },
     {
-        "name":"parallel-chart",
+        "name": "parallel-chart",
         "title": "Parallel Chart",
         "subtitle": "In the parallel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -237,10 +252,11 @@
             {
                 "nav": "go to parallel chart"
             }
-        ]
+        ],
+        "key": "Parallel"
     },
     {
-        "name":"sankey-chart",
+        "name": "sankey-chart",
         "title": "Sankey Chart",
         "subtitle": "In the sankey chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -252,10 +268,11 @@
             {
                 "nav": "go to sankey chart"
             }
-        ]
+        ],
+        "key": "Sankey"
     },
     {
-        "name":"funnel-chart",
+        "name": "funnel-chart",
         "title": "Funnel Chart",
         "subtitle": "In the funnel chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -267,10 +284,11 @@
             {
                 "nav": "go to funnel chart"
             }
-        ]
+        ],
+        "key": "Funnel"
     },
     {
-        "name":"gauge-chart",
+        "name": "gauge-chart",
         "title": "Gauge Chart",
         "subtitle": "In the gauge chart, we will show you how to create a unique and personalized chart using ECharts. We will use the basic configuration of ECharts to create a chart that is different from the existing charts.",
         "content": [
@@ -282,6 +300,7 @@
             {
                 "nav": "go to gauge chart"
             }
-        ]
+        ],
+        "key": "Gauge"
     }
 ]

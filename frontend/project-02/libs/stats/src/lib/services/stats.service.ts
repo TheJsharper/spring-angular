@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
-import { StatsDashboard } from "../models/stats-dashboard.model";
-import { StatsIcons } from "../models/stats-icons.model";
+import { StatsDashboard, StatsDashboardItem } from "../models/stats-dashboard.model";
+import { StatsIconItem, StatsIcons } from "../models/stats-icons.model";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +11,7 @@ export class StatsService {
     private httpClient: HttpClient = inject(HttpClient);
     constructor() { }
 
-    getData(): Observable<(StatsDashboard[number] & StatsIcons[number])[]> {
+    getData(): Observable<(StatsDashboardItem & StatsIconItem)[]> {
 
         const icons = this.httpClient.get<StatsIcons>('assets/stats/pics/list-icons.json');
         
@@ -25,9 +25,9 @@ export class StatsService {
                           //  console.log('Matching item for icon:', icon, 'is', item);
                             if (item) {
                                 acc.push({ ...item, ...icon});
-                            } // else acc.push({ ...icon});
+                            }
                             return acc;
-                        }, [] as (StatsDashboard[number] & StatsIcons[number] )[])
+                        }, [] as (StatsDashboardItem & StatsIconItem)[])
                     )
 
                 )

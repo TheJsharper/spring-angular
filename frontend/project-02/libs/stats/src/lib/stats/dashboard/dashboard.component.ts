@@ -25,6 +25,7 @@ export class DashboardComponent implements AfterContentInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     
     statsService: StatsService = inject(StatsService);
+    
     data: (StatsDashboardItem & StatsIconItem )[] = [];
 
     ngAfterContentInit(): void {

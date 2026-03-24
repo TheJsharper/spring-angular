@@ -5,7 +5,7 @@
         <mat-card-title> {{ dashboardItem().title }} </mat-card-title>
         <mat-card-subtitle> {{ dashboardItem().subtitle }} </mat-card-subtitle>
     </mat-card-header>
-   <!----> <ng-container *ngTemplateOutlet="iconTemplate"></ng-container>
+    <ng-container *ngTemplateOutlet="iconTemplate()"></ng-container>
     <mat-card-content>
         @for (item of dashboardItem().content; track $index) {
 
@@ -15,7 +15,7 @@
         }
     </mat-card-content>
     <mat-card-actions>
-        <!----><ng-container *ngTemplateOutlet="actionTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="actionTemplate()"></ng-container>
 
     </mat-card-actions>
 

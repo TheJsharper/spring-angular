@@ -1,17 +1,16 @@
 @if (data$ | async; as data) {
 @if (data.length > 0) {
-<div style="display: flex;  flex-wrap: wrap; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
-
+<div class="dashboard-container">
 
     @for (item of data; track item.name; let i = $index) {
 
-    <lib-card-stats [dashboardItem]="item">
+    <lib-card-stats [dashboardItem]="item" (click)="nav(item.name)">
         <ng-container *libCardStats>
             @if(item.key){
 
             @let path = `assets/stats/pics/${item.key}.svg`;
 
-            <img [src]="path" alt="{{ item.title }} icon" style="width: 200px; height: 200px; margin: 50px;">
+            <img [src]="path" alt="{{ item.title }} icon" class="icon">
 
 
             }

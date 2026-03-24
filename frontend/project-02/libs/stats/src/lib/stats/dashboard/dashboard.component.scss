@@ -10,4 +10,15 @@
             stroke-dashoffset: 0;
         }
     }
+
+    .dashboard-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        .icon  {
+            width: 200px; height: 200px; margin: 50px;
+        }
+    }
 }
